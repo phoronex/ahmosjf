@@ -485,39 +485,39 @@
             });
 
             // Copy to Clipboard
-            copyButton.addEventListener('click', function() {
-                if (currentJson) {
-                    navigator.clipboard.writeText(currentJson).then(function() {
-                        const originalText = copyButton.innerHTML;
-                        copyButton.innerHTML = `
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Copied!
-                        `;
-                        setTimeout(() => {
-                            copyButton.innerHTML = originalText;
-                        }, 2000);
-                    });
-                }
-            });
-			
-			copyInputButton.addEventListener('click', function() {
-                if (jsonInput.value) {
-                    navigator.clipboard.writeText(currentJson).then(function() {
-                        const originalText2 = copyInputButton.innerHTML;
-                        copyInputButton.innerHTML = `
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Copied!
-                        `;
-                        setTimeout(() => {
-                            copyInputButton.innerHTML = originalText2;
-                        }, 2000);
-                    });
-                }
-            });
+		copyButton.addEventListener('click', function() {
+			if (currentJson) {
+			    navigator.clipboard.writeText(currentJson).then(function() {
+				const originalText = copyButton.innerHTML;
+				copyButton.innerHTML = `
+				    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<polyline points="20 6 9 17 4 12"></polyline>
+				    </svg>
+				    Copied!
+				`;
+				setTimeout(() => {
+				    copyButton.innerHTML = originalText;
+				}, 2000);
+			    });
+			}
+		    });
+				
+		copyInputButton.addEventListener('click', function() {
+			if (jsonInput.value) {
+			    navigator.clipboard.writeText(jsonInput.value).then(function() {
+				const originalText2 = copyInputButton.innerHTML;
+				copyInputButton.innerHTML = `
+				    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<polyline points="20 6 9 17 4 12"></polyline>
+				    </svg>
+				    Copied!
+				`;
+				setTimeout(() => {
+				    copyInputButton.innerHTML = originalText2;
+				}, 2000);
+			    });
+			}
+		    });
 
             // Download JSON
             downloadButton.addEventListener('click', function() {
