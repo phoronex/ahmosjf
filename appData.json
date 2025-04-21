@@ -4,8 +4,8 @@
   "awsAppData": {
     "VerNum": 6.2,
     "VerDate": "2025-04-21",
-    "useExpire": false,
-    "deadDate": "2025-04-22T18:10:30.015Z",
+    "useExpire": "False",
+    "deadDate": "2025-04-21T18:10:30.015Z",
     "awsAppLink32x": "https://www.mediafire.com/file/4lnkhoaf2anyvos/AhmosApp_V6_32x_17_04_2025.rar/file",
     "awsAppLink64x": "https://www.mediafire.com/file/g4t2acx99ltue1q/AhmosApp_V6_64x_17_04_2025.rar/file",
     "awsDBLink32x": "",
