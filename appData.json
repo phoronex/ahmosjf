@@ -1,0 +1,9 @@
+{
+    "message": "Hello from the API!",
+    "timestamp": "2025-04-21T12:00:00Z",
+    "data": {
+        "id": 1,
+        "name": "Sample Data",
+        "value": 42
+    }
+}
