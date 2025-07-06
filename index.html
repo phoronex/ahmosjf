@@ -1,709 +1,1301 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>AHMOS JF</title>
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>" type="image/svg+xml" />
-		<style>
-			      :root {
-			          --bg-color: #1e1e2e;
-			          --text-color: #cdd6f4;
-			          --primary-color: #89b4fa;
-			          --secondary-color: #fd930a;
-			          --box-bg: #313244;
-			          --button-bg: #45475a;
-			          --button-hover: #585b70;
-			          --key-color: #29f4f5;
-			          --string-color: #a6e3a1;
-			          --number-color: #f9e2af;
-			          --boolean-color: #fab387;
-			          --null-color: #f38ba8;
-			   --punc-color: #ffffff;
-			   --opt-color: #fa62fc;
-			      }
-
-			      .light-theme {
-			          --bg-color: #f5f5f5;
-			          --text-color: #333333;
-			          --primary-color: #1e88e5;
-			          --secondary-color: #8c042f;
-			          --box-bg: #ffffff;
-			          --button-bg: #e0e0e0;
-			          --button-hover: #bdbdbd;
-			          --key-color: #030001;
-			          --string-color: #2e7d32;
-			          --number-color: #f57c00;
-			          --boolean-color: #d84315;
-			          --null-color: #c2185b;
-			   --punc-color: #000000;
-			   --opt-color: #e40953;
-			      }
-
-			      * {
-			          margin: 0;
-			          padding: 0;
-			          box-sizing: border-box;
-			          transition: background-color 0.3s, color 0.3s;
-			      }
-
-			      body {
-			          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			          background-color: var(--bg-color);
-			          color: var(--text-color);
-			          line-height: 1.6;
-			          padding: 20px;
-			      }
-
-			      .page-wrapper {
-			          max-width: 1200px;
-			          margin: 0 auto; /* Center the content */
-			          padding: 0 40px; /* Add left and right margins */
-			      }
-
-			      header {
-			          display: flex;
-			          justify-content: space-between;
-			          align-items: center;
-			          margin-bottom: 20px;
-			          padding-bottom: 10px;
-			          border-bottom: 1px solid var(--primary-color);
-			      }
-
-			      h1 {
-			          color: var(--primary-color);
-			      }
-
-			      .theme-toggle {
-			          background-color: var(--button-bg);
-			          color: var(--text-color);
-			          border: none;
-			          padding: 8px 16px;
-			          border-radius: 4px;
-			          cursor: pointer;
-			          font-weight: bold;
-			      }
-
-			      .theme-toggle:hover {
-			          background-color: var(--button-hover);
-			      }
-
-			      .main-controls {
-			          display: flex;
-			          justify-content: space-between;
-			          align-items: center;
-			          margin-bottom: 20px;
-			          gap: 10px;
-			          flex-wrap: wrap;
-			      }
-
-			      .control-group {
-			          display: flex;
-			          gap: 10px;
-			          align-items: center;
-			          flex-wrap: wrap;
-			      }
-
-			      .container {
-			          display: grid;
-			          grid-template-columns: 1fr 1fr;
-			          gap: 20px;
-			      }
-
-			      @media (max-width: 768px) {
-			          .container {
-			              grid-template-columns: 1fr;
-			          }
-			          .page-wrapper {
-			              padding: 0 20px;
-			          }
-			          .main-controls {
-			              flex-direction: column;
-			              align-items: flex-start;
-			          }
-			      }
-
-			      .box {
-			          background-color: var(--box-bg);
-			          border-radius: 8px;
-			          padding: 15px;
-			          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-			      }
-
-			      .box-header {
-			          display: flex;
-			          justify-content: space-between;
-			          align-items: center;
-			          margin-bottom: 10px;
-			      }
-
-			      .box-title {
-			          color: var(--secondary-color);
-			          font-size: 1.2rem;
-			      }
-
-			      button {
-			          background-color: var(--button-bg);
-			          color: var(--text-color);
-			          border: none;
-			          padding: 6px 12px;
-			          border-radius: 4px;
-			          cursor: pointer;
-			      }
-
-			      button:hover {
-			          background-color: var(--button-hover);
-			      }
-
-			      select, input {
-			          background-color: var(--button-bg);
-			          color: var(--text-color);
-			          border: none;
-			          padding: 6px 12px;
-			          border-radius: 4px;
-			      }
-
-			      .checkbox-container {
-			          display: flex;
-			          align-items: center;
-			          gap: 5px;
-			          cursor: pointer;
-			      }
-
-			      .checkbox-container input[type="checkbox"] {
-			          margin: 0;
-			          cursor: pointer;
-			      }
-
-			      textarea {
-			          width: 100%;
-			          height: 350px;
-			          background-color: var(--box-bg);
-			          color: var(--text-color);
-			          border: 1px solid var(--button-bg);
-			          border-radius: 4px;
-			          padding: 10px;
-			          font-family: 'Consolas', 'Courier New', monospace;
-			          resize: vertical;
-			      }
-
-			      .output-container {
-			          width: 100%;
-			          height: 350px;
-			          overflow: auto;
-			          background-color: var(--box-bg);
-			          border: 1px solid var(--button-bg);
-			          border-radius: 4px;
-			          padding: 10px;
-			          font-family: 'Consolas', 'Courier New', monospace;
-			          white-space: pre-wrap; /* Preserve formatting and wrap text */
-			      }
-
-			      .action-buttons {
-			          display: flex;
-			          gap: 10px;
-			          margin-top: 10px;
-			      }
-
-			      .action-buttons button {
-			          display: flex;
-			          align-items: center;
-			          gap: 5px;
-			      }
-
-			      .action-buttons button svg {
-			          width: 16px;
-			          height: 16px;
-			      }
-
-			      footer {
-			          margin-top: 30px;
-			          text-align: center;
-			          color: var(--text-color);
-			          opacity: 0.8;
-			      }
-
-			      /* JSON Styling */
-			      .json-key {
-			          color: var(--key-color);
-			      }
-
-			      .json-string {
-			          color: var(--string-color);
-			      }
-
-			      .json-number {
-			          color: var(--number-color);
-			      }
-
-			      .json-boolean {
-			          color: var(--boolean-color);
-			      }
-
-			      .json-null {
-			          color: var(--null-color);
-			      }
-
-			.json-punc {
-			          color: var(--punc-color);
-			      }
-
-			.json-opt {
-			          color: var(--opt-color);
-			      }
-
-
-			      /* Deep JSON styling */
-			      .json-deep-container {
-			          margin-left: 20px;
-			          padding-left: 10px;
-			          border-left: 1px dashed var(--secondary-color);
-			      }
-
-			      .error {
-			          color: var(--null-color);
-			          margin-top: 10px;
-			      }
-
-			      /* For non-colored output */
-			      .plain-text {
-			          color: var(--text-color);
-			      }
-
-			      /* Status Message */
-			      .status-message {
-			          margin-top: 10px;
-			          padding: 5px 10px;
-			          border-radius: 4px;
-			          background-color: var(--button-bg);
-			      }
-		</style>
-	</head>
-	<body>
-		<div class="page-wrapper">
-			<header>
-				<h1>Ahmos JSON Formatter</h1>
-				<button id="theme-toggle" class="theme-toggle"><span id="theme-icon">☀️</span> <span id="theme-text">Light Theme</span></button>
-			</header>
-
-			<div class="main-controls">
-				<div class="control-group">
-					<button id="format-button">Format JSON</button>
-					<button id="minify-button">Minify JSON</button>
-					<button id="sample-button">Load Sample</button>
-					<button id="nested-sample-button">Load Nested Sample</button>
-					<button id="clear-button">Clear</button>
-				</div>
-				<div class="control-group">
-					<label for="spacing">Indent:</label>
-					<select id="spacing">
-						<option value="2">2 spaces</option>
-						<option value="4">4 spaces</option>
-						<option value="8">8 spaces</option>
-						<option value="tab">Tab</option>
-					</select>
-					<label for="colored-output">Output Style:</label>
-					<select id="colored-output">
-						<option value="colored">Colored</option>
-						<option value="plain">Plain</option>
-					</select>
-					<label class="checkbox-container">
-						<input type="checkbox" id="deep-format" checked />
-						Deep Format
-					</label>
-				</div>
-			</div>
-
-			<div class="container">
-				<div class="box">
-					<div class="box-header">
-						<div class="box-title">Input JSON</div>
-						<div class="action-buttons">
-							<button id="copyInput-button" disabled>
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-									<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-									<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-								</svg>
-								Copy
-							</button>
-						</div>
-					</div>
-					<textarea id="json-input" placeholder="Paste your JSON here..."></textarea>
-				</div>
-
-				<div class="box">
-					<div class="box-header">
-						<div class="box-title">Formatted Output</div>
-						<div class="action-buttons">
-							<button id="copy-button" disabled>
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-									<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-									<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-								</svg>
-								Copy
-							</button>
-							<button id="download-button" disabled>
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-									<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-									<polyline points="7 10 12 15 17 10"></polyline>
-									<line x1="12" y1="15" x2="12" y2="3"></line>
-								</svg>
-								Download
-							</button>
-						</div>
-					</div>
-					<div id="output-container" class="output-container"></div>
-					<div id="error-message" class="error"></div>
-					<div id="status-message" class="status-message" style="display: none;"></div>
-				</div>
-			</div>
-
-			<footer>
-				&copy; 2025 Ahmos. All rights reserved.
-			</footer>
-		</div>
-
-		<script>
-			      document.addEventListener('DOMContentLoaded', function() {
-			          // DOM Elements
-			          const themeToggle = document.getElementById('theme-toggle');
-			          const themeIcon = document.getElementById('theme-icon');
-			          const themeText = document.getElementById('theme-text');
-			          const formatButton = document.getElementById('format-button');
-			          const minifyButton = document.getElementById('minify-button');
-			          const clearButton = document.getElementById('clear-button');
-			          const sampleButton = document.getElementById('sample-button');
-			          const nestedSampleButton = document.getElementById('nested-sample-button');
-			          const jsonInput = document.getElementById('json-input');
-			          const outputContainer = document.getElementById('output-container');
-			          const errorMessage = document.getElementById('error-message');
-			          const statusMessage = document.getElementById('status-message');
-			   const copyInputButton = document.getElementById('copyInput-button');
-			          const copyButton = document.getElementById('copy-button');
-			          const downloadButton = document.getElementById('download-button');
-			          const spacingSelect = document.getElementById('spacing');
-			          const coloredOutputSelect = document.getElementById('colored-output');
-			          const deepFormatCheckbox = document.getElementById('deep-format');
-
-			          // Dark theme by default
-			          let isDarkTheme = true;
-
-			          // Sample JSON
-			          const sampleJson = {
-			              "name": "JSON Formatter",
-			              "creator": "Ahmos",
-			              "year": 2025,
-			              "features": [
-			                  "Syntax highlighting",
-			                  "Dark/Light theme",
-			                  "Copy functionality",
-			                  "Download option"
-			              ],
-			              "settings": {
-			                  "indentation": 2,
-			                  "defaultTheme": "dark",
-			                  "colorOutput": true
-			              },
-			              "active": true,
-			              "version": 1.0,
-			              "notes": null,
-			              "nested": {
-			                  "level1": {
-			                      "level2": {
-			                          "level3": "Deep nesting example"
-			                      }
-			                  }
-			              }
-			          };
-
-			          // Nested JSON sample
-			          const nestedSampleJson = {
-			              "data": "{\"offset\":0,\"limit\":1000,\"simplify\":1,\"projection\":[]}",
-			              "apiResponse": "{\"status\":\"success\",\"results\":{\"count\":42,\"items\":[{\"id\":1,\"name\":\"Test\"}]}}",
-			              "config": {
-			                  "options": "{\"debug\":true,\"mode\":\"advanced\"}",
-			                  "simple": "This is just a regular string"
-			              }
-			          };
-
-			          // Current formatted JSON
-			          let currentJson = null;
-
-			          // Theme Toggle
-			          themeToggle.addEventListener('click', function() {
-			              isDarkTheme = !isDarkTheme;
-			              document.body.classList.toggle('light-theme', !isDarkTheme);
-			              themeIcon.textContent = isDarkTheme ? '☀️' : '🌙';
-			              themeText.textContent = isDarkTheme ? 'Light Theme' : 'Dark Theme';
-			          });
-
-			          // Format JSON
-			          formatButton.addEventListener('click', function() {
-			              formatJSON();
-			          });
-
-			          // Minify JSON
-			          minifyButton.addEventListener('click', function() {
-			              try {
-			                  const json = JSON.parse(jsonInput.value);
-			                  const minified = JSON.stringify(json);
-
-			                  jsonInput.value = minified;
-
-			                  // Also update the formatted output
-			                  // updateOutput(minified);
-
-			                  errorMessage.textContent = '';
-			                  enableButtons();
-			              } catch (e) {
-			                  errorMessage.textContent = 'Invalid JSON: ' + e.message;
-			                  disableButtons();
-			              }
-			          });
-
-			          // Clear Input
-			          clearButton.addEventListener('click', function() {
-			              jsonInput.value = '';
-			              outputContainer.innerHTML = '';
-			              errorMessage.textContent = '';
-			              statusMessage.style.display = 'none';
-			              disableButtons();
-			          });
-
-			          // Load Sample
-			          sampleButton.addEventListener('click', function() {
-			              jsonInput.value = JSON.stringify(sampleJson, null, 2);
-			              formatJSON();
-			          });
-
-			          // Load Nested Sample
-			          nestedSampleButton.addEventListener('click', function() {
-			              jsonInput.value = JSON.stringify(nestedSampleJson, null, 2);
-			              formatJSON();
-			          });
-
-			          // Copy to Clipboard
-			copyButton.addEventListener('click', function() {
-				if (currentJson) {
-				    navigator.clipboard.writeText(currentJson).then(function() {
-					const originalText = copyButton.innerHTML;
-					copyButton.innerHTML = `
-					    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<polyline points="20 6 9 17 4 12"></polyline>
-					    </svg>
-					    Copied!
-					`;
-					setTimeout(() => {
-					    copyButton.innerHTML = originalText;
-					}, 2000);
-				    });
-				}
-			    });
-
-			copyInputButton.addEventListener('click', function() {
-				if (jsonInput.value) {
-					const jValue = jsonInput.value;
-				    navigator.clipboard.writeText(jValue).then(function() {
-					const originalText2 = copyInputButton.innerHTML;
-					copyInputButton.innerHTML = `
-					    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<polyline points="20 6 9 17 4 12"></polyline>
-					    </svg>
-					    Copied!
-					`;
-					setTimeout(() => {
-					    copyInputButton.innerHTML = originalText2;
-					}, 2000);
-				    });
-				}
-			    });
-
-			          // Download JSON
-			          downloadButton.addEventListener('click', function() {
-			              if (currentJson) {
-			                  const blob = new Blob([currentJson], { type: 'application/json' });
-			                  const url = URL.createObjectURL(blob);
-			                  const a = document.createElement('a');
-			                  a.href = url;
-			                  a.download = 'ahmosFJ.json';
-			                  document.body.appendChild(a);
-			                  a.click();
-			                  document.body.removeChild(a);
-			                  URL.revokeObjectURL(url);
-			              }
-			          });
-
-			          // Spacing change
-			          spacingSelect.addEventListener('change', function() {
-			              formatJSON();
-			          });
-
-			          // Color output change
-			          coloredOutputSelect.addEventListener('change', function() {
-			              formatJSON();
-			          });
-
-			          // Deep format change
-			          deepFormatCheckbox.addEventListener('change', function() {
-			              formatJSON();
-			          });
-
-			          // Format JSON function
-				function formatJSON() {
-					try {
-						const json = JSON.parse(jsonInput.value);
-						const spacing = spacingSelect.value === 'tab' ? '\t' : Number(spacingSelect.value);
-						const formatted = JSON.stringify(json, null, spacing);
-
-						updateOutput(formatted);
-
-						errorMessage.textContent = '';
-						enableButtons();
-					} catch (e) {
-						errorMessage.textContent = 'Invalid JSON: ' + e.message;
-						disableButtons();
-					}
-				}
-
-				// Function to format and process deeply nested JSON strings
-				function processDeepJSON(obj, spacing) {
-					let foundNested = false;
-					let processed = JSON.parse(JSON.stringify(obj));
-
-					function processObject(obj) {
-						if (!obj || typeof obj !== 'object') return;
-
-						for (const key in obj) {
-							if (typeof obj[key] === 'string') {
-								try {
-									const parsed = JSON.parse(obj[key]);
-									if (typeof parsed === 'object' && parsed !== null) {
-										obj[key] = processDeepJSON(parsed, spacing).processed;
-										foundNested = true;
-									}
-								} catch (e) {}
-							} else if (typeof obj[key] === 'object' && obj[key] !== null) {
-								processObject(obj[key]);
-							}
-						}
-					}
-					processObject(processed);
-					return { processed, foundNested };
-				}
-
-				// Update output with syntax highlighting
-				function updateOutput(jsonString) {
-					if (!jsonString) {
-						outputContainer.innerHTML = '';
-						return;
-					}
-
-					const isColored = coloredOutputSelect.value === 'colored';
-					const isDeepFormat = deepFormatCheckbox.checked;
-
-					let processedJson = jsonString;
-					let foundNested = false;
-
-					if (isDeepFormat) {
-						try {
-							const spacing = spacingSelect.value === 'tab' ? '\t' : Number(spacingSelect.value);
-							const obj = JSON.parse(jsonString);
-							const result = processDeepJSON(obj, spacing);
-
-							if (result.foundNested) {
-								processedJson = JSON.stringify(result.processed, null, spacing);
-								foundNested = true;
-								statusMessage.textContent = 'Nested JSON strings were detected and formatted.';
-								statusMessage.style.display = 'block';
-							} else {
-								statusMessage.style.display = 'none';
-							}
-						} catch (e) {
-							console.error('Error processing deep JSON:', e);
-						}
-					} else {
-						statusMessage.style.display = 'none';
-					}
-
-					currentJson = processedJson;
-
-					if (isColored) {
-						outputContainer.innerHTML = syntaxHighlight(processedJson);
-					} else {
-						outputContainer.innerHTML = `<pre class="plain-text">${escapeHtml(processedJson)}</pre>`;
-					}
-				}
-
-				// Enhanced syntax highlighting with json- class prefix
-				function syntaxHighlight(json) {
-				  if (!json) return '';
-
-				  json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-				/*
-					unicode =     /"(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?/
-					keyword =     /\b(true|false|null)\b/
-					whitespace =  /\s+/
-					punctuation = /[,.}{\[\]]/
-					number =      /-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/
-
-				*/
-
-				return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?|[\,\.\}\{\[\]])/g, function (match) {
-					var cls = 'json-number';
-					if (/^"/.test(match)) {
-						if (/:$/.test(match)) {
-							cls = 'json-key';
-						} else {
-							cls = 'json-string';
-						}
-					} else if (/true|false/.test(match)) {
-						cls = 'json-boolean';
-					} else if (/null/.test(match)) {
-						cls = 'json-null';
-					}  else if (/([\{\}])/.test(match)) {
-						cls = 'json-opt';
-					}  else if (/([\,\[\]])/.test(match)) {
-						cls = 'json-punc';
-					}
-					return '<span class="' + cls + '">' + match + '</span>';
-				});
-				}
-
-				// HTML escaping helper
-				function escapeHtml(unsafe) {
-					return unsafe.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-				}
-
-				// Initialize button state
-				updateButtonState();
-
-				// Listen for input events on the textarea
-				jsonInput.addEventListener('input', updateButtonState);
-
-				function updateButtonState() {
-				// Enable button only if textarea has content
-				copyInputButton.disabled = jsonInput.value.trim() === '';
-				}
-
-			          // Enable buttons
-			          function enableButtons() {
-					copyInputButton.disabled = false;
-			              copyButton.disabled = false;
-			              downloadButton.disabled = false;
-			          }
-
-			          // Disable buttons
-			          function disableButtons() {
-					copyInputButton.disabled = true;
-			              copyButton.disabled = true;
-			              downloadButton.disabled = true;
-			              outputContainer.innerHTML = '';
-			              currentJson = null;
-			          }
-
-			          // Initialize with empty state
-			          disableButtons();
-			      });
-		</script>
-	</body>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AHMOS JSON Formatter Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>"
+        type="image/svg+xml" />
+    <style>
+        :root {
+            --color-sobhan: #0ce5e9;
+            --bg-color: #1e1e2e;
+            --text-color: #cdd6f4;
+            --primary-color: #89b4fa;
+            --secondary-color: #fd930a;
+            --box-bg: #313244;
+            --button-bg: #45475a;
+            --button-hover: #585b70;
+            --key-color: #29f4f5;
+            --string-color: #a6e3a1;
+            --number-color: #f9e2af;
+            --boolean-color: #fab387;
+            --null-color: #f38ba8;
+            --punc-color: #ffffff;
+            --opt-color: #fa62fc;
+            --line-number-bg: #2a2b3d;
+            --line-number-text: #6c7086;
+            --error-line-bg: #f38ba8;
+            --error-line-text: #1e1e2e;
+            --border-color: #585b70;
+        }
+
+        .light-theme {
+            --color-sobhan: #130486;
+            --bg-color: #f5f5f5;
+            --text-color: #333333;
+            --primary-color: #1e88e5;
+            --secondary-color: #8c042f;
+            --box-bg: #ffffff;
+            --button-bg: #e0e0e0;
+            --button-hover: #bdbdbd;
+            --key-color: #030001;
+            --string-color: #2e7d32;
+            --number-color: #f57c00;
+            --boolean-color: #d84315;
+            --null-color: #c2185b;
+            --punc-color: #000000;
+            --opt-color: #e40953;
+            --line-number-bg: #f0f0f0;
+            --line-number-text: #666666;
+            --error-line-bg: #ffebee;
+            --error-line-text: #c62828;
+            --border-color: #cccccc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .page-wrapper {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--primary-color);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .theme-toggle {
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--button-hover);
+        }
+
+        .main-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            min-height: 500px;
+        }
+
+        .scroll-buttons {
+            position: fixed;
+            right: 6px;
+            bottom: 400px;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .scroll-btn {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .scroll-btn:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .main-controls {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .control-group {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-wrapper {
+                padding: 0 10px;
+            }
+
+            h1 {
+                font-size: 1.2rem;
+            }
+
+            .control-group {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+            }
+
+            .arabic-text {
+                font-size: 1.5em;
+                z-index: 1000;
+            }
+
+            .scroll-buttons {
+                right: 10px;
+                bottom: 250px;
+            }
+
+            .scroll-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+        }
+
+        .box {
+            background-color: var(--box-bg);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            min-height: 450px;
+        }
+
+        .box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .box-title {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover:not(:disabled) {
+            background-color: var(--button-hover);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        select,
+        input {
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .textarea-container {
+            position: relative;
+            flex: 1;
+            display: flex;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .textarea-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            padding: 10px;
+            padding-left: 50px;
+            /* Account for line numbers */
+            white-space: pre-wrap;
+            color: transparent;
+            overflow: hidden;
+        }
+
+        .error-highlight {
+            background-color: var(--error-line-bg);
+            color: var(--error-line-text);
+            font-weight: bold;
+            border-radius: 2px;
+            padding: 0 2px;
+        }
+
+        .line-numbers {
+            background-color: var(--line-number-bg);
+            color: var(--line-number-text);
+            padding: 10px 8px;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            text-align: right;
+            user-select: none;
+            min-width: 40px;
+            border-right: 1px solid var(--border-color);
+            white-space: pre;
+            overflow: hidden;
+        }
+
+        .line-numbers .error-line {
+            background-color: var(--error-line-bg);
+            color: var(--error-line-text);
+            font-weight: bold;
+            margin: 0 -8px;
+            padding: 0 8px;
+        }
+
+        textarea {
+            flex: 1;
+            background-color: var(--box-bg);
+            color: var(--text-color);
+            border: none;
+            padding: 10px;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            resize: none;
+            outline: none;
+            white-space: pre-wrap;
+            overflow-wrap: normal;
+            overflow-x: auto;
+            position: relative;
+            z-index: 2;
+            background-color: transparent;
+        }
+
+        .textarea-background {
+            position: absolute;
+            top: 0;
+            left: 50px;
+            right: 0;
+            bottom: 0;
+            background-color: var(--box-bg);
+            z-index: 0;
+        }
+
+        .output-container {
+            flex: 1;
+            overflow: auto;
+            background-color: var(--box-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.4;
+            position: relative;
+            display: flex;
+        }
+
+        .output-line-numbers {
+            background-color: var(--line-number-bg);
+            color: var(--line-number-text);
+            padding: 10px 8px;
+            text-align: right;
+            user-select: none;
+            min-width: 40px;
+            border-right: 1px solid var(--border-color);
+            white-space: pre;
+            overflow: hidden;
+        }
+
+        .output-content {
+            flex: 1;
+            padding: 10px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .action-buttons button svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .page-footer {
+            width: 100vw;
+            margin: 15px auto;
+            background: var(--bg-color);
+            color: var(--text-color);
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.6;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        /* JSON Styling */
+        .json-key {
+            color: var(--key-color);
+        }
+
+        .json-string {
+            color: var(--string-color);
+        }
+
+        .json-number {
+            color: var(--number-color);
+        }
+
+        .json-boolean {
+            color: var(--boolean-color);
+        }
+
+        .json-null {
+            color: var(--null-color);
+        }
+
+        .json-punc {
+            color: var(--punc-color);
+        }
+
+        .json-opt {
+            color: var(--opt-color);
+        }
+
+        /* Move error and status to input section */
+        .input-messages {
+            margin-top: 10px;
+        }
+
+        .error {
+            color: var(--null-color);
+            margin-top: 10px;
+            padding: 10px;
+            background-color: rgba(243, 139, 168, 0.1);
+            border-radius: 4px;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 14px;
+        }
+
+        .status-message {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            background-color: var(--button-bg);
+            font-size: 14px;
+        }
+
+        .plain-text {
+            color: var(--text-color);
+        }
+
+        .status-message {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            background-color: var(--button-bg);
+            font-size: 14px;
+        }
+
+        .stats-info {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--line-number-text);
+            flex-wrap: wrap;
+        }
+
+        .stats-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .arabic-text {
+            font-size: 2em;
+            text-align: center;
+            font-family: 'Amiri', serif !important;
+            line-height: 1.6;
+            color: var(--color-sobhan);
+            background: var(--background);
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            padding: 0.43em 0.64em;
+        }
+
+        @media (max-width: 480px) {
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-buttons button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <div class="arabic-text" id="arabicText">&#x633;&#x64F;&#x628;&#x652;&#x62D;&#x64E;&#x627;&#x646;&#x64E;
+            &#x627;&#x644;&#x644;&#x651;&#x64E;&#x647;&#x650;
+            &#x648;&#x64E;&#x628;&#x650;&#x62D;&#x64E;&#x645;&#x652;&#x62F;&#x650;&#x647;&#x650;
+            &#x633;&#x64F;&#x628;&#x652;&#x62D;&#x64E;&#x627;&#x646;&#x64E;
+            &#x627;&#x644;&#x644;&#x651;&#x64E;&#x647;&#x650;
+            &#x627;&#x644;&#x652;&#x639;&#x64E;&#x638;&#x650;&#x64A;&#x645;&#x650;</div>
+
+        <header>
+            <h1>Ahmos JSON Formatter Pro</h1>
+            <button id="theme-toggle" class="theme-toggle">
+                <span id="theme-icon">☀️</span>
+                <span id="theme-text">Light Theme</span>
+            </button>
+        </header>
+        <div class="scroll-buttons">
+            <button id="scroll-up" class="scroll-btn" title="Scroll to top">↑</button>
+            <button id="scroll-down" class="scroll-btn" title="Scroll to bottom">↓</button>
+        </div>
+        <div class="main-controls">
+            <div class="control-group">
+                <button id="format-button">Format JSON</button>
+                <button id="minify-button">Minify JSON</button>
+                <button id="validate-button">Validate</button>
+                <button id="sample-button">Load Sample</button>
+                <button id="nested-sample-button">Load Nested Sample</button>
+                <button id="clear-button">Clear</button>
+            </div>
+            <div class="control-group">
+                <label for="spacing">Indent:</label>
+                <select id="spacing">
+                    <option value="2">2 spaces</option>
+                    <option value="4">4 spaces</option>
+                    <option value="8">8 spaces</option>
+                    <option value="tab">Tab</option>
+                </select>
+                <label for="colored-output">Output Style:</label>
+                <select id="colored-output">
+                    <option value="colored">Colored</option>
+                    <option value="plain">Plain</option>
+                </select>
+                <label class="checkbox-container">
+                    <input type="checkbox" id="deep-format" checked />
+                    Deep Format
+                </label>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-title">Input JSON</div>
+                    <div class="action-buttons">
+                        <button id="copyInput-button" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            Copy
+                        </button>
+                    </div>
+                </div>
+                <div class="textarea-container">
+                    <div id="input-line-numbers" class="line-numbers">1</div>
+                    <div class="textarea-background"></div>
+                    <div id="textarea-overlay" class="textarea-overlay"></div>
+                    <textarea id="json-input" placeholder="Paste your JSON here..."></textarea>
+                </div>
+                <div class="input-messages">
+                    <div id="error-message" class="error"></div>
+                    <div id="status-message" class="status-message" style="display: none;"></div>
+                </div>
+                <div class="stats-info">
+                    <div class="stats-item">
+                        <span>📊</span>
+                        <span id="input-stats">Lines: 1, Characters: 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-title">Formatted Output</div>
+                    <div class="action-buttons">
+                        <button id="copy-button" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            Copy
+                        </button>
+                        <button id="download-button" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Download
+                        </button>
+                    </div>
+                </div>
+                <div id="output-container" class="output-container">
+                    <div id="output-line-numbers" class="output-line-numbers"></div>
+                    <div id="output-content" class="output-content"></div>
+                </div>
+                <div class="stats-info">
+                    <div class="stats-item">
+                        <span>✅</span>
+                        <span id="output-stats">Ready</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="page-footer">
+            Ahmos Json Formatter © <span id="copyright-year">2025</span> | All Rights Reserved
+        </footer>
+        <script>
+            function updateCopyrightYear() {
+                const startYear = 2025;
+                const currentYear = new Date().getFullYear();
+                const yearElement = document.getElementById('copyright-year');
+
+                if (currentYear > startYear) {
+                    yearElement.textContent = ' ' + startYear + ' - ' + currentYear;
+                } else {
+                    yearElement.textContent = ' ' + startYear + ' ';
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                // DOM Elements
+                const scrollUpBtn = document.getElementById("scroll-up");
+                const scrollDownBtn = document.getElementById("scroll-down");
+                const textareaOverlay = document.getElementById("textarea-overlay");
+                const themeToggle = document.getElementById("theme-toggle");
+                const themeIcon = document.getElementById("theme-icon");
+                const themeText = document.getElementById("theme-text");
+                const formatButton = document.getElementById("format-button");
+                const minifyButton = document.getElementById("minify-button");
+                const validateButton = document.getElementById("validate-button");
+                const clearButton = document.getElementById("clear-button");
+                const sampleButton = document.getElementById("sample-button");
+                const nestedSampleButton = document.getElementById("nested-sample-button");
+                const jsonInput = document.getElementById("json-input");
+                const outputContainer = document.getElementById("output-container");
+                const outputContent = document.getElementById("output-content");
+                const outputLineNumbers = document.getElementById("output-line-numbers");
+                const inputLineNumbers = document.getElementById("input-line-numbers");
+                const errorMessage = document.getElementById("error-message");
+                const statusMessage = document.getElementById("status-message");
+                const copyInputButton = document.getElementById("copyInput-button");
+                const copyButton = document.getElementById("copy-button");
+                const downloadButton = document.getElementById("download-button");
+                const spacingSelect = document.getElementById("spacing");
+                const coloredOutputSelect = document.getElementById("colored-output");
+                const deepFormatCheckbox = document.getElementById("deep-format");
+                const inputStats = document.getElementById("input-stats");
+                const outputStats = document.getElementById("output-stats");
+
+                // Dark theme by default
+                let isDarkTheme = true;
+                let currentJson = null;
+                let currentErrorLine = null;
+                let currentErrorPosition = null;
+
+                // Sample JSON
+                const sampleJson = {
+                    name: "JSON Formatter Pro",
+                    creator: "Ahmos",
+                    year: 2025,
+                    features: [
+                        "Syntax highlighting",
+                        "Dark/Light theme",
+                        "Line numbers",
+                        "Error highlighting",
+                        "Copy functionality",
+                        "Download option",
+                        "Responsive design"
+                    ],
+                    settings: {
+                        indentation: 2,
+                        defaultTheme: "dark",
+                        colorOutput: true,
+                        showLineNumbers: true
+                    },
+                    active: true,
+                    version: 2.0,
+                    notes: null,
+                    nested: {
+                        level1: {
+                            level2: {
+                                level3: "Deep nesting example with enhanced formatting"
+                            }
+                        }
+                    }
+                };
+
+                // Nested JSON sample
+                const nestedSampleJson = {
+                    data: '{"offset":0,"limit":1000,"simplify":1,"projection":[],"filters":{"status":"active"}}',
+                    apiResponse: '{"status":"success","results":{"count":42,"items":[{"id":1,"name":"Test Item","metadata":{"created":"2025-01-01"}}]}}',
+                    config: {
+                        options: '{"debug":true,"mode":"advanced","features":["validation","formatting"]}',
+                        simple: "This is just a regular string",
+                        complexNested: '{"deeply":{"nested":{"json":"value","array":[1,2,3]}}}'
+                    }
+                };
+
+                // Theme Toggle
+                themeToggle.addEventListener("click", function () {
+                    isDarkTheme = !isDarkTheme;
+                    document.body.classList.toggle("light-theme", !isDarkTheme);
+                    themeIcon.textContent = isDarkTheme ? "☀️" : "🌙";
+                    themeText.textContent = isDarkTheme ? "Light Theme" : "Dark Theme";
+                });
+                scrollUpBtn.addEventListener("click", function () {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+
+                scrollDownBtn.addEventListener("click", function () {
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                });
+
+                // Show/hide scroll buttons based on scroll position
+                window.addEventListener('scroll', function () {
+                    const scrollButtons = document.querySelector('.scroll-buttons');
+                    if (window.scrollY > 300) {
+                        scrollButtons.style.opacity = '1';
+                    } else {
+                        scrollButtons.style.opacity = '0.7';
+                    }
+                });
+                // Update the input event listener for textarea
+                jsonInput.addEventListener("input", function () {
+                    updateInputLineNumbers();
+                    updateInputStats();
+                    updateButtonState();
+                    clearError();
+
+                    // Clear overlay when typing
+                    textareaOverlay.innerHTML = "";
+                });
+
+                // Update scroll synchronization
+                jsonInput.addEventListener("scroll", function () {
+                    inputLineNumbers.scrollTop = jsonInput.scrollTop;
+                    textareaOverlay.scrollTop = jsonInput.scrollTop;
+                    textareaOverlay.scrollLeft = jsonInput.scrollLeft;
+                });
+
+                // Add these event listeners after the existing ones
+
+                // Handle textarea resize and scroll for overlay synchronization
+                jsonInput.addEventListener('scroll', function () {
+                    textareaOverlay.scrollTop = jsonInput.scrollTop;
+                    textareaOverlay.scrollLeft = jsonInput.scrollLeft;
+                });
+
+                // Clear error highlighting when user starts typing
+                jsonInput.addEventListener('keydown', function () {
+                    if (currentErrorPosition !== null) {
+                        // Clear error highlighting after a short delay to allow for typing
+                        setTimeout(() => {
+                            if (currentErrorPosition !== null) {
+                                clearError();
+                            }
+                        }, 100);
+                    }
+                });
+                // Format JSON
+                formatButton.addEventListener("click", function () {
+                    formatJSON();
+                });
+
+                // Minify JSON
+                minifyButton.addEventListener("click", function () {
+                    try {
+                        const json = JSON.parse(jsonInput.value);
+                        const minified = JSON.stringify(json);
+                        jsonInput.value = minified;
+                        updateInputLineNumbers();
+                        updateInputStats();
+                        clearError();
+                        enableButtons();
+                    } catch (e) {
+                        const errorInfo = extractLineAndColumn(e.message);
+                        showError("Invalid JSON: " + e.message, errorInfo.line);
+                        disableButtons();
+                    }
+                });
+
+                // Validate JSON
+                validateButton.addEventListener("click", function () {
+                    try {
+                        JSON.parse(jsonInput.value);
+                        showStatus("✅ Valid JSON", "success");
+                        clearError();
+                        // Scroll to show the validation result
+                        setTimeout(() => {
+                            statusMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 100);
+                    } catch (e) {
+                        const errorInfo = extractLineAndColumn(e.message);
+                        showError("Invalid JSON: " + e.message, errorInfo.line);
+                        // Scroll to show the error message
+                        setTimeout(() => {
+                            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 100);
+                    }
+                });
+                // Clear Input
+                clearButton.addEventListener("click", function () {
+                    jsonInput.value = "";
+                    outputContent.innerHTML = "";
+                    outputLineNumbers.innerHTML = "";
+                    errorMessage.textContent = "";
+                    statusMessage.style.display = "none";
+                    updateInputLineNumbers();
+                    updateInputStats();
+                    updateOutputStats("Ready");
+                    disableButtons();
+                });
+
+                // Load Sample
+                sampleButton.addEventListener("click", function () {
+                    jsonInput.value = JSON.stringify(sampleJson, null, 2);
+                    updateInputLineNumbers();
+                    updateInputStats();
+                    formatJSON();
+                });
+
+                // Load Nested Sample
+                nestedSampleButton.addEventListener("click", function () {
+                    jsonInput.value = JSON.stringify(nestedSampleJson, null, 2);
+                    updateInputLineNumbers();
+                    updateInputStats();
+                    formatJSON();
+                });
+
+                // Copy to Clipboard
+                copyButton.addEventListener("click", function () {
+                    if (currentJson) {
+                        navigator.clipboard.writeText(currentJson).then(function () {
+                            showButtonFeedback(copyButton, "Copied!");
+                        });
+                    }
+                });
+
+                copyInputButton.addEventListener("click", function () {
+                    if (jsonInput.value) {
+                        navigator.clipboard.writeText(jsonInput.value).then(function () {
+                            showButtonFeedback(copyInputButton, "Copied!");
+                        });
+                    }
+                });
+
+                // Download JSON
+                downloadButton.addEventListener("click", function () {
+                    if (currentJson) {
+                        const blob = new Blob([currentJson], { type: "application/json" });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = "AhmosFJ.json";
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    }
+                });
+
+                // Update overlay position on window resize
+                window.addEventListener('resize', function () {
+                    if (currentErrorPosition !== null) {
+                        highlightErrorPosition();
+                    }
+                });
+
+                // Control listeners
+                spacingSelect.addEventListener("change", formatJSON);
+                coloredOutputSelect.addEventListener("change", formatJSON);
+                deepFormatCheckbox.addEventListener("change", formatJSON);
+
+                // Format JSON function
+                function formatJSON() {
+                    try {
+                        const json = JSON.parse(jsonInput.value);
+                        const spacing = spacingSelect.value === "tab" ? "\t" : Number(spacingSelect.value);
+                        const formatted = JSON.stringify(json, null, spacing);
+                        updateOutput(formatted);
+                        clearError();
+                        enableButtons();
+                    } catch (e) {
+                        const errorInfo = extractLineAndColumn(e.message);
+                        showError("Invalid JSON: " + e.message, errorInfo.line);
+                        disableButtons();
+                    }
+                }
+
+                // Process deep JSON
+                function processDeepJSON(obj, spacing) {
+                    let foundNested = false;
+                    let processed = JSON.parse(JSON.stringify(obj));
+
+                    function processObject(obj) {
+                        if (!obj || typeof obj !== "object") return;
+
+                        for (const key in obj) {
+                            if (typeof obj[key] === "string") {
+                                try {
+                                    const parsed = JSON.parse(obj[key]);
+                                    if (typeof parsed === "object" && parsed !== null) {
+                                        obj[key] = processDeepJSON(parsed, spacing).processed;
+                                        foundNested = true;
+                                    }
+                                } catch (e) { }
+                            } else if (typeof obj[key] === "object" && obj[key] !== null) {
+                                processObject(obj[key]);
+                            }
+                        }
+                    }
+                    processObject(processed);
+                    return { processed, foundNested };
+                }
+
+                // Update output
+                function updateOutput(jsonString) {
+                    if (!jsonString) {
+                        outputContent.innerHTML = "";
+                        outputLineNumbers.innerHTML = "";
+                        return;
+                    }
+
+                    const isColored = coloredOutputSelect.value === "colored";
+                    const isDeepFormat = deepFormatCheckbox.checked;
+
+                    let processedJson = jsonString;
+                    let foundNested = false;
+
+                    if (isDeepFormat) {
+                        try {
+                            const spacing = spacingSelect.value === "tab" ? "\t" : Number(spacingSelect.value);
+                            const obj = JSON.parse(jsonString);
+                            const result = processDeepJSON(obj, spacing);
+
+                            if (result.foundNested) {
+                                processedJson = JSON.stringify(result.processed, null, spacing);
+                                foundNested = true;
+                                showStatus("🔄 Nested JSON strings detected and formatted", "info");
+                            } else {
+                                statusMessage.style.display = "none";
+                            }
+                        } catch (e) {
+                            console.error("Error processing deep JSON:", e);
+                        }
+                    } else {
+                        statusMessage.style.display = "none";
+                    }
+
+                    currentJson = processedJson;
+                    updateOutputLineNumbers(processedJson);
+
+                    if (isColored) {
+                        outputContent.innerHTML = syntaxHighlight(processedJson);
+                    } else {
+                        outputContent.innerHTML = `<pre class="plain-text">${escapeHtml(processedJson)}</pre>`;
+                    }
+
+                    updateOutputStats(`Formatted: ${processedJson.split('\n').length} lines`);
+                }
+
+                // Update input line numbers
+                function updateInputLineNumbers() {
+                    const lines = jsonInput.value.split('\n');
+                    const lineNumbersHtml = lines.map((line, index) => {
+                        const lineNum = index + 1;
+                        const isErrorLine = currentErrorLine === lineNum;
+                        return `<div class="${isErrorLine ? 'error-line' : ''}">${lineNum}</div>`;
+                    }).join('');
+                    inputLineNumbers.innerHTML = lineNumbersHtml;
+                }
+
+                // Update output line numbers
+                function updateOutputLineNumbers(content) {
+                    const lines = content.split('\n');
+                    const lineNumbersHtml = lines.map((line, index) =>
+                        `<div>${index + 1}</div>`
+                    ).join('');
+                    outputLineNumbers.innerHTML = lineNumbersHtml;
+                }
+
+                // Update input stats
+                function updateInputStats() {
+                    const lines = jsonInput.value.split('\n').length;
+                    const chars = jsonInput.value.length;
+                    inputStats.textContent = `Lines: ${lines}, Characters: ${chars}`;
+                }
+
+                // Update output stats
+                function updateOutputStats(text) {
+                    outputStats.textContent = text;
+                }
+
+                // Show error with line highlighting
+                function showError(message, lineNumber = null) {
+                    errorMessage.textContent = message;
+                    errorMessage.style.display = "block";
+
+                    // Parse position from error message
+                    const positionMatch = message.match(/at position (\d+)/);
+                    const position = positionMatch ? parseInt(positionMatch[1]) : null;
+
+                    currentErrorLine = lineNumber;
+                    currentErrorPosition = position;
+
+                    highlightErrorPosition();
+                    updateInputLineNumbers();
+                    updateOutputStats("❌ Error");
+
+                    // Scroll to error position
+                    if (position !== null) {
+                        scrollToPosition(position);
+                    } else if (lineNumber && lineNumber > 0) {
+                        const lineHeight = 22;
+                        jsonInput.scrollTop = (lineNumber - 1) * lineHeight;
+                    }
+                }
+
+                // Add new function to highlight error position
+                function highlightErrorPosition() {
+                    if (currentErrorPosition === null) {
+                        textareaOverlay.innerHTML = "";
+                        return;
+                    }
+
+                    const text = jsonInput.value;
+                    const position = currentErrorPosition;
+
+                    if (position >= text.length) {
+                        textareaOverlay.innerHTML = "";
+                        return;
+                    }
+
+                    // Create highlighted text
+                    const beforeError = text.substring(0, position);
+                    const errorChar = text.substring(position, position + 1);
+                    const afterError = text.substring(position + 1);
+
+                    const highlightedText =
+                        escapeHtml(beforeError) +
+                        '<span class="error-highlight">' + escapeHtml(errorChar) + '</span>' +
+                        escapeHtml(afterError);
+
+                    textareaOverlay.innerHTML = highlightedText;
+                }
+
+                // Add new function to scroll to position
+                function scrollToPosition(position) {
+                    const text = jsonInput.value.substring(0, position);
+                    const lines = text.split('\n');
+                    const lineNumber = lines.length;
+                    const columnNumber = lines[lines.length - 1].length;
+
+                    // Scroll to approximate position
+                    const lineHeight = 22;
+                    jsonInput.scrollTop = Math.max(0, (lineNumber - 3) * lineHeight);
+
+                    // Set cursor position
+                    jsonInput.focus();
+                    jsonInput.setSelectionRange(position, position + 1);
+                }
+
+                // Replace the existing clearError function
+                function clearError() {
+                    errorMessage.textContent = "";
+                    errorMessage.style.display = "none";
+                    currentErrorLine = null;
+                    currentErrorPosition = null;
+                    textareaOverlay.innerHTML = "";
+                    updateInputLineNumbers();
+                }
+
+                // Add new function to extract line and column from error
+                function extractLineAndColumn(errorMessage) {
+                    const lineMatch = errorMessage.match(/line (\d+)/i);
+                    const columnMatch = errorMessage.match(/column (\d+)/i);
+                    const positionMatch = errorMessage.match(/at position (\d+)/);
+
+                    return {
+                        line: lineMatch ? parseInt(lineMatch[1]) : null,
+                        column: columnMatch ? parseInt(columnMatch[1]) : null,
+                        position: positionMatch ? parseInt(positionMatch[1]) : null
+                    };
+                }
+
+                // Show status message
+                function showStatus(message, type = "info") {
+                    statusMessage.textContent = message;
+                    statusMessage.style.display = "block";
+                    setTimeout(() => {
+                        statusMessage.style.display = "none";
+                    }, 3000);
+                }
+
+                // Extract line number from error message
+                function extractLineNumber(errorMessage) {
+                    const match = errorMessage.match(/line (\d+)/i) || errorMessage.match(/position (\d+)/i);
+                    return match ? parseInt(match[1]) : null;
+                }
+
+                // Show button feedback
+                function showButtonFeedback(button, message) {
+                    const originalContent = button.innerHTML;
+                    button.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    ${message}
+                `;
+                    setTimeout(() => {
+                        button.innerHTML = originalContent;
+                    }, 2000);
+                }
+
+                // Syntax highlighting
+                function syntaxHighlight(json) {
+                    if (!json) return "";
+
+                    json = json.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+                    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?|[\,\.\}\{\[\]])/g, function (match) {
+                        var cls = "json-number";
+                        if (/^"/.test(match)) {
+                            if (/:$/.test(match)) {
+                                cls = "json-key";
+                            } else {
+                                cls = "json-string";
+                            }
+                        } else if (/true|false/.test(match)) {
+                            cls = "json-boolean";
+                        } else if (/null/.test(match)) {
+                            cls = "json-null";
+                        } else if (/([\{\}])/.test(match)) {
+                            cls = "json-opt";
+                        } else if (/([\,\[\]])/.test(match)) {
+                            cls = "json-punc";
+                        }
+                        return '<span class="' + cls + '">' + match + "</span>";
+                    });
+                }
+
+                // HTML escaping helper
+                function escapeHtml(unsafe) {
+                    return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+                }
+
+                // Update button state
+                function updateButtonState() {
+                    const hasInput = jsonInput.value.trim() !== "";
+                    copyInputButton.disabled = !hasInput;
+                }
+
+                // Enable buttons
+                function enableButtons() {
+                    copyInputButton.disabled = false;
+                    copyButton.disabled = false;
+                    downloadButton.disabled = false;
+                }
+
+                // Disable buttons
+                function disableButtons() {
+                    copyInputButton.disabled = true;
+                    copyButton.disabled = true;
+                    downloadButton.disabled = true;
+                    outputContent.innerHTML = "";
+                    outputLineNumbers.innerHTML = "";
+                    currentJson = null;
+                }
+
+                // Initialize
+                updateInputLineNumbers();
+                updateInputStats();
+                updateOutputStats("Ready");
+                disableButtons();
+
+                // Keyboard shortcuts
+                document.addEventListener("keydown", function (e) {
+                    if (e.ctrlKey || e.metaKey) {
+                        switch (e.key) {
+                            case 'Enter':
+                                e.preventDefault();
+                                formatJSON();
+                                break;
+                            case 'l':
+                                e.preventDefault();
+                                clearButton.click();
+                                break;
+                            case 'k':
+                                e.preventDefault();
+                                validateButton.click();
+                                break;
+                        }
+                    }
+                });
+
+                // Drag and drop support
+                jsonInput.addEventListener('dragover', function (e) {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'copy';
+                });
+
+                jsonInput.addEventListener('drop', function (e) {
+                    e.preventDefault();
+                    const files = e.dataTransfer.files;
+                    if (files.length > 0) {
+                        const file = files[0];
+                        if (file.type === 'application/json' || file.name.endsWith('.json')) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                jsonInput.value = e.target.result;
+                                updateInputLineNumbers();
+                                updateInputStats();
+                                updateButtonState();
+                                formatJSON();
+                            };
+                            reader.readAsText(file);
+                        }
+                    }
+                });
+
+                // Auto-format on paste
+                jsonInput.addEventListener('paste', function (e) {
+                    setTimeout(() => {
+                        updateInputLineNumbers();
+                        updateInputStats();
+                        updateButtonState();
+
+                        // Auto-format if it's valid JSON
+                        try {
+                            JSON.parse(jsonInput.value);
+                            setTimeout(() => formatJSON(), 100);
+                        } catch (e) {
+                            // Not valid JSON, just update line numbers
+                        }
+                    }, 10);
+                });
+
+                // Sync scroll between input and line numbers
+                jsonInput.addEventListener('scroll', function () {
+                    inputLineNumbers.scrollTop = jsonInput.scrollTop;
+                });
+
+                outputContent.addEventListener('scroll', function () {
+                    outputLineNumbers.scrollTop = outputContent.scrollTop;
+                });
+            });
+        </script>
+</body>
+
 </html>
