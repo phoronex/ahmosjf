@@ -211,6 +211,28 @@
                 height: 30px;
                 font-size: 14px;
             }
+
+            .font-controls {
+                flex-direction: column;
+                gap: 8px;
+                margin-right: 0;
+                margin-bottom: 0px;
+                align-items: stretch;
+            }
+
+            .font-control {
+                width: 100%;
+                justify-content: space-between;
+                /* min-height: 40px; */
+            }
+
+            .font-slider {
+                width: 80px;
+            }
+
+            .font-control label {
+                font-size: 12px;
+            }
         }
 
         .box {
@@ -521,6 +543,169 @@
             padding: 0.43em 0.64em;
         }
 
+        .font-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-right: 25px;
+            color: var(--text-color);
+        }
+
+        .font-control {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.2);
+            height: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .font-control::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 6px;
+        }
+
+        .font-control:hover {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(240, 147, 251, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .font-control:hover::before {
+            opacity: 1;
+        }
+
+        .font-control label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            min-width: 16px;
+            user-select: none;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .font-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 60px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .font-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .font-slider::-webkit-slider-thumb:hover {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            transform: scale(1.1);
+            box-shadow: 0 3px 8px rgba(255, 215, 0, 0.5);
+            border-color: rgba(255, 255, 255, 1);
+        }
+
+        .font-slider::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .font-slider::-moz-range-thumb:hover {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            transform: scale(1.1);
+            box-shadow: 0 3px 8px rgba(255, 215, 0, 0.5);
+            border-color: rgba(255, 255, 255, 1);
+        }
+
+        .font-slider:focus {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .font-slider:active::-webkit-slider-thumb {
+            transform: scale(0.95);
+        }
+
+        .font-slider:active::-moz-range-thumb {
+            transform: scale(0.95);
+        }
+
+        .font-value {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 700;
+            min-width: 24px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 4px;
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Light theme adjustments */
+        .light-theme .font-control {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: 0 2px 6px rgba(79, 172, 254, 0.3);
+        }
+
+        .light-theme .font-control:hover {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            box-shadow: 0 4px 12px rgba(250, 112, 154, 0.3);
+        }
+
+        .light-theme .font-control label {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .light-theme .font-slider {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .light-theme .font-value {
+            color: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Smooth font size transitions */
+        textarea,
+        .output-content,
+        .textarea-overlay {
+            transition: font-size 0.3s ease;
+        }
+
         @media (max-width: 480px) {
             .action-buttons {
                 flex-direction: column;
@@ -588,17 +773,29 @@
             <div class="box">
                 <div class="box-header">
                     <div class="box-title">Input JSON</div>
-                    <div class="action-buttons">
-                        <button id="copyInput-button" disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                            </svg>
-                            Copy
-                        </button>
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <div class="font-controls">
+                            <div class="font-control">
+                                <label>📝</label>
+                                <input type="range" id="input-font-slider" class="font-slider" min="10" max="24"
+                                    value="14">
+                                <span id="input-font-value" class="font-value">14px</span>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button id="copyInput-button" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                Copy
+                            </button>
+                        </div>
                     </div>
                 </div>
+
                 <div class="textarea-container">
                     <div id="input-line-numbers" class="line-numbers">1</div>
                     <div class="textarea-background"></div>
@@ -620,24 +817,36 @@
             <div class="box">
                 <div class="box-header">
                     <div class="box-title">Formatted Output</div>
-                    <div class="action-buttons">
-                        <button id="copy-button" disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2v1"></path>
-                            </svg>
-                            Copy
-                        </button>
-                        <button id="download-button" disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="7 10 12 15 17 10"></polyline>
-                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                            </svg>
-                            Download
-                        </button>
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <div class="font-controls">
+                            <div class="font-control">
+                                <label>📄</label>
+                                <input type="range" id="output-font-slider" class="font-slider" min="10" max="24"
+                                    value="14">
+                                <span id="output-font-value" class="font-value">14px</span>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button id="copy-button" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                Copy
+                            </button>
+                            <button id="download-button" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Download
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div id="output-container" class="output-container">
@@ -697,6 +906,10 @@
                 const deepFormatCheckbox = document.getElementById("deep-format");
                 const inputStats = document.getElementById("input-stats");
                 const outputStats = document.getElementById("output-stats");
+                const inputFontSlider = document.getElementById("input-font-slider");
+                const outputFontSlider = document.getElementById("output-font-slider");
+                const inputFontValue = document.getElementById("input-font-value");
+                const outputFontValue = document.getElementById("output-font-value");
 
                 // Dark theme by default
                 let isDarkTheme = true;
@@ -760,6 +973,57 @@
 
                 scrollDownBtn.addEventListener("click", function () {
                     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                });
+
+                // Input font size control
+                inputFontSlider.addEventListener("input", function () {
+                    const fontSize = this.value + "px";
+                    inputFontValue.textContent = fontSize;
+
+                    // Apply to input textarea and related elements
+                    jsonInput.style.fontSize = fontSize;
+                    textareaOverlay.style.fontSize = fontSize;
+                    inputLineNumbers.style.fontSize = fontSize;
+
+                    // Add a subtle animation effect
+                    jsonInput.style.transform = "scale(1.01)";
+                    setTimeout(() => {
+                        jsonInput.style.transform = "scale(1)";
+                    }, 150);
+                });
+
+                // Output font size control
+                outputFontSlider.addEventListener("input", function () {
+                    const fontSize = this.value + "px";
+                    outputFontValue.textContent = fontSize;
+
+                    // Apply to output elements
+                    outputContent.style.fontSize = fontSize;
+                    outputLineNumbers.style.fontSize = fontSize;
+
+                    // Add a subtle animation effect
+                    outputContent.style.transform = "scale(1.01)";
+                    setTimeout(() => {
+                        outputContent.style.transform = "scale(1)";
+                    }, 150);
+                });
+
+                // Smooth scroll effect for font controls
+                let scrollTimeout;
+                window.addEventListener('scroll', function () {
+                    // Add subtle glow effect to font controls during scroll
+                    const fontControls = document.querySelectorAll('.font-control');
+                    fontControls.forEach(control => {
+                        control.style.boxShadow = '0 0 10px rgba(137, 180, 250, 0.3)';
+                    });
+
+                    // Clear the glow effect after scroll ends
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        fontControls.forEach(control => {
+                            control.style.boxShadow = 'none';
+                        });
+                    }, 300);
                 });
 
                 // Show/hide scroll buttons based on scroll position
