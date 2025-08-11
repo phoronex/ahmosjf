@@ -1,14 +1,16 @@
 {
    "msgTitle": "Ahmos: The Last Egyptian King",
-   "timeStamp": "2025-07-22T07:55:08.521Z",
+   "welcomeMsg": "Ahmos: The Last Egyptian King",
+   "importantMsg": "Ahmos: The Last Egyptian King",
+   "timeStamp": "2025-08-11T10:26:47.473Z",
    "awsAppData": {
-      "VerNum": 6.5,
-      "VerDate": "2025-07-22",
+      "VerNum": 6.6,
+      "VerDate": "2025-08-11",
       "useExpire": true,
-      "deadDate": "2025-07-27T18:10:30.015Z",
-      "awsAppLink32x": "https://www.mediafire.com/file/ppu4c8d98zhxkq9/AhmosApp_V6.5_32x_22-07-2025.rar/file",
-      "awsAppLink64x": "https://www.mediafire.com/file/vnq3z0digrlyg8c/AhmosApp_V6.5_64x_22-07-2025.rar/file",
+      "deadDate": "2025-08-15T18:10:30.015Z",
+      "awsAppLink32x": "https://www.mediafire.com/file/2xgjd1bw6qx1aho/AhmosApp_V6.6_32x_11-08-2025.rar/file",
+      "awsAppLink64x": "https://www.mediafire.com/file/9txw79m06rmkh4k/AhmosApp_V6.6_64x_11-08-2025.rar/file",
       "awsDBLink32x": "",
-      "awsDBLink64x": "https://www.mediafire.com/file/9s5l934srq0dhk0/AhmosDB_V6.5_64x_22-07-2025.rar/file"
+      "awsDBLink64x": "https://www.mediafire.com/file/54iqcwb4tuh3vlw/AhmosDB_V6.6_64x_11-08-2025.rar/file"
    }
 }
