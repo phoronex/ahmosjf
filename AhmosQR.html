@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Reader</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+        }
+
+        .upload-area:hover {
+            background: #f0f2ff;
+            border-color: #764ba2;
+        }
+
+        .upload-area.dragover {
+            background: #e8ebff;
+            border-color: #764ba2;
+        }
+
+        .upload-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .upload-area h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .upload-area p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .paste-hint {
+            margin-top: 15px;
+            padding: 10px;
+            background: #fff3cd;
+            border-radius: 8px;
+            color: #856404;
+            font-size: 0.9em;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .preview-section {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .result-box {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .result-box h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .result-content {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            word-break: break-all;
+            color: #333;
+            font-family: 'Courier New', monospace;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .error {
+            color: #e74c3c;
+            background: #fee;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .success {
+            color: #27ae60;
+            background: #efe;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 AHMOS QR Code Reader</h1>
+            <p>Upload an image to decode QR codes instantly</p>
+        </div>
+
+        <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">📸</div>
+            <h3>Drop your image here</h3>
+            <p>or click to browse</p>
+            <div class="paste-hint">💡 You can also paste (Ctrl+V) an image from clipboard!</div>
+            <input type="file" id="fileInput" accept="image/*">
+        </div>
+
+        <div class="preview-section" id="previewSection">
+            <img id="imagePreview" class="image-preview" alt="Preview">
+            <div id="message"></div>
+            <div id="resultBox" class="result-box" style="display: none;">
+                <h3>✅ QR Code Content:</h3>
+                <div class="result-content" id="resultContent"></div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-secondary" id="resetBtn">Upload Another</button>
+                <button class="btn btn-primary" id="copyBtn" style="display: none;">Copy Content</button>
+            </div>
+        </div>
+
+        <canvas id="canvas"></canvas>
+
+        <div class="footer">
+            <p>Created by Ahmos © 2025 | Secure & Private Processing</p>
+        </div>
+    </div>
+
+    <!-- <script src="https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"></script> -->
+    <script src="jsQR.js"></script>
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const previewSection = document.getElementById('previewSection');
+        const imagePreview = document.getElementById('imagePreview');
+        const message = document.getElementById('message');
+        const resultBox = document.getElementById('resultBox');
+        const resultContent = document.getElementById('resultContent');
+        const resetBtn = document.getElementById('resetBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+        // Click to upload
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                processImage(file);
+            }
+        });
+
+        // File input
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                processImage(file);
+            }
+        });
+
+        // Paste from clipboard
+        document.addEventListener('paste', (e) => {
+            const items = e.clipboardData.items;
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf('image') !== -1) {
+                    const blob = items[i].getAsFile();
+                    processImage(blob);
+                    break;
+                }
+            }
+        });
+
+        function processImage(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                previewSection.style.display = 'block';
+                uploadArea.style.display = 'none';
+                
+                // Wait a bit for the image to load
+                setTimeout(() => {
+                    decodeQR(e.target.result);
+                }, 100);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function decodeQR(imageSrc) {
+            message.innerHTML = '<div class="success">⏳ Processing image...</div>';
+            resultBox.style.display = 'none';
+            copyBtn.style.display = 'none';
+
+            const img = new Image();
+            
+            img.onload = () => {
+                try {
+                    // Set canvas size to match image
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    
+                    // Draw image on canvas
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
+                    
+                    // Get image data
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    
+                    // Check if jsQR is loaded
+                    if (typeof jsQR === 'undefined') {
+                        message.innerHTML = '<div class="error">❌ QR decoder library not loaded. Please refresh the page.</div>';
+                        return;
+                    }
+                    
+                    // Decode QR code
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                    if (code && code.data) {
+                        message.innerHTML = '<div class="success">✅ QR Code detected successfully!</div>';
+                        resultBox.style.display = 'block';
+                        resultContent.textContent = code.data;
+                        copyBtn.style.display = 'block';
+                    } else {
+                        message.innerHTML = '<div class="error">❌ No QR code found in this image. Please try another image with a clearer QR code.</div>';
+                    }
+                } catch (error) {
+                    message.innerHTML = '<div class="error">❌ Error processing image: ' + error.message + '</div>';
+                    console.error('Error:', error);
+                }
+            };
+
+            img.onerror = () => {
+                message.innerHTML = '<div class="error">❌ Error loading image. Please try another file.</div>';
+            };
+
+            img.src = imageSrc;
+        }
+
+        resetBtn.addEventListener('click', () => {
+            previewSection.style.display = 'none';
+            uploadArea.style.display = 'block';
+            fileInput.value = '';
+            message.innerHTML = '';
+            resultBox.style.display = 'none';
+        });
+
+        copyBtn.addEventListener('click', () => {
+            const text = resultContent.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
