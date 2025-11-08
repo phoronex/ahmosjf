@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>"
+        type="image/svg+xml" />
+    <title>Ahmos Excel Formula Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .copyright {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .formula-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .formula-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .formula-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .file-input-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+
+        .file-input-wrapper input[type="text"] {
+            flex: 1;
+        }
+
+        .browse-btn {
+            padding: 12px 25px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .browse-btn:hover {
+            background: #5568d3;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .generate-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            border: 2px solid #667eea;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .result-box textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            resize: vertical;
+        }
+
+        .copy-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #218838;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .formula-card {
+                padding: 20px;
+            }
+        }
+
+        .info-text {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Excel Formula Generator</h1>
+            <p class="copyright">© Ahmos. All Rights Reserved.</p>
+        </div>
+
+        <!-- TEXTJOIN + FILTER Card -->
+        <div class="formula-card">
+            <h2 class="formula-title">🔗 TEXTJOIN + FILTER Formula</h2>
+            
+            <div class="input-group">
+                <label for="tj-filepath">Target File Path:</label>
+                <div class="file-input-wrapper">
+                    <input type="text" id="tj-filepath" placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                    <button class="browse-btn" onclick="browseFile('tj-filepath')">📁 Browse</button>
+                </div>
+                <p class="info-text">Enter the full path to your Excel file or click Browse</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label for="tj-sheetname">Sheet Name:</label>
+                    <input type="text" id="tj-sheetname" placeholder="e.g., Sheet1 or Worksheet">
+                </div>
+
+                <div class="input-group">
+                    <label for="tj-returncol">Return Column:</label>
+                    <input type="text" id="tj-returncol" placeholder="e.g., B">
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label for="tj-targetcol">Target Column:</label>
+                    <input type="text" id="tj-targetcol" placeholder="e.g., A">
+                </div>
+
+                <div class="input-group">
+                    <label for="tj-equalcell">Equal Cell:</label>
+                    <input type="text" id="tj-equalcell" placeholder="e.g., A2">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="tj-error">If Error Text (Optional):</label>
+                <input type="text" id="tj-error" placeholder="Leave empty or enter an error value to return">
+            </div>
+
+            <button class="generate-btn" onclick="generateTextJoin()">🚀 Generate TEXTJOIN Formula</button>
+
+            <div class="result-box" id="tj-result">
+                <h3>Generated Formula:</h3>
+                <textarea id="tj-output" readonly></textarea>
+                <button class="copy-btn" onclick="copyToClipboard('tj-output')">📋 Copy Formula</button>
+            </div>
+        </div>
+
+        <!-- VLOOKUP Card -->
+        <div class="formula-card">
+            <h2 class="formula-title">🔍 VLOOKUP Formula</h2>
+            
+            <div class="input-group">
+                <label for="vl-filepath">Target File Path:</label>
+                <div class="file-input-wrapper">
+                    <input type="text" id="vl-filepath" placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                    <button class="browse-btn" onclick="browseFile('vl-filepath')">📁 Browse</button>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label for="vl-sheetname">Sheet Name:</label>
+                    <input type="text" id="vl-sheetname" placeholder="e.g., Sheet1">
+                </div>
+
+                <div class="input-group">
+                    <label for="vl-lookupcell">Lookup Cell:</label>
+                    <input type="text" id="vl-lookupcell" placeholder="e.g., A2">
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label for="vl-range">Table Range:</label>
+                    <input type="text" id="vl-range" placeholder="e.g., A:D">
+                </div>
+
+                <div class="input-group">
+                    <label for="vl-colindex">Column Index:</label>
+                    <input type="number" id="vl-colindex" placeholder="e.g., 2" min="1">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="vl-match">Match Type:</label>
+                <select id="vl-match">
+                    <option value="0">Exact Match (0)</option>
+                    <option value="1">Approximate Match - Less Than (1)</option>
+                    <option value="-1">Approximate Match - Greater Than (-1)</option>
+                </select>
+            </div>
+
+            <button class="generate-btn" onclick="generateVLookup()">🚀 Generate VLOOKUP Formula</button>
+
+            <div class="result-box" id="vl-result">
+                <h3>Generated Formula:</h3>
+                <textarea id="vl-output" readonly></textarea>
+                <button class="copy-btn" onclick="copyToClipboard('vl-output')">📋 Copy Formula</button>
+            </div>
+        </div>
+
+        <!-- XLOOKUP Card -->
+        <div class="formula-card">
+            <h2 class="formula-title">⚡ XLOOKUP Formula</h2>
+            
+            <div class="input-group">
+                <label for="xl-filepath">Target File Path:</label>
+                <div class="file-input-wrapper">
+                    <input type="text" id="xl-filepath" placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                    <button class="browse-btn" onclick="browseFile('xl-filepath')">📁 Browse</button>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label for="xl-sheetname">Sheet Name:</label>
+                    <input type="text" id="xl-sheetname" placeholder="e.g., Sheet1">
+                </div>
+
+                <div class="input-group">
+                    <label for="xl-lookupcell">Lookup Cell:</label>
+                    <input type="text" id="xl-lookupcell" placeholder="e.g., A2">
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label for="xl-lookuparray">Lookup Array:</label>
+                    <input type="text" id="xl-lookuparray" placeholder="e.g., A:A">
+                </div>
+
+                <div class="input-group">
+                    <label for="xl-returnarray">Return Array:</label>
+                    <input type="text" id="xl-returnarray" placeholder="e.g., B:B">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="xl-notfound">If Not Found (Optional):</label>
+                <input type="text" id="xl-notfound" placeholder="e.g., Not Found">
+            </div>
+
+            <button class="generate-btn" onclick="generateXLookup()">🚀 Generate XLOOKUP Formula</button>
+
+            <div class="result-box" id="xl-result">
+                <h3>Generated Formula:</h3>
+                <textarea id="xl-output" readonly></textarea>
+                <button class="copy-btn" onclick="copyToClipboard('xl-output')">📋 Copy Formula</button>
+            </div>
+        </div>
+
+        <!-- INDEX + MATCH Card -->
+        <div class="formula-card">
+            <h2 class="formula-title">🎯 INDEX + MATCH Formula</h2>
+            
+            <div class="input-group">
+                <label for="im-filepath">Target File Path:</label>
+                <div class="file-input-wrapper">
+                    <input type="text" id="im-filepath" placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                    <button class="browse-btn" onclick="browseFile('im-filepath')">📁 Browse</button>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label for="im-sheetname">Sheet Name:</label>
+                    <input type="text" id="im-sheetname" placeholder="e.g., Sheet1">
+                </div>
+
+                <div class="input-group">
+                    <label for="im-lookupcell">Lookup Cell:</label>
+                    <input type="text" id="im-lookupcell" placeholder="e.g., A2">
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label for="im-returnarray">Return Array:</label>
+                    <input type="text" id="im-returnarray" placeholder="e.g., B:B">
+                </div>
+
+                <div class="input-group">
+                    <label for="im-lookuparray">Lookup Array:</label>
+                    <input type="text" id="im-lookuparray" placeholder="e.g., A:A">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="im-match">Match Type:</label>
+                <select id="im-match">
+                    <option value="0">Exact Match (0)</option>
+                    <option value="1">Less Than (1)</option>
+                    <option value="-1">Greater Than (-1)</option>
+                </select>
+            </div>
+
+            <button class="generate-btn" onclick="generateIndexMatch()">🚀 Generate INDEX+MATCH Formula</button>
+
+            <div class="result-box" id="im-result">
+                <h3>Generated Formula:</h3>
+                <textarea id="im-output" readonly></textarea>
+                <button class="copy-btn" onclick="copyToClipboard('im-output')">📋 Copy Formula</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function browseFile(inputId) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.xlsx,.xls';
+            
+            input.onchange = e => {
+                const file = e.target.files[0];
+                if (file) {
+                    document.getElementById(inputId).value = file.name;
+                }
+            };
+            
+            input.click();
+        }
+
+        function generateTextJoin() {
+            const filePath = document.getElementById('tj-filepath').value;
+            const sheetName = document.getElementById('tj-sheetname').value;
+            const returnCol = document.getElementById('tj-returncol').value;
+            const targetCol = document.getElementById('tj-targetcol').value;
+            const equalCell = document.getElementById('tj-equalcell').value;
+            const errorStr = document.getElementById('tj-error').value;
+
+            if (!filePath || !sheetName || !returnCol || !targetCol || !equalCell) {
+                alert('Please fill in all required fields!');
+                return;
+            }
+
+            let formula = `=IFERROR(TEXTJOIN("|", TRUE, FILTER('[${filePath}]${sheetName}'!$${returnCol}:$${returnCol}&"", '[${filePath}]${sheetName}'!$${targetCol}:$${targetCol}&""=${equalCell}&"", "")),"${errorStr}")`;
+
+            document.getElementById('tj-output').value = formula;
+            document.getElementById('tj-result').classList.add('show');
+        }
+
+        function generateVLookup() {
+            const filePath = document.getElementById('vl-filepath').value;
+            const sheetName = document.getElementById('vl-sheetname').value;
+            const lookupCell = document.getElementById('vl-lookupcell').value;
+            const range = document.getElementById('vl-range').value;
+            const colIndex = document.getElementById('vl-colindex').value;
+            const matchType = document.getElementById('vl-match').value;
+
+            if (!filePath || !sheetName || !lookupCell || !range || !colIndex) {
+                alert('Please fill in all required fields!');
+                return;
+            }
+
+            let formula = `=VLOOKUP(${lookupCell},'[${filePath}]${sheetName}'!$${range},${colIndex},${matchType})`;
+
+            document.getElementById('vl-output').value = formula;
+            document.getElementById('vl-result').classList.add('show');
+        }
+
+        function generateXLookup() {
+            const filePath = document.getElementById('xl-filepath').value;
+            const sheetName = document.getElementById('xl-sheetname').value;
+            const lookupCell = document.getElementById('xl-lookupcell').value;
+            const lookupArray = document.getElementById('xl-lookuparray').value;
+            const returnArray = document.getElementById('xl-returnarray').value;
+            const notFound = document.getElementById('xl-notfound').value;
+
+            if (!filePath || !sheetName || !lookupCell || !lookupArray || !returnArray) {
+                alert('Please fill in all required fields!');
+                return;
+            }
+
+            let formula = `=XLOOKUP(${lookupCell},'[${filePath}]${sheetName}'!$${lookupArray},'[${filePath}]${sheetName}'!$${returnArray}`;
+            
+            if (notFound) {
+                formula += `,"${notFound}"`;
+            }
+            
+            formula += ')';
+
+            document.getElementById('xl-output').value = formula;
+            document.getElementById('xl-result').classList.add('show');
+        }
+
+        function generateIndexMatch() {
+            const filePath = document.getElementById('im-filepath').value;
+            const sheetName = document.getElementById('im-sheetname').value;
+            const lookupCell = document.getElementById('im-lookupcell').value;
+            const returnArray = document.getElementById('im-returnarray').value;
+            const lookupArray = document.getElementById('im-lookuparray').value;
+            const matchType = document.getElementById('im-match').value;
+
+            if (!filePath || !sheetName || !lookupCell || !returnArray || !lookupArray) {
+                alert('Please fill in all required fields!');
+                return;
+            }
+
+            let formula = `=INDEX('[${filePath}]${sheetName}'!$${returnArray},MATCH(${lookupCell},'[${filePath}]${sheetName}'!$${lookupArray},${matchType}))`;
+
+            document.getElementById('im-output').value = formula;
+            document.getElementById('im-result').classList.add('show');
+        }
+
+        function copyToClipboard(textareaId) {
+            const textarea = document.getElementById(textareaId);
+            textarea.select();
+            document.execCommand('copy');
+            
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✅ Copied!';
+            btn.style.background = '#28a745';
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
