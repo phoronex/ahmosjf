@@ -998,9 +998,9 @@
 
             let formula;
             if (lock) {
-                formula = `=IFERROR(TEXTJOIN("|", TRUE, FILTER('${resultPath}${sheetName}'!$${returnCol}:$${returnCol}, '${resultPath}${sheetName}'!$${targetCol}:$${targetCol}=${equalCell}&"", "${errorStr}")),"${errorStr}")`;
+                formula = `=IFERROR(TEXTJOIN("|", TRUE, FILTER('${resultPath}${sheetName}'!$${returnCol}:$${returnCol}&"", '${resultPath}${sheetName}'!$${targetCol}:$${targetCol}&""=${equalCell}&"", "${errorStr}")),"${errorStr}")`;
             } else {
-                formula = `=IFERROR(TEXTJOIN("|", TRUE, FILTER('${resultPath}${sheetName}'!${returnCol}:${returnCol}, '${resultPath}${sheetName}'!${targetCol}:${targetCol}=${equalCell}&"", "${errorStr}")),"${errorStr}")`;
+                formula = `=IFERROR(TEXTJOIN("|", TRUE, FILTER('${resultPath}${sheetName}'!${returnCol}:${returnCol}&"", '${resultPath}${sheetName}'!${targetCol}:${targetCol}&""=${equalCell}&"", "${errorStr}")),"${errorStr}")`;
             }
 
             document.getElementById('tj-output').value = formula;
