@@ -977,9 +977,9 @@
         function generateTextJoin() {
             const filePath = document.getElementById('tj-filepath').value;
             const sheetName = document.getElementById('tj-sheetname').value;
-            const returnCol = document.getElementById('tj-returncol').value;
-            const targetCol = document.getElementById('tj-targetcol').value;
-            const equalCell = document.getElementById('tj-equalcell').value;
+            const returnCol = document.getElementById('tj-returncol').value.toLocaleUpperCase('en-US');
+            const targetCol = document.getElementById('tj-targetcol').value.toLocaleUpperCase('en-US');
+            const equalCell = document.getElementById('tj-equalcell').value.toLocaleUpperCase('en-US');
             const errorStr = document.getElementById('tj-error').value;
             const lock = document.getElementById('tj-lock').checked;
 
@@ -1010,8 +1010,8 @@
         function generateVLookup() {
             const filePath = document.getElementById('vl-filepath').value;
             const sheetName = document.getElementById('vl-sheetname').value;
-            const lookupCell = document.getElementById('vl-lookupcell').value;
-            const range = document.getElementById('vl-range').value;
+            const lookupCell = document.getElementById('vl-lookupcell').value.toLocaleUpperCase('en-US');
+            const range = document.getElementById('vl-range').value.toLocaleUpperCase('en-US');
             const colIndex = document.getElementById('vl-colindex').value;
             const matchType = document.getElementById('vl-match').value;
             const errorStr = document.getElementById('vl-error').value;
