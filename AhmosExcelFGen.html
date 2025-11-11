@@ -1031,15 +1031,7 @@
             const formattedRange = formatRange(range, lock);
             
             let formula;
-            formula = `=IFERROR(VLOOKUP(${lookupCell}&"",'${resultPath}${sheetName}'!${formattedRange}&"",${colIndex},${matchType}),"${errorStr}")`;
-            
-            /**
-            if (lock) {
-                formula = `=IFERROR(VLOOKUP(${lookupCell}&"",'${resultPath}${sheetName}'!${range}&"",${colIndex},${matchType}),"${errorStr}")`;
-            } else {
-                formula = `=IFERROR(VLOOKUP(${lookupCell}&"",'${resultPath}${sheetName}'!${range}&"",${colIndex},${matchType}),"${errorStr}")`;
-            }
-            */addSumIfsCriteria
+            formula = `=IFERROR(VLOOKUP(${lookupCell},'${resultPath}${sheetName}'!${formattedRange},${colIndex},${matchType}),IFERROR(VLOOKUP(${lookupCell}&"",'${resultPath}${sheetName}'!${formattedRange},${colIndex},${matchType}),IFERROR(VLOOKUP(${lookupCell}*1,'${resultPath}${sheetName}'!${formattedRange},${colIndex},${matchType}),IFERROR(VLOOKUP(VALUE(${lookupCell}),'${resultPath}${sheetName}'!${formattedRange},${colIndex},${matchType}),"${errorStr}"))))`;
             document.getElementById('vl-output').value = formula;
             document.getElementById('vl-result').classList.add('show');
         }
