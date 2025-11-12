@@ -471,6 +471,11 @@
                 <label for="vl-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
             </div>
 
+            <div class="checkbox-group">
+                <input type="checkbox" id="vl-Code-Ver" checked>
+                <label for="vl-Code-Ver">🎭 Check To use Ver.1 Code Un-Check For Ver.2</label>
+            </div>
+
             <div class="button-group">
                 <button class="generate-btn" onclick="generateVLookup()">🚀 Generate VLOOKUP Formula</button>
                 <button class="reset-btn" onclick="resetForm('vl')">🔄 Reset</button>
@@ -998,9 +1003,9 @@
 
             let formula;
             if (lock) {
-                formula = `=IFERROR(TEXTJOIN("|", TRUE, FILTER('${resultPath}${sheetName}'!$${returnCol}:$${returnCol}&"", '${resultPath}${sheetName}'!$${targetCol}:$${targetCol}&""=${equalCell}&"", "${errorStr}")),"${errorStr}")`;
+                formula = `=IFERROR(TEXTJOIN("|", TRUE, FILTER('${resultPath}${sheetName}'!$${returnCol}:$${returnCol} & "", '${resultPath}${sheetName}'!$${targetCol}:$${targetCol} & "" = ${equalCell} & "", "${errorStr}")),"${errorStr}")`;
             } else {
-                formula = `=IFERROR(TEXTJOIN("|", TRUE, FILTER('${resultPath}${sheetName}'!${returnCol}:${returnCol}&"", '${resultPath}${sheetName}'!${targetCol}:${targetCol}&""=${equalCell}&"", "${errorStr}")),"${errorStr}")`;
+                formula = `=IFERROR(TEXTJOIN("|", TRUE, FILTER('${resultPath}${sheetName}'!${returnCol}:${returnCol} & "", '${resultPath}${sheetName}'!${targetCol}:${targetCol} & "" = ${equalCell} & "", "${errorStr}")),"${errorStr}")`;
             }
 
             document.getElementById('tj-output').value = formula;
@@ -1016,6 +1021,7 @@
             const matchType = document.getElementById('vl-match').value;
             const errorStr = document.getElementById('vl-error').value;
             const lock = document.getElementById('vl-lock').checked;
+            const codeVer = document.getElementById('vl-Code-Ver').checked;
 
             if (!filePath || !sheetName || !lookupCell || !range || !colIndex) {
                 alert('Please fill in all required fields!');
@@ -1031,7 +1037,22 @@
             const formattedRange = formatRange(range, lock);
             
             let formula;
-            formula = `=IFERROR(VLOOKUP(${lookupCell},'${resultPath}${sheetName}'!${formattedRange},${colIndex},${matchType}),IFERROR(VLOOKUP(${lookupCell}&"",'${resultPath}${sheetName}'!${formattedRange},${colIndex},${matchType}),IFERROR(VLOOKUP(${lookupCell}*1,'${resultPath}${sheetName}'!${formattedRange},${colIndex},${matchType}),IFERROR(VLOOKUP(VALUE(${lookupCell}),'${resultPath}${sheetName}'!${formattedRange},${colIndex},${matchType}),"${errorStr}"))))`;
+
+            if (codeVer) {
+                formula = `=IFERROR(VLOOKUP(${lookupCell},'${resultPath}${sheetName}'!${formattedRange},${colIndex},${matchType}),IFERROR(VLOOKUP(${lookupCell}&"",'${resultPath}${sheetName}'!${formattedRange},${colIndex},${matchType}),IFERROR(VLOOKUP(${lookupCell}*1,'${resultPath}${sheetName}'!${formattedRange},${colIndex},${matchType}),IFERROR(VLOOKUP(VALUE(${lookupCell}),'${resultPath}${sheetName}'!${formattedRange},${colIndex},${matchType}),"${errorStr}"))))`;
+            } else {
+                formula = `=IFERROR(VLOOKUP("" & ${lookupCell},"" & '${resultPath}${sheetName}'!${formattedRange},${colIndex},${matchType}),"${errorStr}")`;
+            }
+
+            /**
+            if (lock) {
+                formula = `=IFERROR(VLOOKUP(${lookupCell}&"",'${resultPath}${sheetName}'!${range}&"",${colIndex},${matchType}),"${errorStr}")`;
+            } else {
+                formula = `=IFERROR(VLOOKUP(${lookupCell}&"",'${resultPath}${sheetName}'!${range}&"",${colIndex},${matchType}),"${errorStr}")`;
+            }
+            */
+
+            // addSumIfsCriteria
             document.getElementById('vl-output').value = formula;
             document.getElementById('vl-result').classList.add('show');
         }
