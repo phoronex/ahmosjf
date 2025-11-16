@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +37,7 @@
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .copyright {
@@ -49,7 +50,7 @@
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
         }
 
@@ -182,6 +183,7 @@
                 opacity: 0;
                 transform: translateY(-10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -314,11 +316,12 @@
         .arabic-text {
             font-size: 52px;
             text-align: center;
-            font-family: 'Amiri', Arial, Helvetica, sans-serif;;
+            font-family: 'Amiri', Arial, Helvetica, sans-serif;
+            ;
             line-height: 1.8;
             color: #fef8fd;
             margin: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -342,17 +345,17 @@
                 font-size: 36px;
             }
         }
-
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="arabic-text" id="arabicText">&#x633;&#x64F;&#x628;&#x652;&#x62D;&#x64E;&#x627;&#x646;&#x64E;
-        &#x627;&#x644;&#x644;&#x651;&#x64E;&#x647;&#x650;
-        &#x648;&#x64E;&#x628;&#x650;&#x62D;&#x64E;&#x645;&#x652;&#x62F;&#x650;&#x647;&#x650;
-        &#x633;&#x64F;&#x628;&#x652;&#x62D;&#x64E;&#x627;&#x646;&#x64E;
-        &#x627;&#x644;&#x644;&#x651;&#x64E;&#x647;&#x650;
-        &#x627;&#x644;&#x652;&#x639;&#x64E;&#x638;&#x650;&#x64A;&#x645;&#x650;</div>
+            &#x627;&#x644;&#x644;&#x651;&#x64E;&#x647;&#x650;
+            &#x648;&#x64E;&#x628;&#x650;&#x62D;&#x64E;&#x645;&#x652;&#x62F;&#x650;&#x647;&#x650;
+            &#x633;&#x64F;&#x628;&#x652;&#x62D;&#x64E;&#x627;&#x646;&#x64E;
+            &#x627;&#x644;&#x644;&#x651;&#x64E;&#x647;&#x650;
+            &#x627;&#x644;&#x652;&#x639;&#x64E;&#x638;&#x650;&#x64A;&#x645;&#x650;</div>
         <div class="header">
             <h1>📊 Excel Formula Generator V2</h1>
             <p class="copyright">© Ahmos. All Rights Reserved.</p>
@@ -361,11 +364,12 @@
         <!-- TEXTJOIN + FILTER Card -->
         <div class="formula-card">
             <h2 class="formula-title">🔗 TEXTJOIN + FILTER Formula</h2>
-            
+
             <div class="input-group">
                 <label for="tj-filepath">Target File Path:</label>
                 <div class="file-input-wrapper">
-                    <input type="text" id="tj-filepath" placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                    <input type="text" id="tj-filepath"
+                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
                     <button class="browse-btn" onclick="browseFile('tj-filepath')">📁 Browse</button>
                 </div>
                 <p class="info-text">Enter the full path to your Excel file or click Browse</p>
@@ -420,51 +424,63 @@
         <!-- VLOOKUP Card -->
         <div class="formula-card">
             <h2 class="formula-title">🔍 VLOOKUP Formula</h2>
-            
+
             <div class="input-group">
                 <label for="vl-filepath">Target File Path:</label>
                 <div class="file-input-wrapper">
-                    <input type="text" id="vl-filepath" placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                    <input type="text" id="vl-filepath"
+                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
                     <button class="browse-btn" onclick="browseFile('vl-filepath')">📁 Browse</button>
                 </div>
+                <small class="info-text">Enter The Data Source Excel file (full path) or click Browse</small>
             </div>
 
             <div class="grid-2">
                 <div class="input-group">
                     <label for="vl-sheetname">Sheet Name:</label>
                     <input type="text" id="vl-sheetname" placeholder="e.g., Sheet1">
+                    <small class="info-text">Enter The Data Source Sheet Name</small>
                 </div>
 
                 <div class="input-group">
                     <label for="vl-lookupcell">Lookup Cell:</label>
-                    <input type="text" id="vl-lookupcell" placeholder="e.g., A2">
+                    <input type="text" id="vl-lookupcell" placeholder="e.g., A2" title="Enter The Cell Value Address">
+                    <small class="info-text">Enter The Cell address you want to lookup using it's value</small>
                 </div>
             </div>
 
             <div class="grid-2">
                 <div class="input-group">
                     <label for="vl-range">Table Range:</label>
-                    <input type="text" id="vl-range" placeholder="e.g., A:D">
+                    <input type="text" id="vl-range" placeholder="e.g., A:D or D2:H15"
+                        title="Enter Range and Start with The Comparable Column">
+                    <small class="info-text">The Range Must start with the column which carries the cell Value Like
+                        (A2).</small>
                 </div>
 
                 <div class="input-group">
                     <label for="vl-colindex">Column Index:</label>
-                    <input type="number" id="vl-colindex" placeholder="e.g., 2" min="1">
+                    <input type="text" id="vl-colindex" placeholder="e.g., 2 or 2,3,5 or 2,5,3"
+                        pattern="^(\d+(,\d+)*)?$" title="Enter numbers separated by commas">
+                    <small class="info-text">Single number or comma-separated values</small>
+                </div>
+
+                <div class="input-group">
+                    <label for="vl-match">Match Type:</label>
+                    <select id="vl-match">
+                        <option value="FALSE">Exact Match (FALSE)</option>
+                        <option value="TRUE">Approximate Match (TRUE)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="vl-error">If Error Text (Optional):</label>
+                    <input type="text" id="vl-error" placeholder="e.g., Not Found or غير موجود">
                 </div>
             </div>
 
-            <div class="input-group">
-                <label for="vl-match">Match Type:</label>
-                <select id="vl-match">
-                    <option value="FALSE">Exact Match (FALSE)</option>
-                    <option value="TRUE">Approximate Match (TRUE)</option>
-                </select>
-            </div>
 
-            <div class="input-group">
-                <label for="vl-error">If Error Text (Optional):</label>
-                <input type="text" id="vl-error" placeholder="e.g., Not Found">
-            </div>
+
 
             <div class="checkbox-group">
                 <input type="checkbox" id="vl-lock" checked>
@@ -491,11 +507,12 @@
         <!-- XLOOKUP Card -->
         <div class="formula-card" style="display: none;">
             <h2 class="formula-title">⚡ XLOOKUP Formula</h2>
-            
+
             <div class="input-group">
                 <label for="xl-filepath">Target File Path:</label>
                 <div class="file-input-wrapper">
-                    <input type="text" id="xl-filepath" placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                    <input type="text" id="xl-filepath"
+                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
                     <button class="browse-btn" onclick="browseFile('xl-filepath')">📁 Browse</button>
                 </div>
             </div>
@@ -549,11 +566,12 @@
         <!-- INDEX + MATCH Card -->
         <div class="formula-card" style="display: none;">
             <h2 class="formula-title">🎯 INDEX + MATCH Formula</h2>
-            
+
             <div class="input-group">
                 <label for="im-filepath">Target File Path:</label>
                 <div class="file-input-wrapper">
-                    <input type="text" id="im-filepath" placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                    <input type="text" id="im-filepath"
+                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
                     <button class="browse-btn" onclick="browseFile('im-filepath')">📁 Browse</button>
                 </div>
             </div>
@@ -616,11 +634,12 @@
         <!-- SUMIF Card -->
         <div class="formula-card" style="display: none;">
             <h2 class="formula-title">➕ SUMIF Formula</h2>
-            
+
             <div class="input-group">
                 <label for="sf-filepath">Target File Path:</label>
                 <div class="file-input-wrapper">
-                    <input type="text" id="sf-filepath" placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                    <input type="text" id="sf-filepath"
+                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
                     <button class="browse-btn" onclick="browseFile('sf-filepath')">📁 Browse</button>
                 </div>
             </div>
@@ -674,11 +693,12 @@
         <!-- COUNTIF Card -->
         <div class="formula-card" style="display: none;">
             <h2 class="formula-title">🔢 COUNTIF Formula</h2>
-            
+
             <div class="input-group">
                 <label for="cf-filepath">Target File Path:</label>
                 <div class="file-input-wrapper">
-                    <input type="text" id="cf-filepath" placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                    <input type="text" id="cf-filepath"
+                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
                     <button class="browse-btn" onclick="browseFile('cf-filepath')">📁 Browse</button>
                 </div>
             </div>
@@ -725,11 +745,12 @@
         <!-- SUMIFS Card -->
         <div class="formula-card" style="display: none;">
             <h2 class="formula-title">➕✖️ SUMIFS Formula (Multiple Criteria)</h2>
-            
+
             <div class="input-group">
                 <label for="sfs-filepath">Target File Path:</label>
                 <div class="file-input-wrapper">
-                    <input type="text" id="sfs-filepath" placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                    <input type="text" id="sfs-filepath"
+                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
                     <button class="browse-btn" onclick="browseFile('sfs-filepath')">📁 Browse</button>
                 </div>
             </div>
@@ -793,26 +814,26 @@
             // Replace all escaped backslashes (\\) with a placeholder
             // Then replace single backslashes (\) with double backslashes (\\)
             // This handles the JavaScript string escape issue
-            
+
             // First, temporarily replace any existing \\ with a unique marker
             let normalized = path.replace(/\\\\/g, '<<<DOUBLE_BACKSLASH>>>');
-            
+
             // Then replace remaining single \ with \\
             normalized = normalized.replace(/\\/g, '\\\\');
-            
+
             // Finally, restore the original double backslashes
             normalized = normalized.replace(/<<<DOUBLE_BACKSLASH>>>/g, '\\\\');
-            
+
             return normalized;
         }
 
         // Helper function to validate and format file path for Excel formulas
         function processFilePath(filePath) {
             if (!filePath) return { valid: false, formatted: '', error: 'File path is required' };
-            
+
             // Step 1: Remove quotes from start and end
             let cleanPath = filePath.trim();
-            if ((cleanPath.startsWith('"') && cleanPath.endsWith('"')) || 
+            if ((cleanPath.startsWith('"') && cleanPath.endsWith('"')) ||
                 (cleanPath.startsWith("'") && cleanPath.endsWith("'"))) {
                 cleanPath = cleanPath.slice(1, -1);
             } else if (cleanPath.startsWith('"') || cleanPath.startsWith("'")) {
@@ -820,37 +841,37 @@
             } else if (cleanPath.endsWith('"') || cleanPath.endsWith("'")) {
                 cleanPath = cleanPath.slice(0, -1);
             }
-            
+
             cleanPath = cleanPath.trim();
-            
+
             // Step 2: Check for valid Excel file extension
             const validExtensions = ['.xlsx', '.xlsm', '.xlsb', '.xls'];
-            const hasValidExtension = validExtensions.some(ext => 
+            const hasValidExtension = validExtensions.some(ext =>
                 cleanPath.toLowerCase().endsWith(ext)
             );
-            
+
             if (!hasValidExtension) {
-                return { 
-                    valid: false, 
-                    formatted: '', 
-                    error: 'Invalid file extension. Must be .xlsx, .xlsm, .xlsb, or .xls' 
+                return {
+                    valid: false,
+                    formatted: '',
+                    error: 'Invalid file extension. Must be .xlsx, .xlsm, .xlsb, or .xls'
                 };
             }
-            
+
             // Step 3: Detect if it's a full path
             // Check for drive letter (C:), UNC path (\\), or forward slashes
             const isDrivePath = /^[A-Za-z]:/.test(cleanPath);
             const isUNCPath = cleanPath.startsWith('\\\\') || cleanPath.startsWith('//');
             const hasSlashes = cleanPath.includes('\\') || cleanPath.includes('/');
-            
+
             const isFullPath = isDrivePath || isUNCPath || (hasSlashes && !cleanPath.startsWith('['));
-            
+
             let formattedPath;
-            
+
             if (isFullPath) {
                 // Full path: Extract directory and filename
                 let lastSlashIndex = -1;
-                
+
                 // Find the last occurrence of either slash type
                 for (let i = cleanPath.length - 1; i >= 0; i--) {
                     if (cleanPath[i] === '\\' || cleanPath[i] === '/') {
@@ -858,11 +879,11 @@
                         break;
                     }
                 }
-                
+
                 if (lastSlashIndex !== -1) {
                     const directory = cleanPath.substring(0, lastSlashIndex + 1);
                     const fileName = cleanPath.substring(lastSlashIndex + 1);
-                    
+
                     // Output always has single backslash
                     formattedPath = directory + '[' + fileName + ']';
                 } else {
@@ -872,10 +893,10 @@
                 // Just filename: ExternalFile.xlsx -> [ExternalFile.xlsx]
                 formattedPath = '[' + cleanPath + ']';
             }
-            
-            return { 
-                valid: true, 
-                formatted: formattedPath, 
+
+            return {
+                valid: true,
+                formatted: formattedPath,
                 error: '',
                 isFullPath: isFullPath,
                 originalPath: cleanPath
@@ -885,45 +906,70 @@
         // Updated formatFilePath function - returns clean format for Excel
         function formatFilePath(filePath) {
             const result = processFilePath(filePath);
-            
+
             if (!result.valid) {
                 alert(result.error);
                 return '';
             }
-            
+
             // Return the formatted path
             return result.formatted;
         }
+
+        function parseColumnIndex(input) {
+            if (!input || input.trim() === '') {
+                return { value: '', error: 'Column index is required' };
+            }
+
+            const values = input.replace(/\s/g, '').split(',');
+            const numbers = values.filter(val => val !== '').map(val => parseInt(val, 10));
+            const validNumbers = numbers.filter(num => !isNaN(num) && num > 0);
+
+            if (validNumbers.length === 0) {
+                return { value: '', error: 'Please enter valid positive numbers' };
+            }
+
+            // Check for duplicates
+            const uniqueNumbers = [...new Set(validNumbers)];
+            if (uniqueNumbers.length !== validNumbers.length) {
+                return { value: '', error: 'Duplicate values found' };
+            }
+
+            const result = validNumbers.length === 1 ? validNumbers[0] : `{${validNumbers.join(',')}}`;
+
+            return { value: result, error: '' };
+        }
+
 
         // Advanced browse file function with full path support
         function browseFile(inputId) {
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = '.xlsx,.xls,.xlsm,.xlsb';
-            
+
             input.onchange = e => {
                 const file = e.target.files[0];
                 if (file) {
                     document.getElementById(inputId).value = file.name;
                 }
             };
-            
+
             input.click();
         }
 
         // Helper function to add $ to range based on lock status
         function formatRange(range, lock) {
             if (!lock) return range;
-            
+
             // Handle different range formats
             // Single column: A:A -> $A:$A
             // Range: A:D -> $A:$D
             // Single cell range: A1:A100 -> $A$1:$A$100
             // Single cell: A1 -> $A$1
             // Single column letter: B -> $B
-            
+
             const parts = range.split(':');
-            
+
             if (parts.length === 1) {
                 // Single reference like "A" or "A1"
                 const part = parts[0];
@@ -940,25 +986,25 @@
                 // Range format
                 const start = parts[0];
                 const end = parts[1];
-                
+
                 // Check if it's a column range (A:A, A:D)
                 if (start.match(/^[A-Z]+$/) && end.match(/^[A-Z]+$/)) {
                     return `$${start}:$${end}`;
-                } 
+                }
                 // Check if it's a cell range (A1:D10)
                 else {
                     const startCol = start.replace(/[0-9]/g, '');
                     const startRow = start.replace(/[A-Z]/g, '');
                     const endCol = end.replace(/[0-9]/g, '');
                     const endRow = end.replace(/[A-Z]/g, '');
-                    
+
                     return `$${startCol}$${startRow}:$${endCol}$${endRow}`;
                 }
             }
-            
+
             return range; // fallback for unexpected formats
         }
-      
+
         /**
         // Test cases:
         console.log(formatFilePath('C:\\MyFolder\\ExternalFile.xlsx')); 
@@ -992,7 +1038,7 @@
                 alert('Please fill in all required fields!');
                 return;
             }
-            
+
             // const resultPath = formatFilePath(filePath)
             const result = processFilePath(filePath);
             if (!result.valid) {
@@ -1017,17 +1063,27 @@
             const sheetName = document.getElementById('vl-sheetname').value;
             const lookupCell = document.getElementById('vl-lookupcell').value.toLocaleUpperCase('en-US');
             const range = document.getElementById('vl-range').value.toLocaleUpperCase('en-US');
-            const colIndex = document.getElementById('vl-colindex').value;
+            const colIndexInput = document.getElementById('vl-colindex').value;
+
             const matchType = document.getElementById('vl-match').value;
             const errorStr = document.getElementById('vl-error').value;
             const lock = document.getElementById('vl-lock').checked;
             const codeVer = document.getElementById('vl-Code-Ver').checked;
 
-            if (!filePath || !sheetName || !lookupCell || !range || !colIndex) {
+            if (!filePath || !sheetName || !lookupCell || !range || !colIndexInput) {
                 alert('Please fill in all required fields!');
                 return;
             }
-            
+
+            // const { value: colIndex, error } = parseColumnIndex(colIndexInput);
+
+            const { value: colIndex, error } = parseColumnIndex(colIndexInput);
+
+            if (error) {
+                alert(`Column Index Error: ${error}`);
+                return;
+            }
+
             const result = processFilePath(filePath);
             if (!result.valid) {
                 alert(result.error);
@@ -1035,7 +1091,7 @@
             }
             const resultPath = result.formatted;
             const formattedRange = formatRange(range, lock);
-            
+
             let formula;
 
             if (codeVer) {
@@ -1077,11 +1133,11 @@
             } else {
                 formula = `=XLOOKUP(${lookupCell}&"",'[${filePath}]${sheetName}'!${lookupArray}&"",'[${filePath}]${sheetName}'!${returnArray}`;
             }
-            
+
             if (notFound) {
                 formula += `,"${notFound}"`;
             }
-            
+
             formula += ')';
 
             document.getElementById('xl-output').value = formula;
@@ -1199,7 +1255,7 @@
                     }
                 }
             }
-            
+
             formula += `),"${errorStr}")`;
 
             document.getElementById('sfs-output').value = formula;
@@ -1244,7 +1300,7 @@
                     input.value = '';
                 }
             });
-            
+
             if (prefix === 'sfs') {
                 const container = document.getElementById('sfs-criteria-container');
                 container.innerHTML = `
@@ -1263,7 +1319,7 @@
                 `;
                 sumIfsCriteriaCount = 1;
             }
-            
+
             const resultBox = document.getElementById(`${prefix}-result`);
             if (resultBox) {
                 resultBox.classList.remove('show');
@@ -1274,17 +1330,18 @@
             const textarea = document.getElementById(textareaId);
             textarea.select();
             document.execCommand('copy');
-            
+
             const btn = event.target;
             const originalText = btn.textContent;
             btn.textContent = '✅ Copied!';
             btn.style.background = '#28a745';
-            
-            setTimeout(function() {
+
+            setTimeout(function () {
                 btn.textContent = originalText;
                 btn.style.background = '';
             }, 2000);
         }
     </script>
 </body>
+
 </html>
