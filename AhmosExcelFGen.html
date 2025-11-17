@@ -357,7 +357,7 @@
             &#x627;&#x644;&#x644;&#x651;&#x64E;&#x647;&#x650;
             &#x627;&#x644;&#x652;&#x639;&#x64E;&#x638;&#x650;&#x64A;&#x645;&#x650;</div>
         <div class="header">
-            <h1>📊 Excel Formula Generator V2</h1>
+            <h1>📊 Excel Formula Generator V3</h1>
             <p class="copyright">© Ahmos. All Rights Reserved.</p>
         </div>
 
@@ -410,7 +410,7 @@
             </div>
 
             <div class="button-group">
-                <button class="generate-btn" onclick="generateTextJoin()">🚀 Generate TEXTJOIN Formula</button>
+                <button class="generate-btn" onclick="generateTextJoin()">🚀 Generate TEXTJOIN+Filter Formula</button>
                 <button class="reset-btn" onclick="resetForm('tj')">🔄 Reset</button>
             </div>
 
@@ -501,6 +501,66 @@
                 <h3>Generated Formula:</h3>
                 <textarea id="vl-output" readonly></textarea>
                 <button class="copy-btn" onclick="copyToClipboard('vl-output')">📋 Copy Formula</button>
+            </div>
+        </div>
+
+        <!-- Extract Text Value Card -->
+        <div class="formula-card">
+            <h2 class="formula-title">🔎 Extract Text Value (TRIM + MID + FIND)</h2>
+            <div class="grid-2">
+                <div class="input-group">
+                    <label for="ext-celladdress">Cell Address:</label>
+                    <input type="text" id="ext-celladdress" placeholder="e.g., E2">
+                    <p class="info-text">The cell containing the text to search</p>
+                </div>
+                <div class="input-group">
+                    <label for="ext-separator">Separator Character:</label>
+                    <input type="text" id="ext-separator" placeholder="e.g., ," value="," maxlength="3">
+                    <p class="info-text">Character that marks the end of the value (usually comma, semicolon, etc.)</p>
+                </div>
+                <div class="input-group">
+                    <label for="ext-searchvalue-dropdown">Search Value (Preset):</label>
+                    <select id="ext-searchvalue-dropdown">
+                        <option value="">-- Select a preset value --</option>
+                        <option value="ALL">🔥 ALL (Generate formula for each value)</option>
+                        <option value="ACC">ACC</option>
+                        <option value="Safety Button">Safety Button</option>
+                        <option value="Door">Door</option>
+                        <option value="Panic">Panic</option>
+                        <option value="Buzzer">Buzzer</option>
+
+                    </select>
+                    <p class="info-text">Choose a common search term</p>
+                </div>
+
+                <div class="input-group">
+                    <label for="ext-searchvalue-manual">OR Search Value (Manual):</label>
+                    <input type="text" id="ext-searchvalue-manual" placeholder="e.g., ACC or any custom text">
+                    <p class="info-text">Enter a custom value (this overrides the dropdown selection)</p>
+                </div>
+
+
+            </div>
+            <div class="input-group">
+                <label for="ext-error">If Error/NA Text (Optional):</label>
+                <input type="text" id="ext-error" placeholder="e.g., Not Found">
+                <p class="info-text">Value to return if the search fails</p>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="ext-include-searchterm" checked>
+                <label for="ext-include-searchterm">📌 Include search term in result (e.g., "ACC123" vs "123")</label>
+            </div>
+
+            <div class="button-group">
+                <button class="generate-btn" onclick="generateExtractText()">🚀 Generate Extract Formula</button>
+                <button class="reset-btn" onclick="resetForm('ext')">🔄 Reset</button>
+            </div>
+
+            <div class="result-box" id="ext-result">
+                <h3>Generated Formula:</h3>
+                <textarea id="ext-output" readonly></textarea>
+                <button class="copy-btn" onclick="copyToClipboard('ext-output')">📋 Copy Formula</button>
             </div>
         </div>
 
@@ -1113,6 +1173,141 @@
             document.getElementById('vl-result').classList.add('show');
         }
 
+        // Generate Extract Text Formula
+        function generateExtractText() {
+            const cellAddress = document.getElementById('ext-celladdress').value;
+            const searchDropdown = document.getElementById('ext-searchvalue-dropdown').value;
+            const searchManual = document.getElementById('ext-searchvalue-manual').value;
+            const separator = document.getElementById('ext-separator').value;
+            const errorStr = document.getElementById('ext-error').value;
+            const includeSearchTerm = document.getElementById('ext-include-searchterm').checked;
+
+            // Validate required fields
+            if (!cellAddress) {
+                alert('Please enter the cell address!');
+                return;
+            }
+
+            if (!separator) {
+                alert('Please enter a separator character!');
+                return;
+            }
+
+            // Determine which search values to use
+            let searchValues = [];
+
+            if (searchManual.trim()) {
+                // Manual input overrides everything
+                searchValues = [searchManual.trim()];
+            } else if (searchDropdown === 'ALL') {
+                // Generate for all preset values
+                searchValues = ['ACC', 'Safety Button', 'Panic', 'Door', 'Buzzer'];
+            } else if (searchDropdown) {
+                // Single preset value
+                searchValues = [searchDropdown];
+            } else {
+                alert('Please select a preset value or enter a manual search value!');
+                return;
+            }
+
+            // Generate formulas for all search values
+            let allFormulas = [];
+
+            searchValues.forEach((searchValue, index) => {
+                let formula;
+
+                if (includeSearchTerm) {
+                    // Include the search term in the result
+                    formula = `TRIM(MID(${cellAddress},FIND("${searchValue}",${cellAddress}),FIND("${separator}",${cellAddress},FIND("${searchValue}",${cellAddress}))-FIND("${searchValue}",${cellAddress})))`;
+                } else {
+                    // Exclude the search term from the result
+                    const searchLength = searchValue.length;
+                    formula = `TRIM(MID(${cellAddress},FIND("${searchValue}",${cellAddress})+${searchLength},FIND("${separator}",${cellAddress},FIND("${searchValue}",${cellAddress})+${searchLength})-(FIND("${searchValue}",${cellAddress})+${searchLength})))`;
+                }
+
+                formula = `IFNA(IFERROR(${formula},"${errorStr}"),"${errorStr}")`;
+                // Wrap with IFERROR and IFNA if error text is provided
+                // if (errorStr) {
+                //     formula = `IFNA(IFERROR(${formula},"${errorStr}"),"${errorStr}")`;
+                // }
+
+                // Add the = sign at the beginning
+                formula = '=' + formula;
+
+                // Add label if generating multiple formulas
+                if (searchValues.length > 1) {
+                    allFormulas.push(`// Formula for "${searchValue}":`);
+                }
+                allFormulas.push(formula);
+
+                // Add blank line between formulas (except after the last one)
+                if (searchValues.length > 1 && index < searchValues.length - 1) {
+                    allFormulas.push('');
+                }
+            });
+
+            // Join all formulas with line breaks
+            const output = allFormulas.join('\n');
+
+            document.getElementById('ext-output').value = output;
+            document.getElementById('ext-result').classList.add('show');
+        }
+        /**
+        // Generate Extract Text Formula
+        function generateExtractText() {
+            const cellAddress = document.getElementById('ext-celladdress').value;
+            const searchDropdown = document.getElementById('ext-searchvalue-dropdown').value;
+            const searchManual = document.getElementById('ext-searchvalue-manual').value;
+            const separator = document.getElementById('ext-separator').value;
+            const errorStr = document.getElementById('ext-error').value;
+            const includeSearchTerm = document.getElementById('ext-include-searchterm').checked;
+
+            // Validate required fields
+            if (!cellAddress) {
+                alert('Please enter the cell address!');
+                return;
+            }
+
+            // Determine which search value to use (manual overrides dropdown)
+            let searchValue = searchManual.trim() || searchDropdown;
+
+            if (!searchValue) {
+                alert('Please select a preset value or enter a manual search value!');
+                return;
+            }
+
+            if (!separator) {
+                alert('Please enter a separator character!');
+                return;
+            }
+
+            // Build the formula
+            let formula;
+
+            if (includeSearchTerm) {
+                // Include the search term in the result
+                // =TRIM(MID(E2,FIND("ACC",E2),FIND(",",E2,FIND("ACC",E2))-FIND("ACC",E2)))
+                formula = `TRIM(MID(${cellAddress},FIND("${searchValue}",${cellAddress}),FIND("${separator}",${cellAddress},FIND("${searchValue}",${cellAddress}))-FIND("${searchValue}",${cellAddress})))`;
+            } else {
+                // Exclude the search term from the result (start after the search term)
+                const searchLength = searchValue.length;
+                formula = `TRIM(MID(${cellAddress},FIND("${searchValue}",${cellAddress})+${searchLength},FIND("${separator}",${cellAddress},FIND("${searchValue}",${cellAddress})+${searchLength})-(FIND("${searchValue}",${cellAddress})+${searchLength})))`;
+            }
+
+            formula = `IFNA(IFERROR(${formula},"${errorStr}"),"${errorStr}")`;
+
+            // Wrap with IFERROR and IFNA if error text is provided
+            // if (errorStr) {
+            //     formula = `IFNA(IFERROR(${formula},"${errorStr}"),"${errorStr}")`;
+            // }
+          
+            // Add the = sign at the beginning
+            formula = '=' + formula;
+
+            document.getElementById('ext-output').value = formula;
+            document.getElementById('ext-result').classList.add('show');
+        }
+        */
         function generateXLookup() {
             const filePath = document.getElementById('xl-filepath').value;
             const sheetName = document.getElementById('xl-sheetname').value;
