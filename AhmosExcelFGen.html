@@ -62,7 +62,7 @@
             font-size: 1.8em;
             color: #667eea;
             margin-bottom: 20px;
-            border-bottom: 3px solid #667eea;
+            /* border-bottom: 3px solid #667eea;*/
             padding-bottom: 10px;
         }
 
@@ -324,6 +324,87 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
+        /* Expand/Collapse Controls */
+        .expand-controls {
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .expand-control-btn {
+            padding: 12px 30px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .expand-control-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Formula Card Header with Toggle */
+        .formula-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .formula-card-header:hover .formula-title {
+            color: #5568d3;
+        }
+
+        .formula-title {
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-icon {
+            font-size: 1.5em;
+            color: #667eea;
+            transition: transform 0.3s ease;
+            font-weight: bold;
+        }
+
+        .formula-card.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        /* Card Body */
+        .formula-card-body {
+            max-height: 5000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .formula-card.collapsed .formula-card-body {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        /* Animation for smooth collapse */
+        @media (prefers-reduced-motion: reduce) {
+            .formula-card-body {
+                transition: none;
+            }
+        }
+
         @media (max-width: 768px) {
             .grid-2 {
                 grid-template-columns: 1fr;
@@ -357,513 +438,563 @@
             &#x627;&#x644;&#x644;&#x651;&#x64E;&#x647;&#x650;
             &#x627;&#x644;&#x652;&#x639;&#x64E;&#x638;&#x650;&#x64A;&#x645;&#x650;</div>
         <div class="header">
+            <!-- V3.1 -->
             <h1>📊 Excel Formula Generator V3</h1>
             <p class="copyright">© Ahmos. All Rights Reserved.</p>
         </div>
-
+        <div class="expand-controls">
+            <button class="expand-control-btn" onclick="expandAllCards()">
+                ⬇️ Expand All Formulas
+            </button>
+            <button class="expand-control-btn" onclick="collapseAllCards()">
+                ⬆️ Collapse All Formulas
+            </button>
+        </div>
         <!-- TEXTJOIN + FILTER Card -->
         <div class="formula-card">
-            <h2 class="formula-title">🔗 TEXTJOIN + FILTER Formula</h2>
-
-            <div class="input-group">
-                <label for="tj-filepath">Target File Path:</label>
-                <div class="file-input-wrapper">
-                    <input type="text" id="tj-filepath"
-                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
-                    <button class="browse-btn" onclick="browseFile('tj-filepath')">📁 Browse</button>
-                </div>
-                <p class="info-text">Enter the full path to your Excel file or click Browse</p>
+            <div class="formula-card-header" onclick="toggleCard(this)">
+                <h2 class="formula-title">🔗 TEXTJOIN + FILTER Formula</h2>
+                <span class="toggle-icon">▼</span>
             </div>
-
-            <div class="grid-2">
+            <div class="formula-card-body">
                 <div class="input-group">
-                    <label for="tj-sheetname">Sheet Name:</label>
-                    <input type="text" id="tj-sheetname" placeholder="e.g., Sheet1">
+                    <label for="tj-filepath">Target File Path:</label>
+                    <div class="file-input-wrapper">
+                        <input type="text" id="tj-filepath"
+                            placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                        <button class="browse-btn" onclick="browseFile('tj-filepath')">📁 Browse</button>
+                    </div>
+                    <p class="info-text">Enter the full path to your Excel file or click Browse</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="tj-sheetname">Sheet Name:</label>
+                        <input type="text" id="tj-sheetname" placeholder="e.g., Sheet1">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="tj-returncol">Return Column:</label>
+                        <input type="text" id="tj-returncol" placeholder="e.g., B">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="tj-targetcol">Target Column:</label>
+                        <input type="text" id="tj-targetcol" placeholder="e.g., A">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="tj-equalcell">Equal Cell:</label>
+                        <input type="text" id="tj-equalcell" placeholder="e.g., A2">
+                    </div>
                 </div>
 
                 <div class="input-group">
-                    <label for="tj-returncol">Return Column:</label>
-                    <input type="text" id="tj-returncol" placeholder="e.g., B">
-                </div>
-            </div>
-
-            <div class="grid-2">
-                <div class="input-group">
-                    <label for="tj-targetcol">Target Column:</label>
-                    <input type="text" id="tj-targetcol" placeholder="e.g., A">
+                    <label for="tj-error">If Error Text (Optional):</label>
+                    <input type="text" id="tj-error" placeholder="Leave empty or enter an error value to return">
                 </div>
 
-                <div class="input-group">
-                    <label for="tj-equalcell">Equal Cell:</label>
-                    <input type="text" id="tj-equalcell" placeholder="e.g., A2">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="tj-lock" checked>
+                    <label for="tj-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
                 </div>
-            </div>
 
-            <div class="input-group">
-                <label for="tj-error">If Error Text (Optional):</label>
-                <input type="text" id="tj-error" placeholder="Leave empty or enter an error value to return">
-            </div>
+                <div class="button-group">
+                    <button class="generate-btn" onclick="generateTextJoin()">🚀 Generate TEXTJOIN+Filter
+                        Formula</button>
+                    <button class="reset-btn" onclick="resetForm('tj')">🔄 Reset</button>
+                </div>
 
-            <div class="checkbox-group">
-                <input type="checkbox" id="tj-lock" checked>
-                <label for="tj-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
-            </div>
-
-            <div class="button-group">
-                <button class="generate-btn" onclick="generateTextJoin()">🚀 Generate TEXTJOIN+Filter Formula</button>
-                <button class="reset-btn" onclick="resetForm('tj')">🔄 Reset</button>
-            </div>
-
-            <div class="result-box" id="tj-result">
-                <h3>Generated Formula:</h3>
-                <textarea id="tj-output" readonly></textarea>
-                <button class="copy-btn" onclick="copyToClipboard('tj-output')">📋 Copy Formula</button>
+                <div class="result-box" id="tj-result">
+                    <h3>Generated Formula:</h3>
+                    <textarea id="tj-output" readonly></textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('tj-output')">📋 Copy Formula</button>
+                </div>
             </div>
         </div>
 
         <!-- VLOOKUP Card -->
         <div class="formula-card">
-            <h2 class="formula-title">🔍 VLOOKUP Formula</h2>
-
-            <div class="input-group">
-                <label for="vl-filepath">Target File Path:</label>
-                <div class="file-input-wrapper">
-                    <input type="text" id="vl-filepath"
-                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
-                    <button class="browse-btn" onclick="browseFile('vl-filepath')">📁 Browse</button>
-                </div>
-                <small class="info-text">Enter The Data Source Excel file (full path) or click Browse</small>
+            <div class="formula-card-header" onclick="toggleCard(this)">
+                <h2 class="formula-title">🔍 VLOOKUP Formula</h2>
+                <span class="toggle-icon">▼</span>
             </div>
-
-            <div class="grid-2">
+            <div class="formula-card-body">
                 <div class="input-group">
-                    <label for="vl-sheetname">Sheet Name:</label>
-                    <input type="text" id="vl-sheetname" placeholder="e.g., Sheet1">
-                    <small class="info-text">Enter The Data Source Sheet Name</small>
+                    <label for="vl-filepath">Target File Path:</label>
+                    <div class="file-input-wrapper">
+                        <input type="text" id="vl-filepath"
+                            placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                        <button class="browse-btn" onclick="browseFile('vl-filepath')">📁 Browse</button>
+                    </div>
+                    <small class="info-text">Enter The Data Source Excel file (full path) or click Browse</small>
                 </div>
 
-                <div class="input-group">
-                    <label for="vl-lookupcell">Lookup Cell:</label>
-                    <input type="text" id="vl-lookupcell" placeholder="e.g., A2" title="Enter The Cell Value Address">
-                    <small class="info-text">Enter The Cell address you want to lookup using it's value</small>
-                </div>
-            </div>
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="vl-sheetname">Sheet Name:</label>
+                        <input type="text" id="vl-sheetname" placeholder="e.g., Sheet1">
+                        <small class="info-text">Enter The Data Source Sheet Name</small>
+                    </div>
 
-            <div class="grid-2">
-                <div class="input-group">
-                    <label for="vl-range">Table Range:</label>
-                    <input type="text" id="vl-range" placeholder="e.g., A:D or D2:H15"
-                        title="Enter Range and Start with The Comparable Column">
-                    <small class="info-text">The Range Must start with the column which carries the cell Value Like
-                        (A2).</small>
-                </div>
-
-                <div class="input-group">
-                    <label for="vl-colindex">Column Index:</label>
-                    <input type="text" id="vl-colindex" placeholder="e.g., 2 or 2,3,5 or 2,5,3"
-                        pattern="^(\d+(,\d+)*)?$" title="Enter numbers separated by commas">
-                    <small class="info-text">Single number or comma-separated values</small>
+                    <div class="input-group">
+                        <label for="vl-lookupcell">Lookup Cell:</label>
+                        <input type="text" id="vl-lookupcell" placeholder="e.g., A2"
+                            title="Enter The Cell Value Address">
+                        <small class="info-text">Enter The Cell address you want to lookup using it's value</small>
+                    </div>
                 </div>
 
-                <div class="input-group">
-                    <label for="vl-match">Match Type:</label>
-                    <select id="vl-match">
-                        <option value="FALSE">Exact Match (FALSE)</option>
-                        <option value="TRUE">Approximate Match (TRUE)</option>
-                    </select>
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="vl-range">Table Range:</label>
+                        <input type="text" id="vl-range" placeholder="e.g., A:D or D2:H15"
+                            title="Enter Range and Start with The Comparable Column">
+                        <small class="info-text">The Range Must start with the column which carries the cell Value Like
+                            (A2).</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="vl-colindex">Column Index:</label>
+                        <input type="text" id="vl-colindex" placeholder="e.g., 2 or 2,3,5 or 2,5,3"
+                            pattern="^(\d+(,\d+)*)?$" title="Enter numbers separated by commas">
+                        <small class="info-text">Single number or comma-separated values</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="vl-match">Match Type:</label>
+                        <select id="vl-match">
+                            <option value="FALSE">Exact Match (FALSE)</option>
+                            <option value="TRUE">Approximate Match (TRUE)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="vl-error">If Error Text (Optional):</label>
+                        <input type="text" id="vl-error" placeholder="e.g., Not Found or غير موجود">
+                    </div>
                 </div>
 
-                <div class="input-group">
-                    <label for="vl-error">If Error Text (Optional):</label>
-                    <input type="text" id="vl-error" placeholder="e.g., Not Found or غير موجود">
+
+
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="vl-lock" checked>
+                    <label for="vl-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
                 </div>
-            </div>
 
+                <div class="checkbox-group">
+                    <input type="checkbox" id="vl-Code-Ver" checked>
+                    <label for="vl-Code-Ver">🎭 Check To use Ver.1 Code Un-Check For Ver.2</label>
+                </div>
 
+                <div class="button-group">
+                    <button class="generate-btn" onclick="generateVLookup()">🚀 Generate VLOOKUP Formula</button>
+                    <button class="reset-btn" onclick="resetForm('vl')">🔄 Reset</button>
+                </div>
 
-
-            <div class="checkbox-group">
-                <input type="checkbox" id="vl-lock" checked>
-                <label for="vl-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
-            </div>
-
-            <div class="checkbox-group">
-                <input type="checkbox" id="vl-Code-Ver" checked>
-                <label for="vl-Code-Ver">🎭 Check To use Ver.1 Code Un-Check For Ver.2</label>
-            </div>
-
-            <div class="button-group">
-                <button class="generate-btn" onclick="generateVLookup()">🚀 Generate VLOOKUP Formula</button>
-                <button class="reset-btn" onclick="resetForm('vl')">🔄 Reset</button>
-            </div>
-
-            <div class="result-box" id="vl-result">
-                <h3>Generated Formula:</h3>
-                <textarea id="vl-output" readonly></textarea>
-                <button class="copy-btn" onclick="copyToClipboard('vl-output')">📋 Copy Formula</button>
+                <div class="result-box" id="vl-result">
+                    <h3>Generated Formula:</h3>
+                    <textarea id="vl-output" readonly></textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('vl-output')">📋 Copy Formula</button>
+                </div>
             </div>
         </div>
 
         <!-- Extract Text Value Card -->
         <div class="formula-card">
-            <h2 class="formula-title">🔎 Extract Text Value (TRIM + MID + FIND)</h2>
-            <div class="grid-2">
-                <div class="input-group">
-                    <label for="ext-celladdress">Cell Address:</label>
-                    <input type="text" id="ext-celladdress" placeholder="e.g., E2">
-                    <p class="info-text">The cell containing the text to search</p>
+            <div class="formula-card-header" onclick="toggleCard(this)">
+                <h2 class="formula-title">🔎 Extract Text Value (TRIM + MID + FIND)</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="formula-card-body">
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="ext-celladdress">Cell Address:</label>
+                        <input type="text" id="ext-celladdress" placeholder="e.g., E2">
+                        <p class="info-text">The cell containing the text to search</p>
+                    </div>
+                    <div class="input-group">
+                        <label for="ext-separator">Separator Character:</label>
+                        <input type="text" id="ext-separator" placeholder="e.g., ," value="," maxlength="3">
+                        <p class="info-text">Character that marks the end of the value (usually comma, semicolon, etc.)
+                        </p>
+                    </div>
+                    <div class="input-group">
+                        <label for="ext-searchvalue-dropdown">Search Value (Preset):</label>
+                        <select id="ext-searchvalue-dropdown">
+                            <option value="">-- Select a preset value --</option>
+                            <option value="ALL">🔥 ALL (Generate formula for each value)</option>
+                            <option value="ACC">ACC</option>
+                            <option value="Safety Button">Safety Button</option>
+                            <option value="Door">Door</option>
+                            <option value="Panic">Panic</option>
+                            <option value="Buzzer">Buzzer</option>
+
+                        </select>
+                        <p class="info-text">Choose a common search term</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="ext-searchvalue-manual">OR Search Value (Manual):</label>
+                        <input type="text" id="ext-searchvalue-manual" placeholder="e.g., ACC or any custom text">
+                        <p class="info-text">Enter a custom value (this overrides the dropdown selection)</p>
+                    </div>
+
+
                 </div>
                 <div class="input-group">
-                    <label for="ext-separator">Separator Character:</label>
-                    <input type="text" id="ext-separator" placeholder="e.g., ," value="," maxlength="3">
-                    <p class="info-text">Character that marks the end of the value (usually comma, semicolon, etc.)</p>
-                </div>
-                <div class="input-group">
-                    <label for="ext-searchvalue-dropdown">Search Value (Preset):</label>
-                    <select id="ext-searchvalue-dropdown">
-                        <option value="">-- Select a preset value --</option>
-                        <option value="ALL">🔥 ALL (Generate formula for each value)</option>
-                        <option value="ACC">ACC</option>
-                        <option value="Safety Button">Safety Button</option>
-                        <option value="Door">Door</option>
-                        <option value="Panic">Panic</option>
-                        <option value="Buzzer">Buzzer</option>
-
-                    </select>
-                    <p class="info-text">Choose a common search term</p>
+                    <label for="ext-error">If Error/NA Text (Optional):</label>
+                    <input type="text" id="ext-error" placeholder="e.g., Not Found">
+                    <p class="info-text">Value to return if the search fails</p>
                 </div>
 
-                <div class="input-group">
-                    <label for="ext-searchvalue-manual">OR Search Value (Manual):</label>
-                    <input type="text" id="ext-searchvalue-manual" placeholder="e.g., ACC or any custom text">
-                    <p class="info-text">Enter a custom value (this overrides the dropdown selection)</p>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="ext-include-searchterm" checked>
+                    <label for="ext-include-searchterm">📌 Include search term in result (e.g., "ACC123" vs
+                        "123")</label>
                 </div>
 
+                <div class="button-group">
+                    <button class="generate-btn" onclick="generateExtractText()">🚀 Generate Extract Formula</button>
+                    <button class="reset-btn" onclick="resetForm('ext')">🔄 Reset</button>
+                </div>
 
-            </div>
-            <div class="input-group">
-                <label for="ext-error">If Error/NA Text (Optional):</label>
-                <input type="text" id="ext-error" placeholder="e.g., Not Found">
-                <p class="info-text">Value to return if the search fails</p>
-            </div>
-
-            <div class="checkbox-group">
-                <input type="checkbox" id="ext-include-searchterm" checked>
-                <label for="ext-include-searchterm">📌 Include search term in result (e.g., "ACC123" vs "123")</label>
-            </div>
-
-            <div class="button-group">
-                <button class="generate-btn" onclick="generateExtractText()">🚀 Generate Extract Formula</button>
-                <button class="reset-btn" onclick="resetForm('ext')">🔄 Reset</button>
-            </div>
-
-            <div class="result-box" id="ext-result">
-                <h3>Generated Formula:</h3>
-                <textarea id="ext-output" readonly></textarea>
-                <button class="copy-btn" onclick="copyToClipboard('ext-output')">📋 Copy Formula</button>
+                <div class="result-box" id="ext-result">
+                    <h3>Generated Formula:</h3>
+                    <textarea id="ext-output" readonly></textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('ext-output')">📋 Copy Formula</button>
+                </div>
             </div>
         </div>
 
         <!-- XLOOKUP Card -->
         <div class="formula-card" style="display: none;">
-            <h2 class="formula-title">⚡ XLOOKUP Formula</h2>
-
-            <div class="input-group">
-                <label for="xl-filepath">Target File Path:</label>
-                <div class="file-input-wrapper">
-                    <input type="text" id="xl-filepath"
-                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
-                    <button class="browse-btn" onclick="browseFile('xl-filepath')">📁 Browse</button>
-                </div>
+            <div class="formula-card-header" onclick="toggleCard(this)">
+                <h2 class="formula-title">⚡ XLOOKUP Formula</h2>
+                <span class="toggle-icon">▼</span>
             </div>
-
-            <div class="grid-2">
+            <div class="formula-card-body">
                 <div class="input-group">
-                    <label for="xl-sheetname">Sheet Name:</label>
-                    <input type="text" id="xl-sheetname" placeholder="e.g., Sheet1">
+                    <label for="xl-filepath">Target File Path:</label>
+                    <div class="file-input-wrapper">
+                        <input type="text" id="xl-filepath"
+                            placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                        <button class="browse-btn" onclick="browseFile('xl-filepath')">📁 Browse</button>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="xl-sheetname">Sheet Name:</label>
+                        <input type="text" id="xl-sheetname" placeholder="e.g., Sheet1">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="xl-lookupcell">Lookup Cell:</label>
+                        <input type="text" id="xl-lookupcell" placeholder="e.g., A2">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="xl-lookuparray">Lookup Array:</label>
+                        <input type="text" id="xl-lookuparray" placeholder="e.g., A:A">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="xl-returnarray">Return Array:</label>
+                        <input type="text" id="xl-returnarray" placeholder="e.g., B:B">
+                    </div>
                 </div>
 
                 <div class="input-group">
-                    <label for="xl-lookupcell">Lookup Cell:</label>
-                    <input type="text" id="xl-lookupcell" placeholder="e.g., A2">
-                </div>
-            </div>
-
-            <div class="grid-2">
-                <div class="input-group">
-                    <label for="xl-lookuparray">Lookup Array:</label>
-                    <input type="text" id="xl-lookuparray" placeholder="e.g., A:A">
+                    <label for="xl-notfound">If Not Found (Optional):</label>
+                    <input type="text" id="xl-notfound" placeholder="e.g., Not Found">
                 </div>
 
-                <div class="input-group">
-                    <label for="xl-returnarray">Return Array:</label>
-                    <input type="text" id="xl-returnarray" placeholder="e.g., B:B">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="xl-lock" checked>
+                    <label for="xl-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
                 </div>
-            </div>
 
-            <div class="input-group">
-                <label for="xl-notfound">If Not Found (Optional):</label>
-                <input type="text" id="xl-notfound" placeholder="e.g., Not Found">
-            </div>
+                <div class="button-group">
+                    <button class="generate-btn" onclick="generateXLookup()">🚀 Generate XLOOKUP Formula</button>
+                    <button class="reset-btn" onclick="resetForm('xl')">🔄 Reset</button>
+                </div>
 
-            <div class="checkbox-group">
-                <input type="checkbox" id="xl-lock" checked>
-                <label for="xl-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
-            </div>
-
-            <div class="button-group">
-                <button class="generate-btn" onclick="generateXLookup()">🚀 Generate XLOOKUP Formula</button>
-                <button class="reset-btn" onclick="resetForm('xl')">🔄 Reset</button>
-            </div>
-
-            <div class="result-box" id="xl-result">
-                <h3>Generated Formula:</h3>
-                <textarea id="xl-output" readonly></textarea>
-                <button class="copy-btn" onclick="copyToClipboard('xl-output')">📋 Copy Formula</button>
+                <div class="result-box" id="xl-result">
+                    <h3>Generated Formula:</h3>
+                    <textarea id="xl-output" readonly></textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('xl-output')">📋 Copy Formula</button>
+                </div>
             </div>
         </div>
 
         <!-- INDEX + MATCH Card -->
         <div class="formula-card" style="display: none;">
-            <h2 class="formula-title">🎯 INDEX + MATCH Formula</h2>
-
-            <div class="input-group">
-                <label for="im-filepath">Target File Path:</label>
-                <div class="file-input-wrapper">
-                    <input type="text" id="im-filepath"
-                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
-                    <button class="browse-btn" onclick="browseFile('im-filepath')">📁 Browse</button>
-                </div>
+            <div class="formula-card-header" onclick="toggleCard(this)">
+                <h2 class="formula-title">🎯 INDEX + MATCH Formula</h2>
+                <span class="toggle-icon">▼</span>
             </div>
-
-            <div class="grid-2">
-                <div class="input-group">
-                    <label for="im-sheetname">Sheet Name:</label>
-                    <input type="text" id="im-sheetname" placeholder="e.g., Sheet1">
-                </div>
+            <div class="formula-card-body">
 
                 <div class="input-group">
-                    <label for="im-lookupcell">Lookup Cell:</label>
-                    <input type="text" id="im-lookupcell" placeholder="e.g., A2">
+                    <label for="im-filepath">Target File Path:</label>
+                    <div class="file-input-wrapper">
+                        <input type="text" id="im-filepath"
+                            placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                        <button class="browse-btn" onclick="browseFile('im-filepath')">📁 Browse</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="grid-2">
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="im-sheetname">Sheet Name:</label>
+                        <input type="text" id="im-sheetname" placeholder="e.g., Sheet1">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="im-lookupcell">Lookup Cell:</label>
+                        <input type="text" id="im-lookupcell" placeholder="e.g., A2">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="im-returnarray">Return Array:</label>
+                        <input type="text" id="im-returnarray" placeholder="e.g., B:B">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="im-lookuparray">Lookup Array:</label>
+                        <input type="text" id="im-lookuparray" placeholder="e.g., A:A">
+                    </div>
+                </div>
+
                 <div class="input-group">
-                    <label for="im-returnarray">Return Array:</label>
-                    <input type="text" id="im-returnarray" placeholder="e.g., B:B">
+                    <label for="im-match">Match Type:</label>
+                    <select id="im-match">
+                        <option value="0">Exact Match (0)</option>
+                        <option value="1">Less Than (1)</option>
+                        <option value="-1">Greater Than (-1)</option>
+                    </select>
                 </div>
 
                 <div class="input-group">
-                    <label for="im-lookuparray">Lookup Array:</label>
-                    <input type="text" id="im-lookuparray" placeholder="e.g., A:A">
+                    <label for="im-error">If Error Text (Optional):</label>
+                    <input type="text" id="im-error" placeholder="e.g., Not Found">
                 </div>
-            </div>
 
-            <div class="input-group">
-                <label for="im-match">Match Type:</label>
-                <select id="im-match">
-                    <option value="0">Exact Match (0)</option>
-                    <option value="1">Less Than (1)</option>
-                    <option value="-1">Greater Than (-1)</option>
-                </select>
-            </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="im-lock" checked>
+                    <label for="im-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
+                </div>
 
-            <div class="input-group">
-                <label for="im-error">If Error Text (Optional):</label>
-                <input type="text" id="im-error" placeholder="e.g., Not Found">
-            </div>
+                <div class="button-group">
+                    <button class="generate-btn" onclick="generateIndexMatch()">🚀 Generate INDEX+MATCH Formula</button>
+                    <button class="reset-btn" onclick="resetForm('im')">🔄 Reset</button>
+                </div>
 
-            <div class="checkbox-group">
-                <input type="checkbox" id="im-lock" checked>
-                <label for="im-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
-            </div>
-
-            <div class="button-group">
-                <button class="generate-btn" onclick="generateIndexMatch()">🚀 Generate INDEX+MATCH Formula</button>
-                <button class="reset-btn" onclick="resetForm('im')">🔄 Reset</button>
-            </div>
-
-            <div class="result-box" id="im-result">
-                <h3>Generated Formula:</h3>
-                <textarea id="im-output" readonly></textarea>
-                <button class="copy-btn" onclick="copyToClipboard('im-output')">📋 Copy Formula</button>
+                <div class="result-box" id="im-result">
+                    <h3>Generated Formula:</h3>
+                    <textarea id="im-output" readonly></textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('im-output')">📋 Copy Formula</button>
+                </div>
             </div>
         </div>
 
         <!-- SUMIF Card -->
         <div class="formula-card" style="display: none;">
-            <h2 class="formula-title">➕ SUMIF Formula</h2>
-
-            <div class="input-group">
-                <label for="sf-filepath">Target File Path:</label>
-                <div class="file-input-wrapper">
-                    <input type="text" id="sf-filepath"
-                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
-                    <button class="browse-btn" onclick="browseFile('sf-filepath')">📁 Browse</button>
-                </div>
+            <div class="formula-card-header" onclick="toggleCard(this)">
+                <h2 class="formula-title">➕ SUMIF Formula</h2>
+                <span class="toggle-icon">▼</span>
             </div>
-
-            <div class="grid-2">
-                <div class="input-group">
-                    <label for="sf-sheetname">Sheet Name:</label>
-                    <input type="text" id="sf-sheetname" placeholder="e.g., Sheet1">
-                </div>
+            <div class="formula-card-body">
 
                 <div class="input-group">
-                    <label for="sf-range">Range to Check:</label>
-                    <input type="text" id="sf-range" placeholder="e.g., A:A">
+                    <label for="sf-filepath">Target File Path:</label>
+                    <div class="file-input-wrapper">
+                        <input type="text" id="sf-filepath"
+                            placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                        <button class="browse-btn" onclick="browseFile('sf-filepath')">📁 Browse</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="grid-2">
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="sf-sheetname">Sheet Name:</label>
+                        <input type="text" id="sf-sheetname" placeholder="e.g., Sheet1">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="sf-range">Range to Check:</label>
+                        <input type="text" id="sf-range" placeholder="e.g., A:A">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="sf-criteria">Criteria Cell:</label>
+                        <input type="text" id="sf-criteria" placeholder="e.g., A2">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="sf-sumrange">Sum Range:</label>
+                        <input type="text" id="sf-sumrange" placeholder="e.g., B:B">
+                    </div>
+                </div>
+
                 <div class="input-group">
-                    <label for="sf-criteria">Criteria Cell:</label>
-                    <input type="text" id="sf-criteria" placeholder="e.g., A2">
+                    <label for="sf-error">If Error Text (Optional):</label>
+                    <input type="text" id="sf-error" placeholder="e.g., 0">
                 </div>
 
-                <div class="input-group">
-                    <label for="sf-sumrange">Sum Range:</label>
-                    <input type="text" id="sf-sumrange" placeholder="e.g., B:B">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="sf-lock" checked>
+                    <label for="sf-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
                 </div>
-            </div>
 
-            <div class="input-group">
-                <label for="sf-error">If Error Text (Optional):</label>
-                <input type="text" id="sf-error" placeholder="e.g., 0">
-            </div>
+                <div class="button-group">
+                    <button class="generate-btn" onclick="generateSumIf()">🚀 Generate SUMIF Formula</button>
+                    <button class="reset-btn" onclick="resetForm('sf')">🔄 Reset</button>
+                </div>
 
-            <div class="checkbox-group">
-                <input type="checkbox" id="sf-lock" checked>
-                <label for="sf-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
-            </div>
-
-            <div class="button-group">
-                <button class="generate-btn" onclick="generateSumIf()">🚀 Generate SUMIF Formula</button>
-                <button class="reset-btn" onclick="resetForm('sf')">🔄 Reset</button>
-            </div>
-
-            <div class="result-box" id="sf-result">
-                <h3>Generated Formula:</h3>
-                <textarea id="sf-output" readonly></textarea>
-                <button class="copy-btn" onclick="copyToClipboard('sf-output')">📋 Copy Formula</button>
+                <div class="result-box" id="sf-result">
+                    <h3>Generated Formula:</h3>
+                    <textarea id="sf-output" readonly></textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('sf-output')">📋 Copy Formula</button>
+                </div>
             </div>
         </div>
 
         <!-- COUNTIF Card -->
         <div class="formula-card" style="display: none;">
-            <h2 class="formula-title">🔢 COUNTIF Formula</h2>
-
-            <div class="input-group">
-                <label for="cf-filepath">Target File Path:</label>
-                <div class="file-input-wrapper">
-                    <input type="text" id="cf-filepath"
-                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
-                    <button class="browse-btn" onclick="browseFile('cf-filepath')">📁 Browse</button>
-                </div>
+            <div class="formula-card-header" onclick="toggleCard(this)">
+                <h2 class="formula-title">🔢 COUNTIF Formula</h2>
+                <span class="toggle-icon">▼</span>
             </div>
-
-            <div class="grid-2">
-                <div class="input-group">
-                    <label for="cf-sheetname">Sheet Name:</label>
-                    <input type="text" id="cf-sheetname" placeholder="e.g., Sheet1">
-                </div>
+            <div class="formula-card-body">
 
                 <div class="input-group">
-                    <label for="cf-range">Range to Count:</label>
-                    <input type="text" id="cf-range" placeholder="e.g., A:A">
+                    <label for="cf-filepath">Target File Path:</label>
+                    <div class="file-input-wrapper">
+                        <input type="text" id="cf-filepath"
+                            placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                        <button class="browse-btn" onclick="browseFile('cf-filepath')">📁 Browse</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="input-group">
-                <label for="cf-criteria">Criteria Cell:</label>
-                <input type="text" id="cf-criteria" placeholder="e.g., A2">
-            </div>
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="cf-sheetname">Sheet Name:</label>
+                        <input type="text" id="cf-sheetname" placeholder="e.g., Sheet1">
+                    </div>
 
-            <div class="input-group">
-                <label for="cf-error">If Error Text (Optional):</label>
-                <input type="text" id="cf-error" placeholder="e.g., 0">
-            </div>
+                    <div class="input-group">
+                        <label for="cf-range">Range to Count:</label>
+                        <input type="text" id="cf-range" placeholder="e.g., A:A">
+                    </div>
+                </div>
 
-            <div class="checkbox-group">
-                <input type="checkbox" id="cf-lock" checked>
-                <label for="cf-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
-            </div>
+                <div class="input-group">
+                    <label for="cf-criteria">Criteria Cell:</label>
+                    <input type="text" id="cf-criteria" placeholder="e.g., A2">
+                </div>
 
-            <div class="button-group">
-                <button class="generate-btn" onclick="generateCountIf()">🚀 Generate COUNTIF Formula</button>
-                <button class="reset-btn" onclick="resetForm('cf')">🔄 Reset</button>
-            </div>
+                <div class="input-group">
+                    <label for="cf-error">If Error Text (Optional):</label>
+                    <input type="text" id="cf-error" placeholder="e.g., 0">
+                </div>
 
-            <div class="result-box" id="cf-result">
-                <h3>Generated Formula:</h3>
-                <textarea id="cf-output" readonly></textarea>
-                <button class="copy-btn" onclick="copyToClipboard('cf-output')">📋 Copy Formula</button>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="cf-lock" checked>
+                    <label for="cf-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
+                </div>
+
+                <div class="button-group">
+                    <button class="generate-btn" onclick="generateCountIf()">🚀 Generate COUNTIF Formula</button>
+                    <button class="reset-btn" onclick="resetForm('cf')">🔄 Reset</button>
+                </div>
+
+                <div class="result-box" id="cf-result">
+                    <h3>Generated Formula:</h3>
+                    <textarea id="cf-output" readonly></textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('cf-output')">📋 Copy Formula</button>
+                </div>
             </div>
         </div>
 
+
         <!-- SUMIFS Card -->
         <div class="formula-card" style="display: none;">
-            <h2 class="formula-title">➕✖️ SUMIFS Formula (Multiple Criteria)</h2>
-
-            <div class="input-group">
-                <label for="sfs-filepath">Target File Path:</label>
-                <div class="file-input-wrapper">
-                    <input type="text" id="sfs-filepath"
-                        placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
-                    <button class="browse-btn" onclick="browseFile('sfs-filepath')">📁 Browse</button>
-                </div>
+            <div class="formula-card-header" onclick="toggleCard(this)">
+                <h2 class="formula-title">➕✖️ SUMIFS Formula (Multiple Criteria)</h2>
+                <span class="toggle-icon">▼</span>
             </div>
-
-            <div class="grid-2">
-                <div class="input-group">
-                    <label for="sfs-sheetname">Sheet Name:</label>
-                    <input type="text" id="sfs-sheetname" placeholder="e.g., Sheet1">
-                </div>
+            <div class="formula-card-body">
 
                 <div class="input-group">
-                    <label for="sfs-sumrange">Sum Range:</label>
-                    <input type="text" id="sfs-sumrange" placeholder="e.g., C:C">
+                    <label for="sfs-filepath">Target File Path:</label>
+                    <div class="file-input-wrapper">
+                        <input type="text" id="sfs-filepath"
+                            placeholder="e.g., C:\Data\myfile.xlsx or (myfile.xlsx if already opened)">
+                        <button class="browse-btn" onclick="browseFile('sfs-filepath')">📁 Browse</button>
+                    </div>
                 </div>
-            </div>
 
-            <div id="sfs-criteria-container">
-                <div class="criteria-group">
-                    <div class="grid-2">
-                        <div class="input-group">
-                            <label>Criteria Range 1:</label>
-                            <input type="text" class="sfs-range" placeholder="e.g., A:A">
-                        </div>
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="sfs-sheetname">Sheet Name:</label>
+                        <input type="text" id="sfs-sheetname" placeholder="e.g., Sheet1">
+                    </div>
 
-                        <div class="input-group">
-                            <label>Criteria Cell 1:</label>
-                            <input type="text" class="sfs-criteria" placeholder="e.g., A2">
+                    <div class="input-group">
+                        <label for="sfs-sumrange">Sum Range:</label>
+                        <input type="text" id="sfs-sumrange" placeholder="e.g., C:C">
+                    </div>
+                </div>
+
+                <div id="sfs-criteria-container">
+                    <div class="criteria-group">
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Criteria Range 1:</label>
+                                <input type="text" class="sfs-range" placeholder="e.g., A:A">
+                            </div>
+
+                            <div class="input-group">
+                                <label>Criteria Cell 1:</label>
+                                <input type="text" class="sfs-criteria" placeholder="e.g., A2">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <button class="add-criteria-btn" onclick="addSumIfsCriteria()">➕ Add More Criteria</button>
+                <button class="add-criteria-btn" onclick="addSumIfsCriteria()">➕ Add More Criteria</button>
 
-            <div class="input-group">
-                <label for="sfs-error">If Error Text (Optional):</label>
-                <input type="text" id="sfs-error" placeholder="e.g., 0">
-            </div>
+                <div class="input-group">
+                    <label for="sfs-error">If Error Text (Optional):</label>
+                    <input type="text" id="sfs-error" placeholder="e.g., 0">
+                </div>
 
-            <div class="checkbox-group">
-                <input type="checkbox" id="sfs-lock" checked>
-                <label for="sfs-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
-            </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="sfs-lock" checked>
+                    <label for="sfs-lock">🔒 Lock table ranges with $ (Absolute Reference)</label>
+                </div>
 
-            <div class="button-group">
-                <button class="generate-btn" onclick="generateSumIfs()">🚀 Generate SUMIFS Formula</button>
-                <button class="reset-btn" onclick="resetForm('sfs')">🔄 Reset</button>
-            </div>
+                <div class="button-group">
+                    <button class="generate-btn" onclick="generateSumIfs()">🚀 Generate SUMIFS Formula</button>
+                    <button class="reset-btn" onclick="resetForm('sfs')">🔄 Reset</button>
+                </div>
 
-            <div class="result-box" id="sfs-result">
-                <h3>Generated Formula:</h3>
-                <textarea id="sfs-output" readonly></textarea>
-                <button class="copy-btn" onclick="copyToClipboard('sfs-output')">📋 Copy Formula</button>
+                <div class="result-box" id="sfs-result">
+                    <h3>Generated Formula:</h3>
+                    <textarea id="sfs-output" readonly></textarea>
+                    <button class="copy-btn" onclick="copyToClipboard('sfs-output')">📋 Copy Formula</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1536,6 +1667,70 @@
                 btn.style.background = '';
             }, 2000);
         }
+
+
+        // Toggle individual card
+        function toggleCard(headerElement) {
+            const card = headerElement.closest('.formula-card');
+            card.classList.toggle('collapsed');
+
+            // Store collapse state in localStorage
+            saveCardStates();
+        }
+
+        // Expand all cards
+        function expandAllCards() {
+            const cards = document.querySelectorAll('.formula-card');
+            cards.forEach(card => {
+                card.classList.remove('collapsed');
+            });
+            saveCardStates();
+        }
+
+        // Collapse all cards
+        function collapseAllCards() {
+            const cards = document.querySelectorAll('.formula-card');
+            cards.forEach(card => {
+                card.classList.add('collapsed');
+            });
+            saveCardStates();
+        }
+
+        // Save card states to localStorage
+        function saveCardStates() {
+            const cards = document.querySelectorAll('.formula-card');
+            const states = [];
+
+            cards.forEach((card, index) => {
+                states.push({
+                    index: index,
+                    collapsed: card.classList.contains('collapsed')
+                });
+            });
+
+            localStorage.setItem('formulaCardStates', JSON.stringify(states));
+        }
+
+        // Load card states from localStorage
+        function loadCardStates() {
+            const savedStates = localStorage.getItem('formulaCardStates');
+
+            if (savedStates) {
+                const states = JSON.parse(savedStates);
+                const cards = document.querySelectorAll('.formula-card');
+
+                states.forEach(state => {
+                    if (cards[state.index] && state.collapsed) {
+                        cards[state.index].classList.add('collapsed');
+                    }
+                });
+            }
+        }
+
+        // Load saved states when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            loadCardStates();
+        });
     </script>
 </body>
 
