@@ -7,27 +7,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>" type="image/svg+xml" />
     <style>
+        /* ===== THEME: EMBER (default - orange & black) ===== */
         :root{
-            --color-sobhan:#0ce5e9;--bg:#1e1e2e;--text:#cdd6f4;--primary:#89b4fa;--secondary:#fd930a;
-            --box:#313244;--btn:#45475a;--btn-h:#585b70;--key:#29f4f5;--str:#a6e3a1;--num:#f9e2af;
-            --bool:#fab387;--nul:#f38ba8;--punc:#fff;--opt:#fa62fc;--ln-bg:#2a2b3d;--ln:#6c7086;
-            --err-bg:#f38ba8;--err-tx:#1e1e2e;--border:#585b70;
-            --tree-hov:rgba(137,180,250,.06);--tree-sel:rgba(137,180,250,.12);
-            --modal-bg:rgba(0,0,0,.65);--modal:#313244;
-            --green:#a6e3a1;--red:#f38ba8;--yellow:#f9e2af;
-            --diff-add-bg:rgba(166,227,161,.13);--diff-add-b:#a6e3a1;
-            --diff-rm-bg:rgba(243,139,168,.13);--diff-rm-b:#f38ba8;
-            --diff-ch-bg:rgba(249,226,175,.13);--diff-ch-b:#f9e2af;
+            --color-sobhan:#ff8c00;--bg:#111111;--text:#e8e0d8;--primary:#ff7a00;--secondary:#ffab40;
+            --box:#1a1a1a;--btn:#2a2a2a;--btn-h:#3a3a3a;--key:#ffb74d;--str:#c5e1a5;--num:#ffe082;
+            --bool:#ffab91;--nul:#ef9a9a;--punc:#e0e0e0;--opt:#ff8a65;--ln-bg:#181818;--ln:#666;
+            --err-bg:#ef5350;--err-tx:#fff;--border:#333;
+            --tree-hov:rgba(255,122,0,.06);--tree-sel:rgba(255,122,0,.12);
+            --modal-bg:rgba(0,0,0,.75);--modal:#1e1e1e;
+            --green:#c5e1a5;--red:#ef9a9a;--yellow:#ffe082;
+            --diff-add-bg:rgba(197,225,165,.10);--diff-add-b:#c5e1a5;
+            --diff-rm-bg:rgba(239,154,154,.10);--diff-rm-b:#ef9a9a;
+            --diff-ch-bg:rgba(255,224,130,.10);--diff-ch-b:#ffe082;
         }
-        .light-theme{
-            --bg:#f5f5f5;--text:#333;--primary:#1e88e5;--secondary:#8c042f;--box:#fff;--btn:#e0e0e0;--btn-h:#bdbdbd;
-            --key:#030001;--str:#2e7d32;--num:#f57c00;--bool:#d84315;--nul:#c2185b;--punc:#000;--opt:#e40953;
-            --ln-bg:#f0f0f0;--ln:#666;--err-bg:#ffebee;--err-tx:#c62828;--border:#ccc;
-            --tree-hov:rgba(30,136,229,.06);--tree-sel:rgba(30,136,229,.12);
-            --modal-bg:rgba(0,0,0,.4);--modal:#fff;
-            --diff-add-bg:rgba(46,125,50,.10);--diff-add-b:#2e7d32;
-            --diff-rm-bg:rgba(198,40,40,.10);--diff-rm-b:#c62828;
-            --diff-ch-bg:rgba(245,124,0,.10);--diff-ch-b:#f57c00;
+        /* ===== THEME: OCEAN TEAL ===== */
+        .theme-ocean{
+            --color-sobhan:#00bcd4;--bg:#0d1b2a;--text:#b0c4de;--primary:#00acc1;--secondary:#26c6da;
+            --box:#1b2838;--btn:#243447;--btn-h:#2e4459;--key:#4dd0e1;--str:#80cbc4;--num:#80deea;
+            --bool:#4fc3f7;--nul:#ef9a9a;--punc:#cfd8dc;--opt:#4dd0e1;--ln-bg:#111d2b;--ln:#546e7a;
+            --err-bg:#e57373;--err-tx:#fff;--border:#37474f;
+            --tree-hov:rgba(0,172,193,.06);--tree-sel:rgba(0,172,193,.12);
+            --modal-bg:rgba(0,0,0,.7);--modal:#1b2838;
+            --green:#80cbc4;--red:#ef9a9a;--yellow:#ffe082;
+            --diff-add-bg:rgba(128,203,196,.10);--diff-add-b:#80cbc4;
+            --diff-rm-bg:rgba(239,154,154,.10);--diff-rm-b:#ef9a9a;
+            --diff-ch-bg:rgba(255,224,130,.10);--diff-ch-b:#ffe082;
+        }
+        /* ===== THEME: SAKURA (light pink/rose) ===== */
+        .theme-sakura{
+            --color-sobhan:#e91e63;--bg:#fef6f8;--text:#4a3347;--primary:#e91e63;--secondary:#ad1457;
+            --box:#fff;--btn:#fce4ec;--btn-h:#f8bbd0;--key:#c2185b;--str:#2e7d32;--num:#e65100;
+            --bool:#d84315;--nul:#9c27b0;--punc:#555;--opt:#e91e63;--ln-bg:#fdf0f4;--ln:#b07d94;
+            --err-bg:#ffebee;--err-tx:#c62828;--border:#f3cdd8;
+            --tree-hov:rgba(233,30,99,.06);--tree-sel:rgba(233,30,99,.10);
+            --modal-bg:rgba(0,0,0,.35);--modal:#fff;
+            --green:#66bb6a;--red:#ef5350;--yellow:#ffa726;
+            --diff-add-bg:rgba(102,187,106,.10);--diff-add-b:#66bb6a;
+            --diff-rm-bg:rgba(239,83,80,.10);--diff-rm-b:#ef5350;
+            --diff-ch-bg:rgba(255,167,38,.10);--diff-ch-b:#ffa726;
+        }
+        /* ===== THEME: MIDNIGHT (deep blue) ===== */
+        .theme-midnight{
+            --color-sobhan:#7c4dff;--bg:#0a0e27;--text:#c5cae9;--primary:#7c4dff;--secondary:#b388ff;
+            --box:#121838;--btn:#1e2650;--btn-h:#2a3570;--key:#b388ff;--str:#69f0ae;--num:#ffff8d;
+            --bool:#ff8a80;--nul:#ea80fc;--punc:#e8eaf6;--opt:#82b1ff;--ln-bg:#0e122e;--ln:#5c6bc0;
+            --err-bg:#ff5252;--err-tx:#fff;--border:#3949ab;
+            --tree-hov:rgba(124,77,255,.06);--tree-sel:rgba(124,77,255,.12);
+            --modal-bg:rgba(0,0,0,.75);--modal:#121838;
+            --green:#69f0ae;--red:#ff8a80;--yellow:#ffff8d;
+            --diff-add-bg:rgba(105,240,174,.10);--diff-add-b:#69f0ae;
+            --diff-rm-bg:rgba(255,138,128,.10);--diff-rm-b:#ff8a80;
+            --diff-ch-bg:rgba(255,255,141,.10);--diff-ch-b:#ffff8d;
         }
         *{margin:0;padding:0;box-sizing:border-box;}
         body,.page-wrapper,header,.mode-tabs,.arabic-text,footer{transition:background .3s,color .3s;}
@@ -43,14 +73,25 @@
         .mode-tabs{display:flex;background:var(--btn);border-radius:8px;padding:3px;}
         .mode-tab{padding:7px 14px;border:none;background:0;color:var(--text);cursor:pointer;border-radius:6px;font-weight:600;font-size:13px;transition:all .2s;display:flex;align-items:center;gap:5px;}
         .mode-tab:hover{background:var(--btn-h);}
-        .mode-tab.active{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(137,180,250,.3);}
+        .mode-tab.active{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.25);}
         .mode-tab svg{width:15px;height:15px;}
 
         /* BUTTONS */
-        button{background:var(--btn);color:var(--text);border:none;padding:5px 10px;border-radius:4px;cursor:pointer;transition:background .15s;font-size:13px;white-space:nowrap;}
+        button{background:var(--btn);color:var(--text);border:none;padding:5px 10px;border-radius:4px;cursor:pointer;transition:background .15s,color .3s,box-shadow .3s;font-size:13px;white-space:nowrap;}
         button:hover:not(:disabled){background:var(--btn-h);}
         button:disabled{opacity:.5;cursor:not-allowed;}
         select,input[type="checkbox"]{background:var(--btn);color:var(--text);border:none;padding:4px 8px;border-radius:4px;font-size:12px;}
+
+        /* THEME PICKER */
+        .theme-picker{display:flex;align-items:center;gap:6px;background:var(--btn);border-radius:6px;padding:3px;}
+        .theme-dot{width:18px;height:18px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .2s;position:relative;flex-shrink:0;}
+        .theme-dot:hover{transform:scale(1.15);}
+        .theme-dot.active{border-color:var(--text);box-shadow:0 0 8px rgba(255,255,255,.2);}
+        .theme-dot[data-t="ember"]{background:linear-gradient(135deg,#ff7a00,#ffab40);}
+        .theme-dot[data-t="ocean"]{background:linear-gradient(135deg,#00acc1,#26c6da);}
+        .theme-dot[data-t="sakura"]{background:linear-gradient(135deg,#e91e63,#f48fb1);}
+        .theme-dot[data-t="midnight"]{background:linear-gradient(135deg,#7c4dff,#b388ff);}
+        .theme-label{font-size:11px;font-weight:600;opacity:.7;margin-right:2px;user-select:none;}
 
         /* CONTROLS */
         .main-controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;flex-wrap:wrap;}
@@ -74,7 +115,7 @@
         .fbar{display:flex;align-items:center;gap:5px;background:var(--btn);border-radius:5px;padding:2px 7px;height:26px;flex-shrink:0;}
         .fbar-l{font-size:12px;opacity:.7;user-select:none;}
         .fslider{-webkit-appearance:none;appearance:none;width:48px;height:3px;background:rgba(255,255,255,.15);outline:none;border-radius:2px;}
-        .light-theme .fslider{background:rgba(0,0,0,.12);}
+        .theme-sakura .fslider{background:rgba(0,0,0,.12);}
         .fslider::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;background:var(--primary);cursor:pointer;border-radius:50%;border:none;}
         .fslider::-moz-range-thumb{width:12px;height:12px;background:var(--primary);cursor:pointer;border-radius:50%;border:none;}
         .fval{font-size:10px;min-width:22px;text-align:center;background:rgba(255,255,255,.08);border-radius:3px;padding:1px 3px;color:var(--ln);font-weight:600;}
@@ -212,7 +253,7 @@
         .dline.dsep{background:var(--btn);justify-content:center;padding:3px 0;font-size:10px;color:var(--ln);}
 
         /* ARABIC */
-        .arabic-text{font-size:1.4em;text-align:center;font-family:'Amiri',serif!important;line-height:1.6;color:var(--color-sobhan);padding:.25em .4em;}
+        .arabic-text{font-size:1.7em;text-align:center;font-family:'Amiri',serif!important;line-height:1.6;color:var(--color-sobhan);padding:.25em .4em;}
 
         /* SCROLL */
         .scroll-btns{position:fixed;right:6px;bottom:300px;z-index:1001;display:flex;flex-direction:column;gap:6px;}
@@ -230,7 +271,7 @@
         @media(max-width:768px){
             body{padding:8px;}.page-wrapper{padding:0 4px;}
             h1{font-size:1rem;}
-            .arabic-text{font-size:1.1em;padding:.15em .2em;}
+            .arabic-text{font-size:1.2em;padding:.15em .2em;}
             .header-r{gap:4px;}
             .mode-tab{padding:5px 10px;font-size:12px;}
             .control-group{flex-wrap:wrap;}
@@ -246,7 +287,7 @@
         @media(max-width:480px){
             body{padding:6px;}
             h1{font-size:.9rem;}
-            .arabic-text{font-size:.95em;}
+            .arabic-text{font-size:1em;}
             .mode-tab{padding:4px 8px;font-size:11px;gap:3px;}
             .mode-tab svg{width:13px;height:13px;}
             .header-r{flex-wrap:wrap;justify-content:flex-end;}
@@ -272,7 +313,7 @@
             وَسَلِّمُوا تَسْلِيمًا
         </div>
     <header>
-        <h1>Ahmos JSON Formatter Pro V3</h1>
+        <h1>Ahmos JSON Formatter Pro V3.1</h1>
         <div class="header-r">
             <div class="mode-tabs">
                 <button class="mode-tab active" id="tab-fmt" data-mode="fmt">
@@ -284,9 +325,13 @@
                     Compare
                 </button>
             </div>
-            <button id="theme-toggle" style="display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:5px;font-weight:600;font-size:12px;">
-                <span id="theme-icon">☀️</span><span id="theme-text">Light</span>
-            </button>
+            <div class="theme-picker" id="theme-picker">
+                <span class="theme-label">Theme</span>
+                <div class="theme-dot active" data-t="ember" title="Ember (Orange & Black)"></div>
+                <div class="theme-dot" data-t="ocean" title="Ocean (Teal)"></div>
+                <div class="theme-dot" data-t="sakura" title="Sakura (Light Pink)"></div>
+                <div class="theme-dot" data-t="midnight" title="Midnight (Deep Blue)"></div>
+            </div>
         </div>
     </header>
     <div class="scroll-btns"><button class="sbtn" id="sc-up">↑</button><button class="sbtn" id="sc-dn">↓</button></div>
@@ -455,12 +500,18 @@ document.addEventListener("DOMContentLoaded",()=>{
     const pathDepth=p=>p.split('.').length-1;
     const expandToLevel=(root,ts,level)=>{ts.col.clear();if(level>=99)return;const all=collPaths(root,'$');all.forEach(p=>{if(pathDepth(p)>=level)ts.col.add(p);});};
 
-    // Theme
-    let isDark=true;
-    $("theme-toggle").addEventListener("click",()=>{
-        isDark=!isDark;document.body.classList.toggle("light-theme",!isDark);
-        $("theme-icon").textContent=isDark?"☀️":"🌙";$("theme-text").textContent=isDark?"Light":"Dark";
-    });
+    // Theme picker
+    const themeMap={ember:'',ocean:'theme-ocean',sakura:'theme-sakura',midnight:'theme-midnight'};
+    let currentTheme=localStorage.getItem('ahmos-theme')||'ember';
+    function applyTheme(t){
+        currentTheme=t;
+        Object.values(themeMap).forEach(c=>{if(c)document.body.classList.remove(c);});
+        if(themeMap[t])document.body.classList.add(themeMap[t]);
+        document.querySelectorAll('.theme-dot').forEach(d=>d.classList.toggle('active',d.dataset.t===t));
+        localStorage.setItem('ahmos-theme',t);
+    }
+    applyTheme(currentTheme);
+    $("theme-picker").addEventListener("click",e=>{const d=e.target.closest('.theme-dot');if(d)applyTheme(d.dataset.t);});
 
     // Scroll
     $("sc-up").addEventListener("click",()=>window.scrollTo({top:0,behavior:'smooth'}));
