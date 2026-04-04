@@ -12,304 +12,400 @@
     <style>
         :root {
             --color-sobhan: #0ce5e9;
-            --bg-color: #1e1e2e;
-            --text-color: #cdd6f4;
-            --primary-color: #89b4fa;
-            --secondary-color: #fd930a;
-            --box-bg: #313244;
-            --button-bg: #45475a;
-            --button-hover: #585b70;
-            --key-color: #29f4f5;
-            --string-color: #a6e3a1;
-            --number-color: #f9e2af;
-            --boolean-color: #fab387;
-            --null-color: #f38ba8;
-            --punc-color: #ffffff;
-            --opt-color: #fa62fc;
-            --line-number-bg: #2a2b3d;
-            --line-number-text: #6c7086;
-            --error-line-bg: #f38ba8;
-            --error-line-text: #1e1e2e;
-            --border-color: #585b70;
+            --bg: #1e1e2e;
+            --text: #cdd6f4;
+            --primary: #89b4fa;
+            --secondary: #fd930a;
+            --box: #313244;
+            --btn: #45475a;
+            --btn-h: #585b70;
+            --key: #29f4f5;
+            --str: #a6e3a1;
+            --num: #f9e2af;
+            --bool: #fab387;
+            --nul: #f38ba8;
+            --punc: #fff;
+            --opt: #fa62fc;
+            --ln-bg: #2a2b3d;
+            --ln: #6c7086;
+            --err-bg: #f38ba8;
+            --err-tx: #1e1e2e;
+            --border: #585b70;
+            --tree-hov: rgba(137, 180, 250, .06);
+            --tree-sel: rgba(137, 180, 250, .12);
+            --modal-bg: rgba(0, 0, 0, .65);
+            --modal: #313244;
+            --green: #a6e3a1;
+            --red: #f38ba8;
+            --yellow: #f9e2af;
+            --diff-add-bg: rgba(166, 227, 161, .13);
+            --diff-add-b: #a6e3a1;
+            --diff-rm-bg: rgba(243, 139, 168, .13);
+            --diff-rm-b: #f38ba8;
+            --diff-ch-bg: rgba(249, 226, 175, .13);
+            --diff-ch-b: #f9e2af;
         }
 
         .light-theme {
-            --color-sobhan: #130486;
-            --bg-color: #f5f5f5;
-            --text-color: #333333;
-            --primary-color: #1e88e5;
-            --secondary-color: #8c042f;
-            --box-bg: #ffffff;
-            --button-bg: #e0e0e0;
-            --button-hover: #bdbdbd;
-            --key-color: #030001;
-            --string-color: #2e7d32;
-            --number-color: #f57c00;
-            --boolean-color: #d84315;
-            --null-color: #c2185b;
-            --punc-color: #000000;
-            --opt-color: #e40953;
-            --line-number-bg: #f0f0f0;
-            --line-number-text: #666666;
-            --error-line-bg: #ffebee;
-            --error-line-text: #c62828;
-            --border-color: #cccccc;
+            --bg: #f5f5f5;
+            --text: #333;
+            --primary: #1e88e5;
+            --secondary: #8c042f;
+            --box: #fff;
+            --btn: #e0e0e0;
+            --btn-h: #bdbdbd;
+            --key: #030001;
+            --str: #2e7d32;
+            --num: #f57c00;
+            --bool: #d84315;
+            --nul: #c2185b;
+            --punc: #000;
+            --opt: #e40953;
+            --ln-bg: #f0f0f0;
+            --ln: #666;
+            --err-bg: #ffebee;
+            --err-tx: #c62828;
+            --border: #ccc;
+            --tree-hov: rgba(30, 136, 229, .06);
+            --tree-sel: rgba(30, 136, 229, .12);
+            --modal-bg: rgba(0, 0, 0, .4);
+            --modal: #fff;
+            --diff-add-bg: rgba(46, 125, 50, .10);
+            --diff-add-b: #2e7d32;
+            --diff-rm-bg: rgba(198, 40, 40, .10);
+            --diff-rm-b: #c62828;
+            --diff-ch-bg: rgba(245, 124, 0, .10);
+            --diff-ch-b: #f57c00;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body,
+        .page-wrapper,
+        header,
+        .mode-tabs,
+        .arabic-text,
+        footer {
+            transition: background .3s, color .3s;
         }
 
         body {
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
-            padding: 20px;
+            padding: 14px;
             min-height: 100vh;
         }
 
         .page-wrapper {
             max-width: 100%;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 10px;
         }
 
+        /* HEADER */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 14px;
             padding-bottom: 10px;
-            border-bottom: 1px solid var(--primary-color);
-        }
-
-        h1 {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-        }
-
-        .theme-toggle {
-            background-color: var(--button-bg);
-            color: var(--text-color);
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
+            border-bottom: 2px solid var(--primary);
+            flex-wrap: wrap;
             gap: 8px;
         }
 
-        .theme-toggle:hover {
-            background-color: var(--button-hover);
+        h1 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            white-space: nowrap;
         }
 
+        .header-r {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        /* MODE TABS */
+        .mode-tabs {
+            display: flex;
+            background: var(--btn);
+            border-radius: 8px;
+            padding: 3px;
+        }
+
+        .mode-tab {
+            padding: 7px 14px;
+            border: none;
+            background: 0;
+            color: var(--text);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mode-tab:hover {
+            background: var(--btn-h);
+        }
+
+        .mode-tab.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(137, 180, 250, .3);
+        }
+
+        .mode-tab svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        /* BUTTONS */
+        button {
+            background: var(--btn);
+            color: var(--text);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background .15s;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        button:hover:not(:disabled) {
+            background: var(--btn-h);
+        }
+
+        button:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        select,
+        input[type="checkbox"] {
+            background: var(--btn);
+            color: var(--text);
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        /* CONTROLS */
         .main-controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            gap: 15px;
+            margin-bottom: 12px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .control-group {
             display: flex;
-            gap: 10px;
+            gap: 6px;
             align-items: center;
             flex-wrap: wrap;
         }
 
+        /* TOGGLE SWITCH */
+        .chk {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        .chk input {
+            display: none;
+        }
+
+        .toggle-track {
+            position: relative;
+            width: 36px;
+            height: 20px;
+            background: var(--btn-h);
+            border-radius: 10px;
+            transition: background .25s;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+
+        .toggle-track::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 14px;
+            height: 14px;
+            background: #fff;
+            border-radius: 50%;
+            transition: transform .25s, box-shadow .25s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+        }
+
+        .chk input:checked+.toggle-track {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .chk input:checked+.toggle-track::after {
+            transform: translateX(16px);
+            box-shadow: 0 1px 4px rgba(137, 180, 250, .4);
+        }
+
+        /* CONTAINER */
         .container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            min-height: 500px;
-        }
-
-        .scroll-buttons {
-            position: fixed;
-            right: 6px;
-            bottom: 400px;
-            z-index: 1001;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .scroll-btn {
-            background-color: var(--primary-color);
-            color: var(--bg-color);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .scroll-btn:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.1);
-        }
-
-        @media (max-width: 1024px) {
-            .container {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .main-controls {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            .control-group {
-                width: 100%;
-                justify-content: flex-start;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .page-wrapper {
-                padding: 0 10px;
-            }
-
-            h1 {
-                font-size: 1.2rem;
-            }
-
-            .control-group {
-                flex-direction: column;
-                align-items: flex-start;
-                width: 100%;
-            }
-
-            .arabic-text {
-                font-size: 1.5em;
-                z-index: 1000;
-            }
-
-            .scroll-buttons {
-                right: 10px;
-                bottom: 250px;
-            }
-
-            .scroll-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 14px;
-            }
-
-            .font-controls {
-                flex-direction: column;
-                gap: 8px;
-                margin-right: 0;
-                margin-bottom: 0px;
-                align-items: stretch;
-            }
-
-            .font-control {
-                width: 100%;
-                justify-content: space-between;
-                /* min-height: 40px; */
-            }
-
-            .font-slider {
-                width: 80px;
-            }
-
-            .font-control label {
-                font-size: 12px;
-            }
+            gap: 14px;
+            align-items: stretch;
+            min-height: 460px;
         }
 
         .box {
-            background-color: var(--box-bg);
+            background: var(--box);
             border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, .1);
             display: flex;
             flex-direction: column;
-            min-height: 450px;
-        }
-
-        .box-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .box-title {
-            color: var(--secondary-color);
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        button {
-            background-color: var(--button-bg);
-            color: var(--text-color);
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        button:hover:not(:disabled) {
-            background-color: var(--button-hover);
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        select,
-        input {
-            background-color: var(--button-bg);
-            color: var(--text-color);
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-        }
-
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .checkbox-container input[type="checkbox"] {
-            margin: 0;
-            cursor: pointer;
-        }
-
-        .textarea-container {
-            position: relative;
-            flex: 1;
-            display: flex;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
+            min-height: 380px;
             overflow: hidden;
         }
 
-        .textarea-overlay {
+        .box-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .box-title {
+            color: var(--secondary);
+            font-size: 1rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .box-r {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        /* FONT BAR */
+        .fbar {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--btn);
+            border-radius: 5px;
+            padding: 2px 7px;
+            height: 26px;
+            flex-shrink: 0;
+        }
+
+        .fbar-l {
+            font-size: 12px;
+            opacity: .7;
+            user-select: none;
+        }
+
+        .fslider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 48px;
+            height: 3px;
+            background: rgba(255, 255, 255, .15);
+            outline: none;
+            border-radius: 2px;
+        }
+
+        .light-theme .fslider {
+            background: rgba(0, 0, 0, .12);
+        }
+
+        .fslider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .fslider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .fval {
+            font-size: 10px;
+            min-width: 22px;
+            text-align: center;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 3px;
+            padding: 1px 3px;
+            color: var(--ln);
+            font-weight: 600;
+        }
+
+        /* ACTION BTNS */
+        .act-btns {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .act-btns button {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 11px;
+            padding: 3px 7px;
+        }
+
+        .act-btns button svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        /* TEXTAREA */
+        .ta-wrap {
+            position: relative;
+            flex: 1;
+            display: flex;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .ta-overlay {
             position: absolute;
             top: 0;
             left: 0;
@@ -321,48 +417,42 @@
             font-size: 14px;
             line-height: 1.4;
             padding: 10px;
-            padding-left: 50px;
-            /* Account for line numbers */
+            padding-left: 44px;
             white-space: pre-wrap;
             color: transparent;
             overflow: hidden;
         }
 
-        .error-highlight {
-            background-color: var(--error-line-bg);
-            color: var(--error-line-text);
-            font-weight: bold;
-            border-radius: 2px;
-            padding: 0 2px;
+        .ta-bg {
+            position: absolute;
+            top: 0;
+            left: 44px;
+            right: 0;
+            bottom: 0;
+            background: var(--box);
+            z-index: 0;
         }
 
-        .line-numbers {
-            background-color: var(--line-number-bg);
-            color: var(--line-number-text);
-            padding: 10px 8px;
+        .ln {
+            background: var(--ln-bg);
+            color: var(--ln);
+            padding: 10px 5px;
             font-family: "Consolas", "Courier New", monospace;
             font-size: 14px;
             line-height: 1.4;
             text-align: right;
             user-select: none;
-            min-width: 40px;
-            border-right: 1px solid var(--border-color);
+            min-width: 34px;
+            border-right: 1px solid var(--border);
             white-space: pre;
             overflow: hidden;
-        }
-
-        .line-numbers .error-line {
-            background-color: var(--error-line-bg);
-            color: var(--error-line-text);
-            font-weight: bold;
-            margin: 0 -8px;
-            padding: 0 8px;
+            flex-shrink: 0;
         }
 
         textarea {
             flex: 1;
-            background-color: var(--box-bg);
-            color: var(--text-color);
+            background: 0;
+            color: var(--text);
             border: none;
             padding: 10px;
             font-family: "Consolas", "Courier New", monospace;
@@ -372,1194 +462,1731 @@
             outline: none;
             white-space: pre-wrap;
             overflow-wrap: normal;
-            overflow-x: auto;
+            overflow: auto;
             position: relative;
             z-index: 2;
-            background-color: transparent;
+            min-width: 0;
         }
 
-        .textarea-background {
-            position: absolute;
-            top: 0;
-            left: 50px;
-            right: 0;
-            bottom: 0;
-            background-color: var(--box-bg);
-            z-index: 0;
-        }
-
-        .output-container {
+        .output-wrap {
             flex: 1;
             overflow: auto;
-            background-color: var(--box-bg);
-            border: 1px solid var(--border-color);
+            background: var(--box);
+            border: 1px solid var(--border);
             border-radius: 4px;
             font-family: "Consolas", "Courier New", monospace;
             font-size: 14px;
             line-height: 1.4;
-            position: relative;
             display: flex;
+            min-height: 0;
         }
 
-        .output-line-numbers {
-            background-color: var(--line-number-bg);
-            color: var(--line-number-text);
-            padding: 10px 8px;
-            text-align: right;
-            user-select: none;
-            min-width: 40px;
-            border-right: 1px solid var(--border-color);
-            white-space: pre;
-            overflow: hidden;
+        .output-wrap .ln {
+            min-width: 34px;
         }
 
-        .output-content {
+        .output-c {
             flex: 1;
             padding: 10px;
             white-space: pre-wrap;
             overflow-x: auto;
+            min-width: 0;
         }
 
-        .action-buttons {
+        /* MESSAGES */
+        .msgs {
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .err {
+            color: var(--nul);
+            padding: 6px;
+            background: rgba(243, 139, 168, .1);
+            border-radius: 4px;
+            font-family: "Consolas", monospace;
+            font-size: 12px;
+        }
+
+        .stat {
+            color: var(--nul);
+        }
+
+        .stats {
             display: flex;
             gap: 10px;
-            margin-top: 10px;
+            margin-top: 6px;
+            font-size: 11px;
+            color: var(--ln);
             flex-wrap: wrap;
+            flex-shrink: 0;
         }
 
-        .action-buttons button {
+        .stats span {
             display: flex;
             align-items: center;
-            gap: 5px;
-            white-space: nowrap;
+            gap: 3px;
         }
 
-        .action-buttons button svg {
-            width: 16px;
-            height: 16px;
+        /* JSON COLORS */
+        .jk {
+            color: var(--key)
         }
 
-        .page-footer {
-            width: 100vw;
-            margin: 15px auto;
-            background: var(--bg-color);
-            color: var(--text-color);
-            text-align: center;
-            font-size: 14px;
-            opacity: 0.6;
-            white-space: nowrap;
-            position: relative;
+        .js {
+            color: var(--str)
         }
 
-        /* JSON Styling */
-        .json-key {
-            color: var(--key-color);
+        .jn {
+            color: var(--num)
         }
 
-        .json-string {
-            color: var(--string-color);
+        .jb {
+            color: var(--bool)
         }
 
-        .json-number {
-            color: var(--number-color);
+        .jnl {
+            color: var(--nul)
         }
 
-        .json-boolean {
-            color: var(--boolean-color);
+        .jp {
+            color: var(--punc)
         }
 
-        .json-null {
-            color: var(--null-color);
+        .jo {
+            color: var(--opt)
         }
 
-        .json-punc {
-            color: var(--punc-color);
+        .plain {
+            color: var(--text)
         }
 
-        .json-opt {
-            color: var(--opt-color);
+        /* TREE VIEW */
+        .tree-controls {
+            display: flex;
+            gap: 4px;
+            align-items: center;
         }
 
-        /* Move error and status to input section */
-        .input-messages {
-            margin-top: 10px;
+        .tree-cbtn {
+            background: linear-gradient(135deg, var(--primary), var(--opt));
+            color: #fff;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            transition: transform .15s, box-shadow .15s;
+            box-shadow: 0 2px 6px rgba(137, 180, 250, .2);
         }
 
-        .error {
-            color: var(--null-color);
-            margin-top: 10px;
-            padding: 10px;
-            background-color: rgba(243, 139, 168, 0.1);
-            border-radius: 4px;
+        .tree-cbtn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(137, 180, 250, .35);
+        }
+
+        .tree-cbtn svg {
+            width: 11px;
+            height: 11px;
+            fill: currentColor;
+        }
+
+        .json-tree {
             font-family: "Consolas", "Courier New", monospace;
             font-size: 14px;
+            line-height: 1.5;
+            padding: 8px;
+            flex: 1;
+            overflow: auto;
+            min-height: 0;
         }
 
-        .status-message {
-            margin-top: 10px;
-            padding: 8px 12px;
-            border-radius: 4px;
-            background-color: var(--button-bg);
-            font-size: 14px;
+        .tree-node {
+            user-select: none;
         }
 
-        .plain-text {
-            color: var(--text-color);
-        }
-
-        .status-message {
-            margin-top: 10px;
-            padding: 8px 12px;
-            border-radius: 4px;
-            background-color: var(--button-bg);
-            font-size: 14px;
-        }
-
-        .stats-info {
+        .tree-row {
             display: flex;
-            gap: 15px;
-            margin-top: 10px;
-            font-size: 12px;
-            color: var(--line-number-text);
-            flex-wrap: wrap;
+            align-items: flex-start;
+            padding: 1px 3px;
+            border-radius: 3px;
+            min-height: 20px;
+            white-space: nowrap;
+            transition: background .1s;
         }
 
-        .stats-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .tree-row:hover {
+            background: var(--tree-hov);
         }
 
-        .arabic-text {
-            font-size: 2em;
-            text-align: center;
-            font-family: 'Amiri', serif !important;
-            line-height: 1.6;
-            color: var(--color-sobhan);
-            background: var(--background);
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            padding: 0.43em 0.64em;
+        .tree-row.selected {
+            background: var(--tree-sel);
         }
 
-        .font-controls {
-            display: flex;
+        .tree-toggle {
+            display: inline-flex;
             align-items: center;
-            gap: 12px;
-            margin-right: 25px;
-            color: var(--text-color);
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+            border-radius: 3px;
+            transition: background .15s;
+            color: var(--primary);
+            margin-top: 2px;
         }
 
-        .font-control {
-            display: flex;
+        .tree-toggle:hover {
+            background: rgba(137, 180, 250, .15);
+        }
+
+        .tree-toggle svg {
+            width: 10px;
+            height: 10px;
+            fill: currentColor;
+            transition: transform .2s ease;
+        }
+
+        .tree-toggle.collapsed svg {
+            transform: rotate(-90deg);
+        }
+
+        .tree-ph {
+            display: inline-block;
+            width: 16px;
+            flex-shrink: 0;
+        }
+
+        .tree-acts {
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 4px 8px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            gap: 2px;
+            margin-left: 4px;
+            opacity: 0;
+            transition: opacity .15s;
+            flex-shrink: 0;
+        }
+
+        .tree-row:hover .tree-acts {
+            opacity: 1;
+        }
+
+        .tree-abtn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border: none;
+            background: 0;
+            color: var(--ln);
+            cursor: pointer;
+            border-radius: 3px;
+            padding: 0;
+            transition: all .15s;
+        }
+
+        .tree-abtn:hover {
+            background: rgba(137, 180, 250, .2);
+            color: var(--primary);
+        }
+
+        .tree-abtn.sort-on {
+            color: var(--secondary);
+            background: rgba(253, 147, 10, .15);
+        }
+
+        .tree-abtn svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        .tree-badge {
+            display: inline-flex;
+            padding: 0 5px;
+            margin-left: 4px;
+            font-size: 10px;
+            color: var(--ln);
+            background: rgba(108, 112, 134, .15);
             border-radius: 8px;
-            border: 2px solid transparent;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.2);
-            height: 32px;
-            position: relative;
+            line-height: 16px;
+        }
+
+        .tree-children {
             overflow: hidden;
         }
 
-        .font-control::before {
-            content: '';
-            position: absolute;
+        .tree-cprev {
+            color: var(--ln);
+            font-size: 11px;
+            margin-left: 6px;
+        }
+
+        /* LIVE DIFF HIGHLIGHT ON TREE ROWS */
+        .tree-row.diff-added {
+            background: var(--diff-add-bg) !important;
+            border-left: 3px solid var(--diff-add-b);
+        }
+
+        .tree-row.diff-removed {
+            background: var(--diff-rm-bg) !important;
+            border-left: 3px solid var(--diff-rm-b);
+        }
+
+        .tree-row.diff-changed {
+            background: var(--diff-ch-bg) !important;
+            border-left: 3px solid var(--diff-ch-b);
+        }
+
+        .tree-row.diff-unchanged {
+            opacity: .55;
+        }
+
+        .diff-tag {
+            display: inline-flex;
+            padding: 0 5px;
+            margin-left: 4px;
+            font-size: 9px;
+            font-weight: 700;
+            border-radius: 3px;
+            line-height: 15px;
+            flex-shrink: 0;
+        }
+
+        .diff-tag.add {
+            background: rgba(166, 227, 161, .2);
+            color: var(--green);
+        }
+
+        .diff-tag.remove {
+            background: rgba(243, 139, 168, .2);
+            color: var(--red);
+        }
+
+        .diff-tag.change {
+            background: rgba(249, 226, 175, .2);
+            color: var(--yellow);
+        }
+
+        /* INSPECTOR */
+        .insp-ov {
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            background: var(--modal-bg);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 6px;
+            pointer-events: none;
+            transition: opacity .2s;
+            backdrop-filter: blur(4px);
         }
 
-        .font-control:hover {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(240, 147, 251, 0.3);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .font-control:hover::before {
+        .insp-ov.vis {
             opacity: 1;
+            pointer-events: auto;
         }
 
-        .font-control label {
+        .insp-card {
+            background: var(--modal);
+            border-radius: 12px;
+            padding: 18px;
+            min-width: 300px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
+            transform: translateY(16px) scale(.95);
+            transition: transform .25s;
+            border: 1px solid var(--border);
+        }
+
+        .insp-ov.vis .insp-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .insp-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .insp-title {
+            color: var(--primary);
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 600;
-            min-width: 16px;
-            user-select: none;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .font-slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 60px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.2);
-            outline: none;
-            border-radius: 2px;
-            transition: all 0.3s ease;
+        .insp-close {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 20px;
+            padding: 2px 6px;
+            border-radius: 6px;
+            line-height: 1;
+        }
+
+        .insp-close:hover {
+            background: var(--btn-h);
+        }
+
+        .insp-row {
+            display: flex;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(88, 91, 112, .3);
+            gap: 8px;
+        }
+
+        .insp-row:last-child {
+            border-bottom: none;
+        }
+
+        .insp-lbl {
+            color: var(--ln);
+            font-size: 11px;
+            font-weight: 600;
+            min-width: 70px;
+            flex-shrink: 0;
+        }
+
+        .insp-val {
+            color: var(--text);
+            font-size: 11px;
+            word-break: break-all;
+            font-family: "Consolas", monospace;
+        }
+
+        .insp-val.t-obj {
+            color: var(--opt)
+        }
+
+        .insp-val.t-arr {
+            color: var(--primary)
+        }
+
+        .insp-val.t-str {
+            color: var(--str)
+        }
+
+        .insp-val.t-num {
+            color: var(--num)
+        }
+
+        .insp-val.t-bool {
+            color: var(--bool)
+        }
+
+        .insp-val.t-null {
+            color: var(--nul);
+        }
+
+        .insp-preview {
+            margin-top: 8px;
+            padding: 8px;
+            background: var(--bg);
+            border-radius: 6px;
+            font-family: "Consolas", monospace;
+            font-size: 11px;
+            line-height: 1.4;
+            max-height: 160px;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .insp-copy {
+            margin-top: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--opt));
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: 100%;
+            justify-content: center;
+            transition: transform .15s;
+        }
+
+        .insp-copy:hover {
+            transform: translateY(-1px);
+        }
+
+        /* =================== COMPARE MODE =================== */
+        .cmp-section {
+            display: none;
+        }
+
+        .cmp-section.active {
+            display: block;
+        }
+
+        .fmt-section {
+            display: none;
+        }
+
+        .fmt-section.active {
+            display: block;
+        }
+
+        .cmp-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .cmp-btn {
+            background: linear-gradient(135deg, var(--primary), var(--opt));
+            color: #fff;
+            border: none;
+            padding: 7px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform .15s, box-shadow .15s;
+            box-shadow: 0 3px 12px rgba(137, 180, 250, .3);
+        }
+
+        .cmp-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 16px rgba(137, 180, 250, .45);
+        }
+
+        .cmp-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .cmp-btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .highlight-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .highlight-toggle.on {
+            background: rgba(249, 226, 175, .2);
+            color: var(--yellow);
+            border: 1px solid var(--diff-ch-b);
+        }
+
+        .highlight-toggle.off {
+            background: var(--btn);
+            color: var(--text);
+            border: 1px solid transparent;
+        }
+
+        .highlight-toggle svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .cmp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            align-items: stretch;
+        }
+
+        .cmp-panel {
+            background: var(--box);
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, .1);
+            display: flex;
+            flex-direction: column;
+            min-height: 300px;
+            overflow: hidden;
+        }
+
+        .cmp-label {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            letter-spacing: .3px;
+        }
+
+        .cmp-label.la {
+            background: rgba(243, 139, 168, .15);
+            color: var(--red);
+        }
+
+        .cmp-label.lb {
+            background: rgba(166, 227, 161, .15);
+            color: var(--green);
+        }
+
+        /* PANEL TOOLBAR - grid layout for small screens */
+        .ptool {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 4px;
+            margin-bottom: 6px;
+        }
+
+        .ptool button {
+            font-size: 11px;
+            padding: 4px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .ptool button svg {
+            width: 11px;
+            height: 11px;
+            flex-shrink: 0;
+        }
+
+        .ptool .sort-on {
+            color: var(--secondary);
+            background: rgba(253, 147, 10, .15);
+        }
+
+        /* Panel view toggle */
+        .view-toggle {
+            display: flex;
+            background: var(--btn);
+            border-radius: 5px;
+            padding: 2px;
+            grid-column: 1/-1;
+        }
+
+        .vtoggle-btn {
+            flex: 1;
+            padding: 3px 8px;
+            border: none;
+            background: 0;
+            color: var(--text);
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            transition: all .15s;
+            text-align: center;
+        }
+
+        .vtoggle-btn.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* DIFF OUTPUT */
+        .diff-out {
+            background: var(--box);
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, .1);
+            margin-top: 14px;
+            display: none;
+            overflow: hidden;
+        }
+
+        .diff-out.vis {
+            display: block;
+        }
+
+        .diff-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .diff-title {
+            color: var(--secondary);
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .diff-stats {
+            display: flex;
+            gap: 8px;
+            font-size: 11px;
+            flex-wrap: wrap;
+        }
+
+        .diff-st {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            padding: 2px 7px;
+            border-radius: 8px;
+        }
+
+        .diff-st.add {
+            background: rgba(166, 227, 161, .12);
+            color: var(--green);
+        }
+
+        .diff-st.rm {
+            background: rgba(243, 139, 168, .12);
+            color: var(--red);
+        }
+
+        .diff-st.un {
+            background: rgba(108, 112, 134, .12);
+            color: var(--ln);
+        }
+
+        .diff-c {
+            overflow: auto;
+            max-height: 450px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: "Consolas", monospace;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .dline {
+            display: flex;
+            min-height: 20px;
+            border-bottom: 1px solid rgba(88, 91, 112, .08);
+        }
+
+        .dln {
+            min-width: 38px;
+            padding: 2px 5px;
+            text-align: right;
+            background: var(--ln-bg);
+            color: var(--ln);
+            user-select: none;
+            font-size: 10px;
+            flex-shrink: 0;
+            border-right: 1px solid var(--border);
+        }
+
+        .dlm {
+            min-width: 20px;
+            padding: 2px 3px;
+            text-align: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            font-size: 11px;
+        }
+
+        .dlc {
+            flex: 1;
+            padding: 2px 6px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            min-width: 0;
+        }
+
+        .dline.add {
+            background: var(--diff-add-bg);
+        }
+
+        .dline.add .dlm {
+            color: var(--diff-add-b);
+        }
+
+        .dline.add .dln {
+            background: rgba(166, 227, 161, .06);
+        }
+
+        .dline.rm {
+            background: var(--diff-rm-bg);
+        }
+
+        .dline.rm .dlm {
+            color: var(--diff-rm-b);
+        }
+
+        .dline.rm .dln {
+            background: rgba(243, 139, 168, .06);
+        }
+
+        .dline.dsep {
+            background: var(--btn);
+            justify-content: center;
+            padding: 3px 0;
+            font-size: 10px;
+            color: var(--ln);
+        }
+
+        /* ARABIC */
+        .arabic-text {
+            font-size: 1.4em;
+            text-align: center;
+            font-family: 'Amiri', serif !important;
+            line-height: 1.6;
+            color: var(--color-sobhan);
+            padding: .25em .4em;
+        }
+
+        /* SCROLL */
+        .scroll-btns {
+            position: fixed;
+            right: 6px;
+            bottom: 300px;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .sbtn {
+            background: var(--primary);
+            color: var(--bg);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .3);
+            transition: all .3s;
+        }
+
+        .sbtn:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        /* FOOTER */
+        .page-footer {
+            width: 100vw;
+            margin: 10px auto;
+            background: var(--bg);
+            color: var(--text);
+            text-align: center;
+            font-size: 12px;
+            opacity: .6;
             position: relative;
         }
 
-        .font-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 14px;
-            height: 14px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            cursor: pointer;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        /* =================== RESPONSIVE =================== */
+        @media(max-width:1100px) {
 
-        .font-slider::-webkit-slider-thumb:hover {
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            transform: scale(1.1);
-            box-shadow: 0 3px 8px rgba(255, 215, 0, 0.5);
-            border-color: rgba(255, 255, 255, 1);
-        }
-
-        .font-slider::-moz-range-thumb {
-            width: 14px;
-            height: 14px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            cursor: pointer;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .font-slider::-moz-range-thumb:hover {
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            transform: scale(1.1);
-            box-shadow: 0 3px 8px rgba(255, 215, 0, 0.5);
-            border-color: rgba(255, 255, 255, 1);
-        }
-
-        .font-slider:focus {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .font-slider:active::-webkit-slider-thumb {
-            transform: scale(0.95);
-        }
-
-        .font-slider:active::-moz-range-thumb {
-            transform: scale(0.95);
-        }
-
-        .font-value {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.95);
-            font-weight: 700;
-            min-width: 24px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2px 4px;
-            border-radius: 4px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Light theme adjustments */
-        .light-theme .font-control {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            box-shadow: 0 2px 6px rgba(79, 172, 254, 0.3);
-        }
-
-        .light-theme .font-control:hover {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            box-shadow: 0 4px 12px rgba(250, 112, 154, 0.3);
-        }
-
-        .light-theme .font-control label {
-            color: rgba(255, 255, 255, 0.95);
-        }
-
-        .light-theme .font-slider {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .light-theme .font-value {
-            color: rgba(255, 255, 255, 0.95);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        /* Smooth font size transitions */
-        textarea,
-        .output-content,
-        .textarea-overlay {
-            transition: font-size 0.3s ease;
-        }
-
-        @media (max-width: 480px) {
-            .action-buttons {
-                flex-direction: column;
+            .container,
+            .cmp-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
             }
 
-            .action-buttons button {
+            .box,
+            .cmp-panel {
+                min-height: 240px;
+            }
+        }
+
+        @media(max-width:768px) {
+            body {
+                padding: 8px;
+            }
+
+            .page-wrapper {
+                padding: 0 4px;
+            }
+
+            h1 {
+                font-size: 1rem;
+            }
+
+            .arabic-text {
+                font-size: 1em;
+                padding: .15em .2em;
+            }
+
+            .header-r {
+                gap: 4px;
+            }
+
+            .mode-tab {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+
+            .control-group {
+                flex-wrap: wrap;
+            }
+
+            .ptool {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .ptool button {
+                font-size: 10px;
+                padding: 3px 4px;
+            }
+
+            .fbar {
+                height: 24px;
+                padding: 2px 5px;
+            }
+
+            .fslider {
+                width: 40px;
+            }
+
+            .act-btns button {
+                font-size: 10px;
+                padding: 2px 5px;
+            }
+
+            .scroll-btns {
+                right: 6px;
+                bottom: 180px;
+            }
+
+            .sbtn {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+
+            .diff-c {
+                max-height: 300px;
+                font-size: 11px;
+            }
+
+            .cmp-panel {
+                min-height: 200px;
+            }
+        }
+
+        @media(max-width:480px) {
+            body {
+                padding: 6px;
+            }
+
+            h1 {
+                font-size: .9rem;
+            }
+
+            .arabic-text {
+                font-size: 0.8em;
+            }
+
+            .mode-tab {
+                padding: 4px 8px;
+                font-size: 11px;
+                gap: 3px;
+            }
+
+            .mode-tab svg {
+                width: 13px;
+                height: 13px;
+            }
+
+            .header-r {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+            }
+
+            .box-r {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+            }
+
+            .fbar {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .fslider {
+                width: 50px;
+            }
+
+            .act-btns {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .cmp-bar {
+                flex-direction: column;
+                gap: 6px;
+                align-items: stretch;
+            }
+
+            .cmp-bar .fbar {
+                width: auto;
+                justify-content: center;
+            }
+
+            .cmp-btn {
                 width: 100%;
                 justify-content: center;
             }
+
+            .ptool {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .view-toggle {
+                grid-column: 1/-1;
+            }
+
+            .diff-hdr {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+        }
+
+        textarea,
+        .output-c,
+        .ta-overlay,
+        .json-tree {
+            transition: font-size .3s ease;
         }
     </style>
 </head>
 
 <body>
-
     <div class="page-wrapper">
-        <div class="arabic-text" id="arabicText">&#x633;&#x64F;&#x628;&#x652;&#x62D;&#x64E;&#x627;&#x646;&#x64E;
+        <div class="arabic-text">&#x633;&#x64F;&#x628;&#x652;&#x62D;&#x64E;&#x627;&#x646;&#x64E;
             &#x627;&#x644;&#x644;&#x651;&#x64E;&#x647;&#x650;
             &#x648;&#x64E;&#x628;&#x650;&#x62D;&#x64E;&#x645;&#x652;&#x62F;&#x650;&#x647;&#x650;
             &#x633;&#x64F;&#x628;&#x652;&#x62D;&#x64E;&#x627;&#x646;&#x64E;
             &#x627;&#x644;&#x644;&#x651;&#x64E;&#x647;&#x650;
-            &#x627;&#x644;&#x652;&#x639;&#x64E;&#x638;&#x650;&#x64A;&#x645;&#x650;</div>
-
+            &#x627;&#x644;&#x652;&#x639;&#x64E;&#x638;&#x650;&#x64A;&#x645;&#x650;
+        </div>
+        <div class="arabic-text">
+            إِنَّ اللَّهَ وَمَلَائِكَتَهُ يُصَلُّونَ عَلَى النَّبِيِّ ۚ يَا أَيُّهَا الَّذِينَ آمَنُوا صَلُّوا عَلَيْهِ
+            وَسَلِّمُوا تَسْلِيمًا
+        </div>
         <header>
-            <h1>Ahmos JSON Formatter Pro</h1>
-            <button id="theme-toggle" class="theme-toggle">
-                <span id="theme-icon">☀️</span>
-                <span id="theme-text">Light Theme</span>
-            </button>
+            <h1>Ahmos JSON Formatter Pro V3</h1>
+            <div class="header-r">
+                <div class="mode-tabs">
+                    <button class="mode-tab active" id="tab-fmt" data-mode="fmt">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6" />
+                            <polyline points="8 6 2 12 8 18" />
+                        </svg>
+                        Formatter
+                    </button>
+                    <button class="mode-tab" id="tab-cmp" data-mode="cmp">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
+                        </svg>
+                        Compare
+                    </button>
+                </div>
+                <button id="theme-toggle"
+                    style="display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:5px;font-weight:600;font-size:12px;">
+                    <span id="theme-icon">☀️</span><span id="theme-text">Light</span>
+                </button>
+            </div>
         </header>
-        <div class="scroll-buttons">
-            <button id="scroll-up" class="scroll-btn" title="Scroll to top">↑</button>
-            <button id="scroll-down" class="scroll-btn" title="Scroll to bottom">↓</button>
-        </div>
-        <div class="main-controls">
-            <div class="control-group">
-                <button id="format-button">Format JSON</button>
-                <button id="minify-button">Minify JSON</button>
-                <button id="validate-button">Validate</button>
-                <button id="sample-button">Load Sample</button>
-                <button id="nested-sample-button">Load Nested Sample</button>
-                <button id="clear-button">Clear</button>
-            </div>
-            <div class="control-group">
-                <label for="spacing">Indent:</label>
-                <select id="spacing">
-                    <option value="2">2 spaces</option>
-                    <option value="4">4 spaces</option>
-                    <option value="8">8 spaces</option>
-                    <option value="tab">Tab</option>
-                </select>
-                <label for="colored-output">Output Style:</label>
-                <select id="colored-output">
-                    <option value="colored">Colored</option>
-                    <option value="plain">Plain</option>
-                </select>
-                <label class="checkbox-container">
-                    <input type="checkbox" id="deep-format" checked />
-                    Deep Format
-                </label>
-            </div>
+        <div class="scroll-btns"><button class="sbtn" id="sc-up">↑</button><button class="sbtn" id="sc-dn">↓</button>
         </div>
 
-        <div class="container">
-            <div class="box">
-                <div class="box-header">
-                    <div class="box-title">Input JSON</div>
-                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                        <div class="font-controls">
-                            <div class="font-control">
-                                <label>📝</label>
-                                <input type="range" id="input-font-slider" class="font-slider" min="10" max="24"
-                                    value="14">
-                                <span id="input-font-value" class="font-value">14px</span>
+        <!-- =================== FORMATTER =================== -->
+        <div class="fmt-section active" id="fmt-section">
+            <div class="main-controls">
+                <div class="control-group">
+                    <button id="fmt-btn">Format</button><button id="min-btn">Minify</button><button
+                        id="val-btn">Validate</button>
+                    <button id="sam-btn">Sample</button><button id="nest-btn">Nested</button><button
+                        id="clr-btn">Clear</button>
+                </div>
+                <div class="control-group">
+                    <label style="font-size:12px">Indent:</label>
+                    <select id="spacing">
+                        <option value="2">2</option>
+                        <option value="4">4</option>
+                        <option value="8">8</option>
+                        <option value="tab">Tab</option>
+                    </select>
+                    <label class="chk" for="deep"><input type="checkbox" id="deep" checked /><span
+                            class="toggle-track"></span> Deep Format</label>
+                </div>
+            </div>
+            <div class="container">
+                <div class="box">
+                    <div class="box-hdr">
+                        <div class="box-title">Input JSON</div>
+                        <div class="box-r">
+                            <div class="fbar"><span class="fbar-l">Aa</span><input type="range" class="fslider"
+                                    id="f-in" min="10" max="24" value="14"><span class="fval" id="fv-in">14</span></div>
+                            <div class="act-btns"><button id="cp-in" disabled><svg viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                                        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                                    </svg> Copy</button></div>
+                        </div>
+                    </div>
+                    <div class="ta-wrap">
+                        <div id="ln-in" class="ln">1</div>
+                        <div class="ta-bg"></div>
+                        <div id="ta-ov" class="ta-overlay"></div><textarea id="inp"
+                            placeholder="Paste your JSON here..."></textarea>
+                    </div>
+                    <div class="msgs">
+                        <div id="err-fmt" class="err" style="display:none"></div>
+                        <div id="stat-fmt" class="stat" style="display:none"></div>
+                    </div>
+                    <div class="stats"><span><span>📊</span><span id="st-in">Lines: 1, Chars: 0</span></span></div>
+                </div>
+                <div class="box">
+                    <div class="box-hdr">
+                        <div class="box-title">Formatted Output</div>
+                        <div class="box-r">
+                            <div class="tree-controls" id="tc-fmt" style="display:none">
+                                <button class="tree-cbtn" id="col-all" title="Collapse All"><svg viewBox="0 0 24 24">
+                                        <path d="M7 10l5 5 5-5H7z" />
+                                    </svg> Collapse</button>
+                                <button class="tree-cbtn" id="exp-all" title="Expand All"><svg viewBox="0 0 24 24">
+                                        <path d="M7 14l5-5 5 5H7z" />
+                                    </svg> Expand</button>
+                            </div>
+                            <div class="fbar"><span class="fbar-l">Aa</span><input type="range" class="fslider"
+                                    id="f-out" min="10" max="24" value="14"><span class="fval" id="fv-out">14</span>
+                            </div>
+                            <div class="act-btns">
+                                <button id="cp-out" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                                        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                                    </svg> Copy</button>
+                                <button id="dl-out" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                                        <polyline points="7 10 12 15 17 10" />
+                                        <line x1="12" y1="15" x2="12" y2="3" />
+                                    </svg> Download</button>
                             </div>
                         </div>
-                        <div class="action-buttons">
-                            <button id="copyInput-button" disabled>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                </svg>
-                                Copy
-                            </button>
-                        </div>
                     </div>
-                </div>
-
-                <div class="textarea-container">
-                    <div id="input-line-numbers" class="line-numbers">1</div>
-                    <div class="textarea-background"></div>
-                    <div id="textarea-overlay" class="textarea-overlay"></div>
-                    <textarea id="json-input" placeholder="Paste your JSON here..."></textarea>
-                </div>
-                <div class="input-messages">
-                    <div id="error-message" class="error"></div>
-                    <div id="status-message" class="status-message" style="display: none;"></div>
-                </div>
-                <div class="stats-info">
-                    <div class="stats-item">
-                        <span>📊</span>
-                        <span id="input-stats">Lines: 1, Characters: 0</span>
+                    <div id="tree-fmt" class="json-tree" style="display:none"></div>
+                    <div id="out-wrap" class="output-wrap">
+                        <div id="ln-out" class="ln"></div>
+                        <div id="out-c" class="output-c"></div>
                     </div>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="box-header">
-                    <div class="box-title">Formatted Output</div>
-                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                        <div class="font-controls">
-                            <div class="font-control">
-                                <label>📄</label>
-                                <input type="range" id="output-font-slider" class="font-slider" min="10" max="24"
-                                    value="14">
-                                <span id="output-font-value" class="font-value">14px</span>
-                            </div>
-                        </div>
-                        <div class="action-buttons">
-                            <button id="copy-button" disabled>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                </svg>
-                                Copy
-                            </button>
-                            <button id="download-button" disabled>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                    <polyline points="7 10 12 15 17 10"></polyline>
-                                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                                </svg>
-                                Download
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div id="output-container" class="output-container">
-                    <div id="output-line-numbers" class="output-line-numbers"></div>
-                    <div id="output-content" class="output-content"></div>
-                </div>
-                <div class="stats-info">
-                    <div class="stats-item">
-                        <span>✅</span>
-                        <span id="output-stats">Ready</span>
-                    </div>
+                    <div class="stats"><span><span>✅</span><span id="st-out">Ready</span></span></div>
                 </div>
             </div>
         </div>
-        <footer class="page-footer">
-            Ahmos Json Formatter © <span id="copyright-year">2025</span> | All Rights Reserved
-        </footer>
-        <script>
-            function updateCopyrightYear() {
-                const startYear = 2025;
-                const currentYear = new Date().getFullYear();
-                const yearElement = document.getElementById('copyright-year');
 
-                if (currentYear > startYear) {
-                    yearElement.textContent = ' ' + startYear + ' - ' + currentYear;
+        <!-- =================== COMPARE =================== -->
+        <div class="cmp-section" id="cmp-section">
+            <div class="cmp-bar">
+                <div class="fbar"><span class="fbar-l">Aa</span><input type="range" class="fslider" id="f-cmp" min="10"
+                        max="24" value="14"><span class="fval" id="fv-cmp">14</span></div>
+                <button class="cmp-btn" id="cmp-run"><svg viewBox="0 0 24 24">
+                        <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
+                    </svg> Compare JSON</button>
+                <button id="hl-toggle" class="highlight-toggle off"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg> Highlight Changes</button>
+                <button id="cmp-samples">Samples</button>
+                <button id="cmp-clear">Clear All</button>
+            </div>
+            <div class="cmp-grid">
+                <!-- PANEL A -->
+                <div class="cmp-panel">
+                    <span class="cmp-label la">JSON A — Left</span>
+                    <div class="ptool">
+                        <button data-p="a" data-act="tree" class="vtoggle-btn active" id="vta-tree">🌲 Tree</button>
+                        <button data-p="a" data-act="raw" class="vtoggle-btn" id="vta-raw">📝 Raw</button>
+                        <button data-p="a" data-act="format"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="16 18 22 12 16 6" />
+                                <polyline points="8 6 2 12 8 18" />
+                            </svg> Format</button>
+                        <button data-p="a" data-act="sort-asc">A→Z</button>
+                        <button data-p="a" data-act="sort-desc">Z→A</button>
+                        <button data-p="a" data-act="minify">Minify</button>
+                        <button data-p="a" data-act="copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" />
+                                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                            </svg></button>
+                        <button data-p="a" data-act="clear">Clear</button>
+                    </div>
+                    <div class="tree-controls" id="tc-a" style="display:none;margin-bottom:6px;gap:4px;">
+                        <button class="tree-cbtn" id="col-a"><svg viewBox="0 0 24 24">
+                                <path d="M7 10l5 5 5-5H7z" />
+                            </svg> Collapse</button>
+                        <button class="tree-cbtn" id="exp-a"><svg viewBox="0 0 24 24">
+                                <path d="M7 14l5-5 5 5H7z" />
+                            </svg> Expand</button>
+                    </div>
+                    <div id="tree-a" class="json-tree" style="display:none"></div>
+                    <div id="raw-a" class="ta-wrap" style="flex:1;min-height:0;">
+                        <div id="ln-a" class="ln">1</div>
+                        <div class="ta-bg"></div>
+                        <textarea id="inp-a" placeholder="Paste first JSON here..."></textarea>
+                    </div>
+                    <div id="err-a" class="err" style="display:none;margin-top:4px"></div>
+                    <div class="stats"><span>📊 <span id="st-a">Lines: 1, Chars: 0</span></span></div>
+                </div>
+                <!-- PANEL B -->
+                <div class="cmp-panel">
+                    <span class="cmp-label lb">JSON B — Right</span>
+                    <div class="ptool">
+                        <button data-p="b" data-act="tree" class="vtoggle-btn active" id="vtb-tree">🌲 Tree</button>
+                        <button data-p="b" data-act="raw" class="vtoggle-btn" id="vtb-raw">📝 Raw</button>
+                        <button data-p="b" data-act="format"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="16 18 22 12 16 6" />
+                                <polyline points="8 6 2 12 8 18" />
+                            </svg> Format</button>
+                        <button data-p="b" data-act="sort-asc">A→Z</button>
+                        <button data-p="b" data-act="sort-desc">Z→A</button>
+                        <button data-p="b" data-act="minify">Minify</button>
+                        <button data-p="b" data-act="copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" />
+                                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                            </svg></button>
+                        <button data-p="b" data-act="clear">Clear</button>
+                    </div>
+                    <div class="tree-controls" id="tc-b" style="display:none;margin-bottom:6px;gap:4px;">
+                        <button class="tree-cbtn" id="col-b"><svg viewBox="0 0 24 24">
+                                <path d="M7 10l5 5 5-5H7z" />
+                            </svg> Collapse</button>
+                        <button class="tree-cbtn" id="exp-b"><svg viewBox="0 0 24 24">
+                                <path d="M7 14l5-5 5 5H7z" />
+                            </svg> Expand</button>
+                    </div>
+                    <div id="tree-b" class="json-tree" style="display:none"></div>
+                    <div id="raw-b" class="ta-wrap" style="flex:1;min-height:0;">
+                        <div id="ln-b" class="ln">1</div>
+                        <div class="ta-bg"></div>
+                        <textarea id="inp-b" placeholder="Paste second JSON here..."></textarea>
+                    </div>
+                    <div id="err-b" class="err" style="display:none;margin-top:4px"></div>
+                    <div class="stats"><span>📊 <span id="st-b">Lines: 1, Chars: 0</span></span></div>
+                </div>
+            </div>
+            <div class="diff-out" id="diff-out">
+                <div class="diff-hdr">
+                    <div class="diff-title">Comparison Result</div>
+                    <div class="diff-stats" id="diff-stats"></div>
+                    <div class="act-btns">
+                        <button id="diff-hide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M7 10l5 5 5-5H7z" />
+                            </svg> Hide Same</button>
+                        <button id="diff-cp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" />
+                                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                            </svg> Copy</button>
+                    </div>
+                </div>
+                <div class="diff-c" id="diff-c"></div>
+            </div>
+        </div>
+        <footer class="page-footer">Ahmos Json Formatter © <span id="cpy">2025</span> | All Rights Reserved</footer>
+    </div>
+
+    <div class="insp-ov" id="insp-ov">
+        <div class="insp-card">
+            <div class="insp-hdr">
+                <div class="insp-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        width="16" height="16">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="M21 21l-4.35-4.35" />
+                    </svg> Node Inspector</div>
+                <button class="insp-close" id="insp-x">&times;</button>
+            </div>
+            <div id="insp-body"></div>
+            <button class="insp-copy" id="insp-cp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" width="13" height="13">
+                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                </svg> Copy JSON Path</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const $ = id => document.getElementById(id);
+            // Utility
+            const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+            const synHL = json => json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?|[\,\.\}\{\[\]])/g, m => { let c = "jn"; if (/^"/.test(m)) c = /:$/.test(m) ? "jk" : "js"; else if (/true|false/.test(m)) c = "jb"; else if (/null/.test(m)) c = "jnl"; else if (/([\{\}])/.test(m)) c = "jo"; else if (/([\,\[\]])/.test(m)) c = "jp"; return `<span class="${c}">${m}</span>`; });
+            const updLN = (el, txt) => { el.innerHTML = txt.split('\n').map((_, i) => `<div>${i + 1}</div>`).join(''); };
+            const updSt = (el, txt) => { el.textContent = txt; };
+            const showErr = (el, m) => { el.textContent = m; el.style.display = 'block'; };
+            const hideErr = el => { el.textContent = ''; el.style.display = 'none'; };
+            const feedB = (b, m) => { const o = b.innerHTML; b.textContent = m; setTimeout(() => b.innerHTML = o, 1200); };
+            const deepProcess = (obj, sp) => { let f = false; const p = JSON.parse(JSON.stringify(obj)); (function w(o) { if (!o || typeof o !== 'object') return; for (const k in o) { if (typeof o[k] === 'string') { try { const v = JSON.parse(o[k]); if (v && typeof v === 'object') { o[k] = deepProcess(v, sp).p; f = true; } } catch (e) { } } else if (o[k] && typeof o[k] === 'object') w(o[k]); } })(p); return { p, f }; };
+            const sortKeys = (o, d) => { if (Array.isArray(o)) return o.map(x => sortKeys(x, d)); if (o && typeof o === 'object') { const s = {}; Object.keys(o).sort((a, b) => d === 'asc' ? a.localeCompare(b) : b.localeCompare(a)).forEach(k => { s[k] = sortKeys(o[k], d); }); return s; } return o; };
+            const getSorted = (o, p, st) => { let k = Object.keys(o); const d = st.get(p); if (d === 'asc') k.sort((a, b) => a.localeCompare(b)); else if (d === 'desc') k.sort((a, b) => b.localeCompare(a)); return k; };
+            const getVal = (o, p) => { if (p === '$') return o; const pts = p.substring(2).split('.'); let c = o; for (const x of pts) { if (c == null) return undefined; c = c[x]; } return c; };
+            const collPaths = (v, p) => { const r = []; if (v != null && typeof v === 'object') { r.push(p); const e = Array.isArray(v) ? v.map((x, i) => [i, x]) : Object.entries(v); for (const [k, x] of e) r.push(...collPaths(x, p + '.' + k)); } return r; };
+
+            // Theme
+            let isDark = true;
+            $("theme-toggle").addEventListener("click", () => {
+                isDark = !isDark; document.body.classList.toggle("light-theme", !isDark);
+                $("theme-icon").textContent = isDark ? "☀️" : "🌙"; $("theme-text").textContent = isDark ? "Light" : "Dark";
+            });
+
+            // Scroll
+            $("sc-up").addEventListener("click", () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            $("sc-dn").addEventListener("click", () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
+            window.addEventListener('scroll', () => { $(".scroll-btns").style.opacity = window.scrollY > 300 ? '1' : '.7'; });
+
+            // Font sliders
+            const setupFS = (sl, vl, tgts) => { sl.addEventListener("input", () => { const s = sl.value + "px"; vl.textContent = sl.value; tgts.forEach(t => { if (t) t.style.fontSize = s; }); }); };
+            setupFS($("f-in"), $("fv-in"), [$("inp"), $("ta-ov"), $("ln-in")]);
+            setupFS($("f-out"), $("fv-out"), [$("out-c"), $("ln-out"), $("tree-fmt")]);
+            setupFS($("f-cmp"), $("fv-cmp"), [$("inp-a"), $("inp-b"), $("ln-a"), $("ln-b"), $("tree-a"), $("tree-b")]);
+
+            // Mode switching
+            $("tab-fmt").addEventListener("click", () => switchMode("fmt"));
+            $("tab-cmp").addEventListener("click", () => switchMode("cmp"));
+            function switchMode(m) {
+                $("tab-fmt").classList.toggle("active", m === "fmt");
+                $("tab-cmp").classList.toggle("active", m === "cmp");
+                $("fmt-section").classList.toggle("active", m === "fmt");
+                $("cmp-section").classList.toggle("active", m === "cmp");
+            }
+
+            // =================== FORMATTER MODE ===================
+            let fmtParsed = null, fmtJson = null;
+            const fmtTree = { col: new Set(), srt: new Map() };
+
+            const inp = $("inp"), lnIn = $("ln-in"), taOv = $("ta-ov");
+            inp.addEventListener("input", () => { updLN(lnIn, inp.value); updSt($("st-in"), `Lines: ${inp.value.split('\n').length}, Chars: ${inp.value.length}`); $("cp-in").disabled = !inp.value.trim(); hideErr($("err-fmt")); taOv.innerHTML = ''; });
+            inp.addEventListener("scroll", () => { lnIn.scrollTop = inp.scrollTop; taOv.scrollTop = inp.scrollTop; taOv.scrollLeft = inp.scrollLeft; });
+            $("out-c").addEventListener("scroll", () => { $("ln-out").scrollTop = $("out-c").scrollTop; });
+
+            function fmtDoFormat() {
+                try {
+                    let obj = JSON.parse(inp.value); const sp = $("spacing").value === "tab" ? "\t" : Number($("spacing").value);
+                    let found = false;
+                    if ($("deep").checked) { const r = deepProcess(obj, sp); obj = r.p; found = r.f; if (found) { $("stat-fmt").textContent = "🔄 Nested JSON detected"; $("stat-fmt").style.display = "block"; setTimeout(() => { $("stat-fmt").style.display = "none"; }, 3000); } else $("stat-fmt").style.display = "none"; }
+                    else $("stat-fmt").style.display = "none";
+                    fmtParsed = obj; fmtJson = JSON.stringify(obj, null, sp); fmtTree.srt.clear();
+                    hideErr($("err-fmt")); $("cp-in").disabled = false; $("cp-out").disabled = false; $("dl-out").disabled = false;
+                    showFmtTree();
+                } catch (e) { showErr($("err-fmt"), "Invalid JSON: " + e.message); fmtParsed = null; fmtJson = null; $("cp-out").disabled = true; $("dl-out").disabled = true; $("tree-fmt").innerHTML = ''; $("out-c").innerHTML = ''; $("ln-out").innerHTML = ''; $("tc-fmt").style.display = 'none'; }
+            }
+            function showFmtTree() {
+                $("tree-fmt").style.display = 'block'; $("out-wrap").style.display = 'none'; $("tc-fmt").style.display = 'flex';
+                $("tree-fmt").innerHTML = renderTree(fmtParsed, '$', '', 0, true, fmtTree, null);
+                updSt($("st-out"), `Formatted: ${fmtJson.split('\n').length} lines`);
+            }
+
+            $("fmt-btn").addEventListener("click", fmtDoFormat);
+            $("min-btn").addEventListener("click", () => { try { const j = JSON.parse(inp.value); inp.value = JSON.stringify(j); updLN(lnIn, inp.value); updSt($("st-in"), `Lines: ${inp.value.split('\n').length}, Chars: ${inp.value.length}`); hideErr($("err-fmt")); } catch (e) { showErr($("err-fmt"), "Invalid JSON: " + e.message); } });
+            $("val-btn").addEventListener("click", () => { try { JSON.parse(inp.value); $("stat-fmt").textContent = "✅ Valid JSON"; $("stat-fmt").style.display = "block"; setTimeout(() => { $("stat-fmt").style.display = "none"; }, 3000); hideErr($("err-fmt")); } catch (e) { showErr($("err-fmt"), "Invalid: " + e.message); } });
+            $("clr-btn").addEventListener("click", () => { inp.value = ''; $("out-c").innerHTML = ''; $("ln-out").innerHTML = ''; $("tree-fmt").innerHTML = ''; hideErr($("err-fmt")); $("stat-fmt").style.display = 'none'; fmtParsed = null; fmtJson = null; fmtTree.col.clear(); fmtTree.srt.clear(); updLN(lnIn, ''); updSt($("st-in"), "Lines: 1, Chars: 0"); updSt($("st-out"), "Ready"); $("cp-in").disabled = true; $("cp-out").disabled = true; $("dl-out").disabled = true; $("tree-fmt").style.display = 'none'; $("out-wrap").style.display = 'flex'; $("tc-fmt").style.display = 'none'; });
+            $("sam-btn").addEventListener("click", () => { inp.value = JSON.stringify({ name: "JSON Formatter Pro", creator: "Ahmos", year: 2025, features: ["Syntax highlighting", "Dark/Light theme", "Line numbers", "Error highlighting"], settings: { indentation: 2, defaultTheme: "dark" }, active: true, version: 2.0, notes: null, nested: { level1: { level2: { level3: "Deep nesting example" } } } }, null, 2); updLN(lnIn, inp.value); fmtDoFormat(); });
+            $("nest-btn").addEventListener("click", () => { inp.value = JSON.stringify({ data: '{"offset":0,"limit":1000}', apiResponse: '{"status":"success","results":{"count":42}}', config: { options: '{"debug":true,"mode":"advanced"}', simple: "regular string" } }, null, 2); updLN(lnIn, inp.value); fmtDoFormat(); });
+            $("cp-in").addEventListener("click", () => { if (inp.value) navigator.clipboard.writeText(inp.value).then(() => feedB($("cp-in"), "✓")); });
+            $("cp-out").addEventListener("click", () => { if (fmtJson) navigator.clipboard.writeText(fmtJson).then(() => feedB($("cp-out"), "✓")); });
+            $("dl-out").addEventListener("click", () => { if (!fmtJson) return; const b = new Blob([fmtJson], { type: "application/json" }), u = URL.createObjectURL(b), a = document.createElement("a"); a.href = u; a.download = "AhmosFJ.json"; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u); });
+            $("spacing").addEventListener("change", fmtDoFormat);
+            $("deep").addEventListener("change", fmtDoFormat);
+            $("col-all").addEventListener("click", () => { collPaths(fmtParsed, '$').forEach(p => fmtTree.col.add(p)); $("tree-fmt").innerHTML = renderTree(fmtParsed, '$', '', 0, true, fmtTree, null); });
+            $("exp-all").addEventListener("click", () => { fmtTree.col.clear(); $("tree-fmt").innerHTML = renderTree(fmtParsed, '$', '', 0, true, fmtTree, null); });
+
+            // Tree click handler for formatter
+            $("tree-fmt").addEventListener("click", handleTreeClick(fmtTree, () => { $("tree-fmt").innerHTML = renderTree(fmtParsed, '$', '', 0, true, fmtTree, null); }));
+
+            // Inspector
+            $("insp-x").addEventListener("click", () => $("insp-ov").classList.remove('vis'));
+            $("insp-ov").addEventListener("click", e => { if (e.target === $("insp-ov")) $("insp-ov").classList.remove('vis'); });
+            document.addEventListener("keydown", e => { if (e.key === "Escape") $("insp-ov").classList.remove('vis'); });
+            let inspPath = null;
+            function inspectNode(path, treeRef, panel) {
+                const root = panel === 'a' ? cmpParsedA : panel === 'b' ? cmpParsedB : fmtParsed;
+                if (!root) return; const v = getVal(root, path); if (v === undefined) return; inspPath = path;
+                const t = v === null ? 'null' : Array.isArray(v) ? 'array' : typeof v;
+                let si = ''; if (t === 'object') si = Object.keys(v).length + ' keys'; else if (t === 'array') si = v.length + ' items'; else if (t === 'string') si = v.length + ' chars'; else si = String(v);
+                let h = ''; h += `<div class="insp-row"><span class="insp-lbl">Path</span><span class="insp-val">${esc(path)}</span></div>`;
+                h += `<div class="insp-row"><span class="insp-lbl">Type</span><span class="insp-val t-${t === 'null' ? 'null' : t}">${t}</span></div>`;
+                h += `<div class="insp-row"><span class="insp-lbl">Size</span><span class="insp-val">${esc(si)}</span></div>`;
+                if (t === 'object') h += `<div class="insp-row"><span class="insp-lbl">Keys</span><span class="insp-val">${esc(Object.keys(v).join(', '))}</span></div>`;
+                h += `<div class="insp-preview">${synHL(esc(JSON.stringify(v, null, 2)))}</div>`;
+                $("insp-body").innerHTML = h; $("insp-ov").classList.add('vis');
+            }
+            $("insp-cp").addEventListener("click", () => { if (!inspPath) return; navigator.clipboard.writeText(inspPath).then(() => feedB($("insp-cp"), "✓ Path Copied")); });
+
+            // =================== GENERIC TREE RENDERER ===================
+            function renderTree(v, path, key, depth, isLast, treeSt, diffMap) {
+                if (v === null) return mkLeaf(key, '<span class="jnl">null</span>', path, depth, isLast, diffMap);
+                const t = typeof v;
+                if (t === 'string') return mkLeaf(key, `<span class="js">"${esc(v.length > 120 ? v.substring(0, 120) + '…' : v)}"</span>`, path, depth, isLast, diffMap);
+                if (t === 'number') return mkLeaf(key, `<span class="jn">${v}</span>`, path, depth, isLast, diffMap);
+                if (t === 'boolean') return mkLeaf(key, `<span class="jb">${v}</span>`, path, depth, isLast, diffMap);
+                if (Array.isArray(v)) return mkArrNode(v, path, key, depth, isLast, treeSt, diffMap);
+                if (t === 'object') return mkObjNode(v, path, key, depth, isLast, treeSt, diffMap);
+                return mkLeaf(key, `<span>${esc(String(v))}</span>`, path, depth, isLast, diffMap);
+            }
+            function mkLeaf(key, val, path, depth, isLast, dm) {
+                const comma = isLast ? '' : '<span class="jp">,</span>';
+                const dcls = dm ? getDiffCls(path, dm) : '';
+                const dtag = dm ? getDiffTag(path, dm) : '';
+                return `<div class="tree-node"><div class="tree-row ${dcls}" data-path="${esc(path)}" style="padding-left:${depth * 20}px"><span class="tree-ph"></span>${key !== '' ? `<span class="jk">"${esc(String(key))}"</span><span class="jp">: </span>` : ''}${val}${comma}${dtag}</div></div>`;
+            }
+            function mkObjNode(obj, path, key, depth, isLast, ts, dm) {
+                const keys = getSorted(obj, path, ts.srt), collapsed = ts.col.has(path), sortDir = ts.srt.get(path) || null;
+                const comma = isLast ? '' : '<span class="jp">,</span>', indent = depth * 20;
+                const dcls = dm ? getDiffCls(path, dm) : ''; const dtag = dm ? getDiffTag(path, dm) : '';
+                let h = `<div class="tree-node"><div class="tree-row ${dcls}" data-path="${esc(path)}" style="padding-left:${indent}px">`;
+                h += mkToggle(path, collapsed);
+                if (key !== '') h += `<span class="jk">"${esc(String(key))}"</span><span class="jp">: </span>`;
+                h += `<span class="jo">{</span><span class="tree-badge">${keys.length} ${keys.length === 1 ? 'key' : 'keys'}</span>`;
+                h += `<span class="tree-acts">`;
+                h += mkSortBtn(path, 'asc', 'A→Z', sortDir, ts);
+                h += mkSortBtn(path, 'desc', 'Z→A', sortDir, ts);
+                h += `<button class="tree-abtn" data-path="${esc(path)}" data-action="inspect" title="Inspect"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>`;
+                h += `</span>${dtag}`;
+                if (collapsed) h += `<span class="tree-cprev">}</span>`;
+                h += `</div>`;
+                if (!collapsed) { h += `<div class="tree-children">`; keys.forEach((k, i) => { h += renderTree(obj[k], path + '.' + k, k, depth + 1, i === keys.length - 1, ts, dm); }); h += `</div><div class="tree-row" style="padding-left:${indent}px"><span class="tree-ph"></span><span class="jo">}</span>${comma}</div>`; }
+                return h + '</div>';
+            }
+            function mkArrNode(arr, path, key, depth, isLast, ts, dm) {
+                const collapsed = ts.col.has(path), comma = isLast ? '' : '<span class="jp">,</span>', indent = depth * 20;
+                const dcls = dm ? getDiffCls(path, dm) : ''; const dtag = dm ? getDiffTag(path, dm) : '';
+                let h = `<div class="tree-node"><div class="tree-row ${dcls}" data-path="${esc(path)}" style="padding-left:${indent}px">`;
+                h += mkToggle(path, collapsed);
+                if (key !== '') h += `<span class="jk">"${esc(String(key))}"</span><span class="jp">: </span>`;
+                h += `<span class="jo">[</span><span class="tree-badge">${arr.length} items</span>`;
+                h += `<span class="tree-acts"><button class="tree-abtn" data-path="${esc(path)}" data-action="inspect" title="Inspect"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button></span>`;
+                h += dtag;
+                if (collapsed) h += `<span class="tree-cprev">]</span>`;
+                h += `</div>`;
+                if (!collapsed) { h += `<div class="tree-children">`; arr.forEach((item, i) => { h += renderTree(item, path + '.' + i, '', depth + 1, i === arr.length - 1, ts, dm); }); h += `</div><div class="tree-row" style="padding-left:${indent}px"><span class="tree-ph"></span><span class="jo">]</span>${comma}</div>`; }
+                return h + '</div>';
+            }
+            function mkToggle(p, c) { return `<span class="tree-toggle ${c ? 'collapsed' : ''}" data-path="${esc(p)}"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg></span>`; }
+            function mkSortBtn(p, d, label, activeDir, ts) {
+                const on = activeDir === d ? 'sort-on' : '';
+                const arrow = d === 'asc' ? '↑' : '↓';
+                return `<button class="tree-abtn ${on}" data-path="${esc(p)}" data-action="sort-${d}" title="Sort ${label}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 ${d === 'asc' ? 5 : 19}v14M5 12l7 ${d === 'asc' ? 7 : -7} 7 ${d === 'asc' ? 7 : -7}"/></svg></button>`;
+            }
+
+            function getDiffCls(path, dm) {
+                const d = dm.get(path);
+                if (!d) return ''; return d === 'added' ? 'diff-added' : d === 'removed' ? 'diff-removed' : d === 'changed' ? 'diff-changed' : d === 'unchanged' ? 'diff-unchanged' : '';
+            }
+            function getDiffTag(path, dm) {
+                const d = dm.get(path);
+                if (!d || d === 'unchanged') return '';
+                const label = d === 'added' ? '+ added' : d === 'removed' ? '− removed' : '± changed';
+                const cls = d === 'added' ? 'add' : d === 'removed' ? 'remove' : 'change';
+                return `<span class="diff-tag ${cls}">${label}</span>`;
+            }
+
+            function handleTreeClick(treeRef, reRender) {
+                return function (e) {
+                    const tog = e.target.closest('.tree-toggle');
+                    if (tog) { const p = tog.dataset.path; if (treeRef.col.has(p)) treeRef.col.delete(p); else treeRef.col.add(p); reRender(); return; }
+                    const act = e.target.closest('.tree-abtn');
+                    if (act) {
+                        const p = act.dataset.path, a = act.dataset.action; if (a && a.startsWith('sort-')) { const d = a.split('-')[1]; const c = treeRef.srt.get(p); if (c === d) treeRef.srt.delete(p); else treeRef.srt.set(p, d); reRender(); }
+                        else if (a === 'inspect') { const panel = this.id === 'tree-a' ? 'a' : this.id === 'tree-b' ? 'b' : 'fmt'; inspectNode(p, treeRef, panel); } return;
+                    }
+                    const row = e.target.closest('.tree-row');
+                    if (row) { document.querySelectorAll('.tree-row.selected').forEach(r => r.classList.remove('selected')); row.classList.add('selected'); }
+                };
+            }
+
+            // =================== COMPARE MODE ===================
+            let cmpParsedA = null, cmpParsedB = null;
+            const cmpTreeA = { col: new Set(), srt: new Map() };
+            const cmpTreeB = { col: new Set(), srt: new Map() };
+            let cmpDiffMap = null; // Map<path, 'added'|'removed'|'changed'|'unchanged'>
+            let cmpHighlightOn = false;
+            let lastDiffLines = [];
+
+            // Panel view toggles
+            function setPanelView(side, view) {
+                const tree = side === 'a' ? $("tree-a") : $("tree-b");
+                const raw = side === 'a' ? $("raw-a") : $("raw-b");
+                const tc = side === 'a' ? $("tc-a") : $("tc-b");
+                const vtTree = side === 'a' ? $("vta-tree") : $("vtb-tree");
+                const vtRaw = side === 'a' ? $("vta-raw") : $("vtb-raw");
+                if (view === 'tree') {
+                    tree.style.display = 'block'; raw.style.display = 'none'; tc.style.display = 'flex';
+                    vtTree.classList.add('active'); vtRaw.classList.remove('active');
+                    // Parse and render tree
+                    const inpEl = side === 'a' ? $("inp-a") : $("inp-b");
+                    const errEl = side === 'a' ? $("err-a") : $("err-b");
+                    const ts = side === 'a' ? cmpTreeA : cmpTreeB;
+                    try {
+                        const obj = JSON.parse(inpEl.value);
+                        if (side === 'a') cmpParsedA = obj; else cmpParsedB = obj;
+                        const dm = cmpHighlightOn ? cmpDiffMap : null;
+                        tree.innerHTML = renderTree(obj, '$', '', 0, true, ts, dm);
+                        hideErr(errEl);
+                    } catch (e) { showErr(errEl, "Invalid JSON"); tree.innerHTML = '<div style="padding:10px;color:var(--nul)">Fix JSON errors to view tree</div>'; }
                 } else {
-                    yearElement.textContent = ' ' + startYear + ' ';
+                    tree.style.display = 'none'; raw.style.display = 'flex'; tc.style.display = 'none';
+                    vtRaw.classList.add('active'); vtTree.classList.remove('active');
                 }
             }
 
-            document.addEventListener("DOMContentLoaded", function () {
-                // DOM Elements
-                const scrollUpBtn = document.getElementById("scroll-up");
-                const scrollDownBtn = document.getElementById("scroll-down");
-                const textareaOverlay = document.getElementById("textarea-overlay");
-                const themeToggle = document.getElementById("theme-toggle");
-                const themeIcon = document.getElementById("theme-icon");
-                const themeText = document.getElementById("theme-text");
-                const formatButton = document.getElementById("format-button");
-                const minifyButton = document.getElementById("minify-button");
-                const validateButton = document.getElementById("validate-button");
-                const clearButton = document.getElementById("clear-button");
-                const sampleButton = document.getElementById("sample-button");
-                const nestedSampleButton = document.getElementById("nested-sample-button");
-                const jsonInput = document.getElementById("json-input");
-                const outputContainer = document.getElementById("output-container");
-                const outputContent = document.getElementById("output-content");
-                const outputLineNumbers = document.getElementById("output-line-numbers");
-                const inputLineNumbers = document.getElementById("input-line-numbers");
-                const errorMessage = document.getElementById("error-message");
-                const statusMessage = document.getElementById("status-message");
-                const copyInputButton = document.getElementById("copyInput-button");
-                const copyButton = document.getElementById("copy-button");
-                const downloadButton = document.getElementById("download-button");
-                const spacingSelect = document.getElementById("spacing");
-                const coloredOutputSelect = document.getElementById("colored-output");
-                const deepFormatCheckbox = document.getElementById("deep-format");
-                const inputStats = document.getElementById("input-stats");
-                const outputStats = document.getElementById("output-stats");
-                const inputFontSlider = document.getElementById("input-font-slider");
-                const outputFontSlider = document.getElementById("output-font-slider");
-                const inputFontValue = document.getElementById("input-font-value");
-                const outputFontValue = document.getElementById("output-font-value");
+            // Panel toolbar event delegation
+            document.querySelectorAll('.ptool').forEach(tb => {
+                tb.addEventListener("click", e => {
+                    const btn = e.target.closest('button'); if (!btn) return;
+                    const p = btn.dataset.p, act = btn.dataset.act; if (!p || !act) return;
+                    const inpEl = p === 'a' ? $("inp-a") : $("inp-b");
+                    const lnEl = p === 'a' ? $("ln-a") : $("ln-b");
+                    const errEl = p === 'a' ? $("err-a") : $("err-b");
+                    const stEl = p === 'a' ? $("st-a") : $("st-b");
 
-                // Dark theme by default
-                let isDarkTheme = true;
-                let currentJson = null;
-                let currentErrorLine = null;
-                let currentErrorPosition = null;
-
-                // Sample JSON
-                const sampleJson = {
-                    name: "JSON Formatter Pro",
-                    creator: "Ahmos",
-                    year: 2025,
-                    features: [
-                        "Syntax highlighting",
-                        "Dark/Light theme",
-                        "Line numbers",
-                        "Error highlighting",
-                        "Copy functionality",
-                        "Download option",
-                        "Responsive design"
-                    ],
-                    settings: {
-                        indentation: 2,
-                        defaultTheme: "dark",
-                        colorOutput: true,
-                        showLineNumbers: true
-                    },
-                    active: true,
-                    version: 2.0,
-                    notes: null,
-                    nested: {
-                        level1: {
-                            level2: {
-                                level3: "Deep nesting example with enhanced formatting"
-                            }
-                        }
+                    if (act === 'tree') { setPanelView(p, 'tree'); return; }
+                    if (act === 'raw') { setPanelView(p, 'raw'); return; }
+                    if (act === 'format') {
+                        try { const j = JSON.parse(inpEl.value); inpEl.value = JSON.stringify(j, null, 2); updLN(lnEl, inpEl.value); updSt(stEl, `Lines: ${inpEl.value.split('\n').length}, Chars: ${inpEl.value.length}`); hideErr(errEl); if (p === 'a') cmpParsedA = j; else cmpParsedB = j; if (cmpHighlightOn) refreshHighlight(); setPanelView(p, 'tree'); }
+                        catch (e) { showErr(errEl, "Invalid JSON"); } return;
                     }
-                };
-
-                // Nested JSON sample
-                const nestedSampleJson = {
-                    data: '{"offset":0,"limit":1000,"simplify":1,"projection":[],"filters":{"status":"active"}}',
-                    apiResponse: '{"status":"success","results":{"count":42,"items":[{"id":1,"name":"Test Item","metadata":{"created":"2025-01-01"}}]}}',
-                    config: {
-                        options: '{"debug":true,"mode":"advanced","features":["validation","formatting"]}',
-                        simple: "This is just a regular string",
-                        complexNested: '{"deeply":{"nested":{"json":"value","array":[1,2,3]}}}'
+                    if (act === 'sort-asc' || act === 'sort-desc') {
+                        try { let j = JSON.parse(inpEl.value); const d = act === 'sort-asc' ? 'asc' : 'desc'; j = sortKeys(j, d); inpEl.value = JSON.stringify(j, null, 2); updLN(lnEl, inpEl.value); updSt(stEl, `Lines: ${inpEl.value.split('\n').length}, Chars: ${inpEl.value.length}`); hideErr(errEl); if (p === 'a') cmpParsedA = j; else cmpParsedB = j; if (cmpHighlightOn) refreshHighlight(); setPanelView(p, 'tree'); }
+                        catch (e) { showErr(errEl, "Invalid JSON"); } return;
                     }
-                };
-
-                // Theme Toggle
-                themeToggle.addEventListener("click", function () {
-                    isDarkTheme = !isDarkTheme;
-                    document.body.classList.toggle("light-theme", !isDarkTheme);
-                    themeIcon.textContent = isDarkTheme ? "☀️" : "🌙";
-                    themeText.textContent = isDarkTheme ? "Light Theme" : "Dark Theme";
-                });
-                scrollUpBtn.addEventListener("click", function () {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-
-                scrollDownBtn.addEventListener("click", function () {
-                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-                });
-
-                // Input font size control
-                inputFontSlider.addEventListener("input", function () {
-                    const fontSize = this.value + "px";
-                    inputFontValue.textContent = fontSize;
-
-                    // Apply to input textarea and related elements
-                    jsonInput.style.fontSize = fontSize;
-                    textareaOverlay.style.fontSize = fontSize;
-                    inputLineNumbers.style.fontSize = fontSize;
-
-                    // Add a subtle animation effect
-                    jsonInput.style.transform = "scale(1.01)";
-                    setTimeout(() => {
-                        jsonInput.style.transform = "scale(1)";
-                    }, 150);
-                });
-
-                // Output font size control
-                outputFontSlider.addEventListener("input", function () {
-                    const fontSize = this.value + "px";
-                    outputFontValue.textContent = fontSize;
-
-                    // Apply to output elements
-                    outputContent.style.fontSize = fontSize;
-                    outputLineNumbers.style.fontSize = fontSize;
-
-                    // Add a subtle animation effect
-                    outputContent.style.transform = "scale(1.01)";
-                    setTimeout(() => {
-                        outputContent.style.transform = "scale(1)";
-                    }, 150);
-                });
-
-                // Smooth scroll effect for font controls
-                let scrollTimeout;
-                window.addEventListener('scroll', function () {
-                    // Add subtle glow effect to font controls during scroll
-                    const fontControls = document.querySelectorAll('.font-control');
-                    fontControls.forEach(control => {
-                        control.style.boxShadow = '0 0 10px rgba(137, 180, 250, 0.3)';
-                    });
-
-                    // Clear the glow effect after scroll ends
-                    clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(() => {
-                        fontControls.forEach(control => {
-                            control.style.boxShadow = 'none';
-                        });
-                    }, 300);
-                });
-
-                // Show/hide scroll buttons based on scroll position
-                window.addEventListener('scroll', function () {
-                    const scrollButtons = document.querySelector('.scroll-buttons');
-                    if (window.scrollY > 300) {
-                        scrollButtons.style.opacity = '1';
-                    } else {
-                        scrollButtons.style.opacity = '0.7';
+                    if (act === 'minify') {
+                        try { const j = JSON.parse(inpEl.value); inpEl.value = JSON.stringify(j); updLN(lnEl, inpEl.value); updSt(stEl, `Lines: ${inpEl.value.split('\n').length}, Chars: ${inpEl.value.length}`); hideErr(errEl); }
+                        catch (e) { showErr(errEl, "Invalid JSON"); } return;
                     }
-                });
-                // Update the input event listener for textarea
-                jsonInput.addEventListener("input", function () {
-                    updateInputLineNumbers();
-                    updateInputStats();
-                    updateButtonState();
-                    clearError();
-
-                    // Clear overlay when typing
-                    textareaOverlay.innerHTML = "";
-                });
-
-                // Update scroll synchronization
-                jsonInput.addEventListener("scroll", function () {
-                    inputLineNumbers.scrollTop = jsonInput.scrollTop;
-                    textareaOverlay.scrollTop = jsonInput.scrollTop;
-                    textareaOverlay.scrollLeft = jsonInput.scrollLeft;
-                });
-
-                // Add these event listeners after the existing ones
-
-                // Handle textarea resize and scroll for overlay synchronization
-                jsonInput.addEventListener('scroll', function () {
-                    textareaOverlay.scrollTop = jsonInput.scrollTop;
-                    textareaOverlay.scrollLeft = jsonInput.scrollLeft;
-                });
-
-                // Clear error highlighting when user starts typing
-                jsonInput.addEventListener('keydown', function () {
-                    if (currentErrorPosition !== null) {
-                        // Clear error highlighting after a short delay to allow for typing
-                        setTimeout(() => {
-                            if (currentErrorPosition !== null) {
-                                clearError();
-                            }
-                        }, 100);
-                    }
-                });
-                // Format JSON
-                formatButton.addEventListener("click", function () {
-                    formatJSON();
-                });
-
-                // Minify JSON
-                minifyButton.addEventListener("click", function () {
-                    try {
-                        const json = JSON.parse(jsonInput.value);
-                        const minified = JSON.stringify(json);
-                        jsonInput.value = minified;
-                        updateInputLineNumbers();
-                        updateInputStats();
-                        clearError();
-                        enableButtons();
-                    } catch (e) {
-                        const errorInfo = extractLineAndColumn(e.message);
-                        showError("Invalid JSON: " + e.message, errorInfo.line);
-                        disableButtons();
-                    }
-                });
-
-                // Validate JSON
-                validateButton.addEventListener("click", function () {
-                    try {
-                        JSON.parse(jsonInput.value);
-                        showStatus("✅ Valid JSON", "success");
-                        clearError();
-                        // Scroll to show the validation result
-                        setTimeout(() => {
-                            statusMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }, 100);
-                    } catch (e) {
-                        const errorInfo = extractLineAndColumn(e.message);
-                        showError("Invalid JSON: " + e.message, errorInfo.line);
-                        // Scroll to show the error message
-                        setTimeout(() => {
-                            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }, 100);
-                    }
-                });
-                // Clear Input
-                clearButton.addEventListener("click", function () {
-                    jsonInput.value = "";
-                    outputContent.innerHTML = "";
-                    outputLineNumbers.innerHTML = "";
-                    errorMessage.textContent = "";
-                    statusMessage.style.display = "none";
-                    updateInputLineNumbers();
-                    updateInputStats();
-                    updateOutputStats("Ready");
-                    disableButtons();
-                });
-
-                // Load Sample
-                sampleButton.addEventListener("click", function () {
-                    jsonInput.value = JSON.stringify(sampleJson, null, 2);
-                    updateInputLineNumbers();
-                    updateInputStats();
-                    formatJSON();
-                });
-
-                // Load Nested Sample
-                nestedSampleButton.addEventListener("click", function () {
-                    jsonInput.value = JSON.stringify(nestedSampleJson, null, 2);
-                    updateInputLineNumbers();
-                    updateInputStats();
-                    formatJSON();
-                });
-
-                // Copy to Clipboard
-                copyButton.addEventListener("click", function () {
-                    if (currentJson) {
-                        navigator.clipboard.writeText(currentJson).then(function () {
-                            showButtonFeedback(copyButton, "Copied!");
-                        });
-                    }
-                });
-
-                copyInputButton.addEventListener("click", function () {
-                    if (jsonInput.value) {
-                        navigator.clipboard.writeText(jsonInput.value).then(function () {
-                            showButtonFeedback(copyInputButton, "Copied!");
-                        });
-                    }
-                });
-
-                // Download JSON
-                downloadButton.addEventListener("click", function () {
-                    if (currentJson) {
-                        const blob = new Blob([currentJson], { type: "application/json" });
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement("a");
-                        a.href = url;
-                        a.download = "AhmosFJ.json";
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
-                        URL.revokeObjectURL(url);
-                    }
-                });
-
-                // Update overlay position on window resize
-                window.addEventListener('resize', function () {
-                    if (currentErrorPosition !== null) {
-                        highlightErrorPosition();
-                    }
-                });
-
-                // Control listeners
-                spacingSelect.addEventListener("change", formatJSON);
-                coloredOutputSelect.addEventListener("change", formatJSON);
-                deepFormatCheckbox.addEventListener("change", formatJSON);
-
-                // Format JSON function
-                function formatJSON() {
-                    try {
-                        const json = JSON.parse(jsonInput.value);
-                        const spacing = spacingSelect.value === "tab" ? "\t" : Number(spacingSelect.value);
-                        const formatted = JSON.stringify(json, null, spacing);
-                        updateOutput(formatted);
-                        clearError();
-                        enableButtons();
-                    } catch (e) {
-                        const errorInfo = extractLineAndColumn(e.message);
-                        showError("Invalid JSON: " + e.message, errorInfo.line);
-                        disableButtons();
-                    }
-                }
-
-                // Process deep JSON
-                function processDeepJSON(obj, spacing) {
-                    let foundNested = false;
-                    let processed = JSON.parse(JSON.stringify(obj));
-
-                    function processObject(obj) {
-                        if (!obj || typeof obj !== "object") return;
-
-                        for (const key in obj) {
-                            if (typeof obj[key] === "string") {
-                                try {
-                                    const parsed = JSON.parse(obj[key]);
-                                    if (typeof parsed === "object" && parsed !== null) {
-                                        obj[key] = processDeepJSON(parsed, spacing).processed;
-                                        foundNested = true;
-                                    }
-                                } catch (e) { }
-                            } else if (typeof obj[key] === "object" && obj[key] !== null) {
-                                processObject(obj[key]);
-                            }
-                        }
-                    }
-                    processObject(processed);
-                    return { processed, foundNested };
-                }
-
-                // Update output
-                function updateOutput(jsonString) {
-                    if (!jsonString) {
-                        outputContent.innerHTML = "";
-                        outputLineNumbers.innerHTML = "";
-                        return;
-                    }
-
-                    const isColored = coloredOutputSelect.value === "colored";
-                    const isDeepFormat = deepFormatCheckbox.checked;
-
-                    let processedJson = jsonString;
-                    let foundNested = false;
-
-                    if (isDeepFormat) {
-                        try {
-                            const spacing = spacingSelect.value === "tab" ? "\t" : Number(spacingSelect.value);
-                            const obj = JSON.parse(jsonString);
-                            const result = processDeepJSON(obj, spacing);
-
-                            if (result.foundNested) {
-                                processedJson = JSON.stringify(result.processed, null, spacing);
-                                foundNested = true;
-                                showStatus("🔄 Nested JSON strings detected and formatted", "info");
-                            } else {
-                                statusMessage.style.display = "none";
-                            }
-                        } catch (e) {
-                            console.error("Error processing deep JSON:", e);
-                        }
-                    } else {
-                        statusMessage.style.display = "none";
-                    }
-
-                    currentJson = processedJson;
-                    updateOutputLineNumbers(processedJson);
-
-                    if (isColored) {
-                        outputContent.innerHTML = syntaxHighlight(processedJson);
-                    } else {
-                        outputContent.innerHTML = `<pre class="plain-text">${escapeHtml(processedJson)}</pre>`;
-                    }
-
-                    updateOutputStats(`Formatted: ${processedJson.split('\n').length} lines`);
-                }
-
-                // Update input line numbers
-                function updateInputLineNumbers() {
-                    const lines = jsonInput.value.split('\n');
-                    const lineNumbersHtml = lines.map((line, index) => {
-                        const lineNum = index + 1;
-                        const isErrorLine = currentErrorLine === lineNum;
-                        return `<div class="${isErrorLine ? 'error-line' : ''}">${lineNum}</div>`;
-                    }).join('');
-                    inputLineNumbers.innerHTML = lineNumbersHtml;
-                }
-
-                // Update output line numbers
-                function updateOutputLineNumbers(content) {
-                    const lines = content.split('\n');
-                    const lineNumbersHtml = lines.map((line, index) =>
-                        `<div>${index + 1}</div>`
-                    ).join('');
-                    outputLineNumbers.innerHTML = lineNumbersHtml;
-                }
-
-                // Update input stats
-                function updateInputStats() {
-                    const lines = jsonInput.value.split('\n').length;
-                    const chars = jsonInput.value.length;
-                    inputStats.textContent = `Lines: ${lines}, Characters: ${chars}`;
-                }
-
-                // Update output stats
-                function updateOutputStats(text) {
-                    outputStats.textContent = text;
-                }
-
-                // Show error with line highlighting
-                function showError(message, lineNumber = null) {
-                    errorMessage.textContent = message;
-                    errorMessage.style.display = "block";
-
-                    // Parse position from error message
-                    const positionMatch = message.match(/at position (\d+)/);
-                    const position = positionMatch ? parseInt(positionMatch[1]) : null;
-
-                    currentErrorLine = lineNumber;
-                    currentErrorPosition = position;
-
-                    highlightErrorPosition();
-                    updateInputLineNumbers();
-                    updateOutputStats("❌ Error");
-
-                    // Scroll to error position
-                    if (position !== null) {
-                        scrollToPosition(position);
-                    } else if (lineNumber && lineNumber > 0) {
-                        const lineHeight = 22;
-                        jsonInput.scrollTop = (lineNumber - 1) * lineHeight;
-                    }
-                }
-
-                // Add new function to highlight error position
-                function highlightErrorPosition() {
-                    if (currentErrorPosition === null) {
-                        textareaOverlay.innerHTML = "";
-                        return;
-                    }
-
-                    const text = jsonInput.value;
-                    const position = currentErrorPosition;
-
-                    if (position >= text.length) {
-                        textareaOverlay.innerHTML = "";
-                        return;
-                    }
-
-                    // Create highlighted text
-                    const beforeError = text.substring(0, position);
-                    const errorChar = text.substring(position, position + 1);
-                    const afterError = text.substring(position + 1);
-
-                    const highlightedText =
-                        escapeHtml(beforeError) +
-                        '<span class="error-highlight">' + escapeHtml(errorChar) + '</span>' +
-                        escapeHtml(afterError);
-
-                    textareaOverlay.innerHTML = highlightedText;
-                }
-
-                // Add new function to scroll to position
-                function scrollToPosition(position) {
-                    const text = jsonInput.value.substring(0, position);
-                    const lines = text.split('\n');
-                    const lineNumber = lines.length;
-                    const columnNumber = lines[lines.length - 1].length;
-
-                    // Scroll to approximate position
-                    const lineHeight = 22;
-                    jsonInput.scrollTop = Math.max(0, (lineNumber - 3) * lineHeight);
-
-                    // Set cursor position
-                    jsonInput.focus();
-                    jsonInput.setSelectionRange(position, position + 1);
-                }
-
-                // Replace the existing clearError function
-                function clearError() {
-                    errorMessage.textContent = "";
-                    errorMessage.style.display = "none";
-                    currentErrorLine = null;
-                    currentErrorPosition = null;
-                    textareaOverlay.innerHTML = "";
-                    updateInputLineNumbers();
-                }
-
-                // Add new function to extract line and column from error
-                function extractLineAndColumn(errorMessage) {
-                    const lineMatch = errorMessage.match(/line (\d+)/i);
-                    const columnMatch = errorMessage.match(/column (\d+)/i);
-                    const positionMatch = errorMessage.match(/at position (\d+)/);
-
-                    return {
-                        line: lineMatch ? parseInt(lineMatch[1]) : null,
-                        column: columnMatch ? parseInt(columnMatch[1]) : null,
-                        position: positionMatch ? parseInt(positionMatch[1]) : null
-                    };
-                }
-
-                // Show status message
-                function showStatus(message, type = "info") {
-                    statusMessage.textContent = message;
-                    statusMessage.style.display = "block";
-                    setTimeout(() => {
-                        statusMessage.style.display = "none";
-                    }, 3000);
-                }
-
-                // Extract line number from error message
-                function extractLineNumber(errorMessage) {
-                    const match = errorMessage.match(/line (\d+)/i) || errorMessage.match(/position (\d+)/i);
-                    return match ? parseInt(match[1]) : null;
-                }
-
-                // Show button feedback
-                function showButtonFeedback(button, message) {
-                    const originalContent = button.innerHTML;
-                    button.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                    ${message}
-                `;
-                    setTimeout(() => {
-                        button.innerHTML = originalContent;
-                    }, 2000);
-                }
-
-                // Syntax highlighting
-                function syntaxHighlight(json) {
-                    if (!json) return "";
-
-                    json = json.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-                    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?|[\,\.\}\{\[\]])/g, function (match) {
-                        var cls = "json-number";
-                        if (/^"/.test(match)) {
-                            if (/:$/.test(match)) {
-                                cls = "json-key";
-                            } else {
-                                cls = "json-string";
-                            }
-                        } else if (/true|false/.test(match)) {
-                            cls = "json-boolean";
-                        } else if (/null/.test(match)) {
-                            cls = "json-null";
-                        } else if (/([\{\}])/.test(match)) {
-                            cls = "json-opt";
-                        } else if (/([\,\[\]])/.test(match)) {
-                            cls = "json-punc";
-                        }
-                        return '<span class="' + cls + '">' + match + "</span>";
-                    });
-                }
-
-                // HTML escaping helper
-                function escapeHtml(unsafe) {
-                    return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-                }
-
-                // Update button state
-                function updateButtonState() {
-                    const hasInput = jsonInput.value.trim() !== "";
-                    copyInputButton.disabled = !hasInput;
-                }
-
-                // Enable buttons
-                function enableButtons() {
-                    copyInputButton.disabled = false;
-                    copyButton.disabled = false;
-                    downloadButton.disabled = false;
-                }
-
-                // Disable buttons
-                function disableButtons() {
-                    copyInputButton.disabled = true;
-                    copyButton.disabled = true;
-                    downloadButton.disabled = true;
-                    outputContent.innerHTML = "";
-                    outputLineNumbers.innerHTML = "";
-                    currentJson = null;
-                }
-
-                // Initialize
-                updateInputLineNumbers();
-                updateInputStats();
-                updateOutputStats("Ready");
-                disableButtons();
-
-                // Keyboard shortcuts
-                document.addEventListener("keydown", function (e) {
-                    if (e.ctrlKey || e.metaKey) {
-                        switch (e.key) {
-                            case 'Enter':
-                                e.preventDefault();
-                                formatJSON();
-                                break;
-                            case 'l':
-                                e.preventDefault();
-                                clearButton.click();
-                                break;
-                            case 'k':
-                                e.preventDefault();
-                                validateButton.click();
-                                break;
-                        }
-                    }
-                });
-
-                // Drag and drop support
-                jsonInput.addEventListener('dragover', function (e) {
-                    e.preventDefault();
-                    e.dataTransfer.dropEffect = 'copy';
-                });
-
-                jsonInput.addEventListener('drop', function (e) {
-                    e.preventDefault();
-                    const files = e.dataTransfer.files;
-                    if (files.length > 0) {
-                        const file = files[0];
-                        if (file.type === 'application/json' || file.name.endsWith('.json')) {
-                            const reader = new FileReader();
-                            reader.onload = function (e) {
-                                jsonInput.value = e.target.result;
-                                updateInputLineNumbers();
-                                updateInputStats();
-                                updateButtonState();
-                                formatJSON();
-                            };
-                            reader.readAsText(file);
-                        }
-                    }
-                });
-
-                // Auto-format on paste
-                jsonInput.addEventListener('paste', function (e) {
-                    setTimeout(() => {
-                        updateInputLineNumbers();
-                        updateInputStats();
-                        updateButtonState();
-
-                        // Auto-format if it's valid JSON
-                        try {
-                            JSON.parse(jsonInput.value);
-                            setTimeout(() => formatJSON(), 100);
-                        } catch (e) {
-                            // Not valid JSON, just update line numbers
-                        }
-                    }, 10);
-                });
-
-                // Sync scroll between input and line numbers
-                jsonInput.addEventListener('scroll', function () {
-                    inputLineNumbers.scrollTop = jsonInput.scrollTop;
-                });
-
-                outputContent.addEventListener('scroll', function () {
-                    outputLineNumbers.scrollTop = outputContent.scrollTop;
+                    if (act === 'copy') { if (inpEl.value) navigator.clipboard.writeText(inpEl.value).then(() => feedB(btn, "✓")); return; }
+                    if (act === 'clear') { inpEl.value = ''; updLN(lnEl, ''); updSt(stEl, "Lines: 1, Chars: 0"); hideErr(errEl); if (p === 'a') { cmpParsedA = null; $("tree-a").innerHTML = ''; } else { cmpParsedB = null; $("tree-b").innerHTML = ''; } return; }
                 });
             });
-        </script>
+
+            // Tree click handlers for compare panels
+            $("tree-a").addEventListener("click", handleTreeClick(cmpTreeA, () => { setPanelView('a', 'tree'); }));
+            $("tree-b").addEventListener("click", handleTreeClick(cmpTreeB, () => { setPanelView('b', 'tree'); }));
+
+            // Collapse/Expand for compare trees
+            $("col-a").addEventListener("click", () => { if (cmpParsedA) collPaths(cmpParsedA, '$').forEach(p => cmpTreeA.col.add(p)); setPanelView('a', 'tree'); });
+            $("exp-a").addEventListener("click", () => { cmpTreeA.col.clear(); setPanelView('a', 'tree'); });
+            $("col-b").addEventListener("click", () => { if (cmpParsedB) collPaths(cmpParsedB, '$').forEach(p => cmpTreeB.col.add(p)); setPanelView('b', 'tree'); });
+            $("exp-b").addEventListener("click", () => { cmpTreeB.col.clear(); setPanelView('b', 'tree'); });
+
+            // Input events
+            $("inp-a").addEventListener("input", () => { updLN($("ln-a"), $("inp-a").value); updSt($("st-a"), `Lines: ${$("inp-a").value.split('\n').length}, Chars: ${$("inp-a").value.length}`); hideErr($("err-a")); });
+            $("inp-a").addEventListener("scroll", () => { $("ln-a").scrollTop = $("inp-a").scrollTop; });
+            $("inp-b").addEventListener("input", () => { updLN($("ln-b"), $("inp-b").value); updSt($("st-b"), `Lines: ${$("inp-b").value.split('\n').length}, Chars: ${$("inp-b").value.length}`); hideErr($("err-b")); });
+            $("inp-b").addEventListener("scroll", () => { $("ln-b").scrollTop = $("inp-b").scrollTop; });
+
+            // Highlight toggle
+            $("hl-toggle").addEventListener("click", () => {
+                cmpHighlightOn = !cmpHighlightOn;
+                const btn = $("hl-toggle");
+                btn.classList.toggle("on", cmpHighlightOn);
+                btn.classList.toggle("off", !cmpHighlightOn);
+                btn.innerHTML = cmpHighlightOn ?
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg> Highlight ON' :
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg> Highlight Changes';
+                if (cmpHighlightOn) {
+                    // Run compare if we have valid JSON in both panels
+                    try { cmpParsedA = JSON.parse($("inp-a").value); cmpParsedB = JSON.parse($("inp-b").value); }
+                    catch (e) { return; }
+                    cmpDiffMap = computeStructuralDiff(cmpParsedA, cmpParsedB);
+                    setPanelView('a', 'tree'); setPanelView('b', 'tree');
+                } else {
+                    cmpDiffMap = null;
+                    setPanelView('a', 'tree'); setPanelView('b', 'tree');
+                }
+            });
+
+            function refreshHighlight() {
+                if (!cmpHighlightOn) return;
+                try { cmpParsedA = JSON.parse($("inp-a").value); cmpParsedB = JSON.parse($("inp-b").value); }
+                catch (e) { return; }
+                cmpDiffMap = computeStructuralDiff(cmpParsedA, cmpParsedB);
+                setPanelView('a', 'tree'); setPanelView('b', 'tree');
+            }
+
+            // Structural diff - compares two JSON objects and returns Map<path, diffType>
+            function computeStructuralDiff(a, b) {
+                const map = new Map();
+                function compare(va, vb, path) {
+                    const ta = va === null ? 'null' : Array.isArray(va) ? 'array' : typeof va;
+                    const tb = vb === null ? 'null' : Array.isArray(vb) ? 'array' : typeof vb;
+                    if (ta !== tb) { map.set(path, 'changed'); return; }
+                    if (ta === 'object' && !Array.isArray(va)) {
+                        const keysA = new Set(Object.keys(va)), keysB = new Set(Object.keys(vb));
+                        for (const k of keysA) { if (!keysB.has(k)) map.set(path + '.' + k, 'removed'); }
+                        for (const k of keysB) { if (!keysA.has(k)) map.set(path + '.' + k, 'added'); }
+                        for (const k of keysA) { if (keysB.has(k)) { compare(va[k], vb[k], path + '.' + k); } }
+                        // Check if any child changed
+                        const childrenChanged = [...keysA, ...keysB].some(k => { const d = map.get(path + '.' + k); return d && d !== 'unchanged'; });
+                        if (childrenChanged) map.set(path, 'changed'); else map.set(path, 'unchanged');
+                    } else if (ta === 'array') {
+                        if (va.length !== vb.length) { map.set(path, 'changed'); return; }
+                        let anyChanged = false;
+                        for (let i = 0; i < va.length; i++) { compare(va[i], vb[i], path + '.' + i); if (map.get(path + '.' + i) !== 'unchanged') anyChanged = true; }
+                        map.set(path, anyChanged ? 'changed' : 'unchanged');
+                    } else {
+                        if (va !== vb) map.set(path, 'changed'); else map.set(path, 'unchanged');
+                    }
+                }
+                compare(a, b, '$');
+                return map;
+            }
+
+            // Compare button
+            $("cmp-run").addEventListener("click", runCompare);
+            function runCompare() {
+                hideErr($("err-a")); hideErr($("err-b"));
+                let a, b;
+                try { a = JSON.parse($("inp-a").value); } catch (e) { showErr($("err-a"), "Panel A: " + e.message); return; }
+                try { b = JSON.parse($("inp-b").value); } catch (e) { showErr($("err-b"), "Panel B: " + e.message); return; }
+                cmpParsedA = a; cmpParsedB = b;
+                if (cmpHighlightOn) { cmpDiffMap = computeStructuralDiff(a, b); setPanelView('a', 'tree'); setPanelView('b', 'tree'); }
+                const lA = JSON.stringify(a, null, 2).split('\n'), lB = JSON.stringify(b, null, 2).split('\n');
+                const lines = computeLineDiff(lA, lB); lastDiffLines = lines;
+                hideUnchanged = false; $("diff-hide").innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5H7z"/></svg> Hide Same';
+                renderDiff(lines); $("diff-out").classList.add('vis'); $("diff-out").scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            let hideUnchanged = false;
+            $("diff-hide").addEventListener("click", () => {
+                hideUnchanged = !hideUnchanged;
+                $("diff-hide").innerHTML = hideUnchanged ?
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 14l5-5 5 5H7z"/></svg> Show All' :
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5H7z"/></svg> Hide Same';
+                renderDiff(lastDiffLines);
+            });
+            $("diff-cp").addEventListener("click", () => {
+                if (!lastDiffLines.length) return;
+                const txt = lastDiffLines.filter(l => l.type !== 'separator').map(l => (l.type === 'added' ? '+ ' : l.type === 'removed' ? '- ' : '  ') + l.content).join('\n');
+                navigator.clipboard.writeText(txt).then(() => feedB($("diff-cp"), "✓"));
+            });
+
+            // LCS diff
+            function computeLineDiff(a, b) {
+                const n = a.length, m = b.length, dp = [];
+                for (let i = 0; i <= n; i++) { dp[i] = []; for (let j = 0; j <= m; j++) { dp[i][j] = i === 0 || j === 0 ? 0 : a[i - 1] === b[j - 1] ? dp[i - 1][j - 1] + 1 : Math.max(dp[i - 1][j], dp[i][j - 1]); } }
+                const r = []; let i = n, j = m;
+                while (i > 0 || j > 0) {
+                    if (i > 0 && j > 0 && a[i - 1] === b[j - 1]) { r.unshift({ type: 'unchanged', content: a[i - 1], lnA: i, lnB: j }); i--; j--; }
+                    else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) { r.unshift({ type: 'added', content: b[j - 1], lnA: null, lnB: j }); j--; }
+                    else { r.unshift({ type: 'removed', content: a[i - 1], lnA: i, lnB: null }); i--; }
+                }
+                // Group removed+added with same key as changed
+                const g = []; let k = 0;
+                while (k < r.length) {
+                    if (r[k].type === 'removed' && k + 1 < r.length && r[k + 1].type === 'added') {
+                        const mA = r[k].content.match(/^(\s*"[^"]+"\s*:\s*).*/), mB = r[k + 1].content.match(/^(\s*"[^"]+"\s*:\s*).*/);
+                        if (mA && mB && mA[1] === mB[1]) { g.push({ type: 'changed', oldContent: r[k].content, newContent: r[k + 1].content, lnA: r[k].lnA, lnB: r[k + 1].lnB }); k += 2; continue; }
+                    }
+                    g.push(r[k]); k++;
+                }
+                return g;
+            }
+
+            function renderDiff(lines) {
+                let h = '', added = 0, removed = 0, unchanged = 0, vis = 0, lastVis = null;
+                lines.forEach(l => {
+                    const u = l.type === 'unchanged';
+                    if (!u && lastVis === 'unchanged' && vis > 0) h += `<div class="dline dsep">··· ${vis} same lines ···</div>`;
+                    if (u && hideUnchanged) { lastVis = l.type; unchanged++; return; }
+                    vis++; lastVis = l.type;
+                    if (u) { unchanged++; h += `<div class="dline"><div class="dln">${l.lnA}</div><div class="dln">${l.lnB}</div><div class="dlm">&nbsp;</div><div class="dlc">${esc(l.content)}</div></div>`; }
+                    else if (l.type === 'added') { added++; h += `<div class="dline add"><div class="dln"></div><div class="dln">${l.lnB}</div><div class="dlm">+</div><div class="dlc">${esc(l.content)}</div></div>`; }
+                    else if (l.type === 'removed') { removed++; h += `<div class="dline rm"><div class="dln">${l.lnA}</div><div class="dln"></div><div class="dlm">−</div><div class="dlc">${esc(l.content)}</div></div>`; }
+                    else if (l.type === 'changed') { added++; removed++; h += `<div class="dline rm"><div class="dln">${l.lnA}</div><div class="dln"></div><div class="dlm">−</div><div class="dlc">${esc(l.oldContent)}</div></div><div class="dline add"><div class="dln"></div><div class="dln">${l.lnB}</div><div class="dlm">+</div><div class="dlc">${esc(l.newContent)}</div></div>`; }
+                });
+                if (hideUnchanged && unchanged > 0 && vis > 0) h += `<div class="dline dsep">··· ${unchanged} same lines hidden ···</div>`;
+                $("diff-c").innerHTML = h || '<div style="padding:20px;text-align:center;color:var(--ln)">JSON is identical — no differences found</div>';
+                $("diff-stats").innerHTML = added || removed ? `<span class="diff-st add">+${added}</span><span class="diff-st rm">−${removed}</span><span class="diff-st un">= ${unchanged}</span>` : '<span class="diff-st un">Identical</span>';
+            }
+
+            // Compare bar buttons
+            $("cmp-samples").addEventListener("click", () => {
+                const sA = { name: "Ahmos JSON Tool", version: 1.0, features: ["Format", "Validate"], settings: { theme: "dark", lang: "en" }, database: { host: "localhost", port: 3306, name: "mydb" }, tags: ["v1", "stable"] };
+                const sB = { name: "Ahmos JSON Formatter Pro", version: 2.0, features: ["Format", "Validate", "Compare", "Sort", "Tree View"], settings: { theme: "dark", lang: "en", autoFormat: true }, database: { host: "db.example.com", port: 5432, name: "production_db", ssl: true }, tags: ["v2", "stable", "production"], author: "Ahmos" };
+                $("inp-a").value = JSON.stringify(sA, null, 2); $("inp-b").value = JSON.stringify(sB, null, 2);
+                updLN($("ln-a"), $("inp-a").value); updLN($("ln-b"), $("inp-b").value);
+                updSt($("st-a"), `Lines: ${$("inp-a").value.split('\n').length}, Chars: ${$("inp-a").value.length}`);
+                updSt($("st-b"), `Lines: ${$("inp-b").value.split('\n').length}, Chars: ${$("inp-b").value.length}`);
+                hideErr($("err-a")); hideErr($("err-b"));
+                cmpParsedA = sA; cmpParsedB = sB;
+                if (cmpHighlightOn) { cmpDiffMap = computeStructuralDiff(sA, sB); setPanelView('a', 'tree'); setPanelView('b', 'tree'); }
+            });
+            $("cmp-clear").addEventListener("click", () => {
+                $("inp-a").value = ''; $("inp-b").value = ''; updLN($("ln-a"), ''); updLN($("ln-b"), '');
+                updSt($("st-a"), "Lines: 1, Chars: 0"); updSt($("st-b"), "Lines: 1, Chars: 0");
+                hideErr($("err-a")); hideErr($("err-b")); $("diff-out").classList.remove('vis');
+                cmpParsedA = null; cmpParsedB = null; cmpDiffMap = null;
+                $("tree-a").innerHTML = ''; $("tree-b").innerHTML = '';
+                setPanelView('a', 'tree'); setPanelView('b', 'tree');
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener("keydown", e => {
+                if (e.ctrlKey || e.metaKey) {
+                    if (e.key === 'Enter') { e.preventDefault(); fmtDoFormat(); }
+                    else if (e.key === 'l') { e.preventDefault(); $("clr-btn").click(); }
+                    else if (e.key === 'k') { e.preventDefault(); $("val-btn").click(); }
+                }
+            });
+
+            // Drag & drop
+            [$("inp"), $("inp-a"), $("inp-b")].forEach(ta => {
+                ta.addEventListener('dragover', e => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; });
+                ta.addEventListener('drop', e => { e.preventDefault(); const f = e.dataTransfer.files; if (f.length > 0) { const r = new FileReader(); r.onload = ev => { ta.value = ev.target.result; ta.dispatchEvent(new Event('input')); }; r.readAsText(f[0]); } });
+                ta.addEventListener('paste', () => setTimeout(() => { ta.dispatchEvent(new Event('input')); if (ta === $("inp")) try { JSON.parse(ta.value); setTimeout(fmtDoFormat, 100); } catch (e) { } }, 10));
+            });
+
+            // Init
+            const cy = new Date().getFullYear(); $("cpy").textContent = cy > 2025 ? `2025 - ${cy}` : '2025';
+            updLN($("ln-in"), ''); updLN($("ln-a"), ''); updLN($("ln-b"), '');
+            setPanelView('a', 'tree'); setPanelView('b', 'tree');
+        });
+    </script>
 </body>
 
 </html>
