@@ -2,5 +2,9 @@
   "testApp": {
     "pass1": "userName1",
     "pass2": "userName2"
+  },
+  "caliApp": {
+    "pass1": "userName1",
+    "pass2": "userName2"
   }
 }
