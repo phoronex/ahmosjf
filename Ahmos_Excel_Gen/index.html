@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahmos Excel Formula Generator</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="xlCss/styles.css">
+</head>
+<body>
+
+<div class="page-header">
+  <div class="arabic-text">&#x633;&#x64F;&#x628;&#x652;&#x62D;&#x64E;&#x627;&#x646;&#x64E; &#x627;&#x644;&#x644;&#x651;&#x64E;&#x647;&#x650; &#x648;&#x64E;&#x628;&#x650;&#x62D;&#x64E;&#x645;&#x652;&#x62F;&#x650;&#x647;&#x650; &#x633;&#x64F;&#x628;&#x652;&#x62D;&#x64E;&#x627;&#x646;&#x64E; &#x627;&#x644;&#x644;&#x651;&#x64E;&#x647;&#x650; &#x627;&#x644;&#x652;&#x639;&#x64E;&#x638;&#x650;&#x64A;&#x645;&#x650;</div>
+  <div class="version-tag">V 6.0</div>
+  <h1>📊 Excel Formula Generator</h1>
+  <p class="copyright">© Ahmos. All Rights Reserved.</p>
+</div>
+
+<div class="container">
+  <div class="controls-bar">
+    <button class="ctrl-btn" onclick="expandAllCards()">⬇ Expand All</button>
+    <button class="ctrl-btn" onclick="collapseAllCards()">⬆ Collapse All</button>
+    <button class="ctrl-btn" style="font-size:11px;color:var(--text3)" title="Drag the ⠿ handle on any card header to reorder. Order is saved automatically.">⠿ Drag to Reorder</button>
+    <button class="ctrl-btn" style="color:#ff6b6b;border-color:#ff6b6b" onclick="resetAllSettings()" title="Reset card order, collapse states, and custom presets to defaults">🗑 Reset Layout &amp; Settings</button>
+  </div>
+
+  <div id="cards-container">
+
+<!-- ═══════════════════════════════════════════════════════
+     MACRO: shared output pane header  (written inline each time for clarity)
+     Format: pane-badge label | Copy | Export | Explain
+═══════════════════════════════════════════════════════════ -->
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CARD: TEXTJOIN + FILTER                           ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div class="formula-card" data-card-id="tj" draggable="true">
+  <div class="formula-card-header" onclick="toggleCard(this)">
+    <h2 class="formula-title"><span class="drag-handle" onclick="event.stopPropagation()">⠿</span><span class="card-icon green">🔗</span>TEXTJOIN + FILTER</h2>
+    <span class="toggle-icon">▼</span>
+  </div>
+  <div class="formula-card-body">
+    <div class="compat-banner"><span class="compat-tag adv">★ Advanced — Excel 365 / 2021+</span><span class="compat-tag c19">✓ Excel 2019 (dynamic arrays)</span><span class="compat-tag legacy">◎ Legacy — 2016 / 2013</span></div>
+    <p class="section-label">Source File <span class="opt">(optional)</span></p>
+    <div class="input-group row-gap"><label>File Path</label><div class="file-row"><input type="text" id="tj-filepath" placeholder="e.g., C:\Data\file.xlsx  or  leave blank for current workbook"><button class="browse-btn" onclick="browseFile('tj-filepath')">📁 Browse</button></div></div>
+    <p class="section-label">Range Configuration</p>
+    <div class="g4 row-gap">
+      <div class="input-group"><label>Sheet Name</label><input type="text" id="tj-sheetname" placeholder="e.g., Sheet1"></div>
+      <div class="input-group"><label>Return Column(s)</label><input type="text" id="tj-returncol" placeholder="e.g., B  or  B:F  or  B2:F"></div>
+      <div class="input-group"><label>Filter Column (single)</label><input type="text" id="tj-targetcol" placeholder="e.g., A  or  A2:A"></div>
+      <div class="input-group"><label>Match Value / Cell</label><input type="text" id="tj-equalcell" placeholder="e.g., A2  or  Sales"></div>
+    </div>
+    <p class="section-label">Last Row Detection</p>
+    <div class="lastrow-pills">
+      <label class="radio-pill"><input type="radio" name="tj-lastrow" value="match" checked onchange="onLastRowChange('tj')">🔆 Auto — MATCH</label>
+      <label class="radio-pill pill-b"><input type="radio" name="tj-lastrow" value="counta" onchange="onLastRowChange('tj')">🔅 Auto — COUNTA</label>
+      <label class="radio-pill pill-c"><input type="radio" name="tj-lastrow" value="manual" onchange="onLastRowChange('tj')">✏️ Manual</label>
+    </div>
+    <div class="manual-row-wrap" id="tj-manualrow-wrap"><label>End Row:</label><input type="number" id="tj-manualrow" placeholder="e.g., 1000" min="2"></div>
+    <p class="section-label">Optional Fields</p>
+    <div class="g3 row-gap">
+      <div class="input-group"><label>TEXTJOIN Separator</label><input type="text" id="tj-separator" placeholder="default: |"></div>
+      <div class="input-group"><label>No Match — IFNA</label><input type="text" id="tj-ifna" placeholder="e.g., Not Found"></div>
+      <div class="input-group"><label>Error — IFERROR</label><input type="text" id="tj-error" placeholder="e.g., Error"></div>
+    </div>
+    <p class="section-label">Options</p>
+    <div class="options-panel row-gap"><div class="check-grid">
+      <label class="check-item"><input type="checkbox" id="tj-usetextjoin" checked><span class="clabel"><strong>🔗 Wrap with TEXTJOIN</strong> — join all matches into one cell</span></label>
+      <label class="check-item"><input type="checkbox" id="tj-addstring" checked><span class="clabel"><strong>📝 Force text coercion</strong> — <code class="ic">&amp;""</code> on BOTH return range AND filter range (both sides)</span></label>
+      <label class="check-item"><input type="checkbox" id="tj-usetrim"><span class="clabel"><strong>✂️ TRIM returned values</strong> — strip extra whitespace from matched results</span></label>
+      <label class="check-item"><input type="checkbox" id="tj-lock" checked><span class="clabel"><strong>🔒 Absolute refs</strong> — lock ranges with <code class="ic">$</code></span></label>
+      <div class="input-group" style="padding:8px 10px"><label>Ignore Blank in TEXTJOIN?</label><select id="tj-ignoreblank"><option value="TRUE">TRUE — skip empty</option><option value="FALSE">FALSE — include empty</option></select></div>
+    </div></div>
+    <p class="section-label">Live Preview</p>
+    <div id="tj-live-preview" class="live-preview-box hint">— fill in the fields above to see a live preview —</div>
+    <div class="btn-row">
+      <button class="generate-btn" onclick="generateTextJoin()">⚡ Generate All 3 Formulas</button>
+      <button class="reset-btn" onclick="tj_reset()">↺ Reset</button>
+    </div>
+    <div class="output-section" id="tj-output-section">
+      <div class="output-tabs">
+        <button class="output-tab tab-adv active" id="tj-tab-adv" onclick="tj_switchTab('adv')">★ Advanced</button>
+        <button class="output-tab tab-c19" id="tj-tab-c19" onclick="tj_switchTab('c19')">✓ Excel 2019</button>
+        <button class="output-tab tab-leg" id="tj-tab-leg" onclick="tj_switchTab('leg')">◎ Legacy</button>
+      </div>
+      <div class="output-pane active" id="tj-pane-adv">
+        <div class="pane-header"><span class="pane-badge adv">LET + INDIRECT + FILTER + TEXTJOIN</span><div class="pane-btns"><button class="copy-btn" onclick="copyFormula('tj-out-adv',this)">📋 Copy</button><button class="copy-btn export-btn" id="tj-export-btn" onclick="exportAll('tj','TEXTJOIN + FILTER',[{id:'tj-out-adv',label:'Advanced (LET)'},{id:'tj-out-c19',label:'Excel 2019'}])">📤 Export</button><button class="copy-btn explain-btn" id="tj-explain-btn" onclick="toggleExplanation('tj',tj_explainBuildFn)">💡 Explain</button></div></div>
+        <p class="pane-desc" id="tj-desc-adv"></p>
+        <textarea class="formula-textarea" id="tj-out-adv" readonly></textarea>
+        <div id="tj-explain-panel" class="explain-panel"></div>
+      </div>
+      <div class="output-pane" id="tj-pane-c19">
+        <div class="pane-header"><span class="pane-badge c19">FILTER + TEXTJOIN (no LET)</span><button class="copy-btn" onclick="copyFormula('tj-out-c19',this)">📋 Copy</button></div>
+        <p class="pane-desc" id="tj-desc-c19"></p><textarea class="formula-textarea c19" id="tj-out-c19" readonly></textarea>
+      </div>
+      <div class="output-pane" id="tj-pane-leg"><span class="pane-badge leg">Legacy — INDEX+MATCH / IF+SMALL array</span><div id="tj-legacy-content" style="margin-top:12px"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CARD: EXTRACT TEXT                                ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div class="formula-card" data-card-id="ext" draggable="true">
+  <div class="formula-card-header" onclick="toggleCard(this)">
+    <h2 class="formula-title"><span class="drag-handle" onclick="event.stopPropagation()">⠿</span><span class="card-icon blue">🔎</span>Extract Text (TRIM + MID + FIND)</h2>
+    <span class="toggle-icon">▼</span>
+  </div>
+  <div class="formula-card-body">
+    <div class="compat-banner"><span class="compat-tag all">✓ All Versions — Excel 2003+</span></div>
+    <p class="section-label">Source Cell &amp; Pattern</p>
+    <div class="g2 row-gap">
+      <div class="input-group"><label>Cell Address</label><input type="text" id="ext-celladdress" placeholder="e.g., E2"><small>Cell containing the text to search</small></div>
+      <div class="input-group"><label>Separator Character</label><input type="text" id="ext-separator" value="," maxlength="5" placeholder="e.g., , or ; or |"><small>Character that marks the end of the extracted value</small></div>
+      <div class="input-group"><label>Preset Search Value</label><select id="ext-searchvalue-dropdown"></select><small>Supports any value including spaces — e.g., "Weight Sensor"</small></div>
+      <div class="input-group"><label>Manual Search Value</label><input type="text" id="ext-searchvalue-manual" placeholder="e.g., Weight Sensor  or  ACC"><small>Overrides the preset dropdown if filled</small></div>
+    </div>
+    <p class="section-label">Error Handling</p>
+    <div class="g2 row-gap">
+      <div class="input-group"><label>No Match — IFNA</label><input type="text" id="ext-ifna" placeholder="e.g., Not Found"><small>Shown when search term is not found (#N/A)</small></div>
+      <div class="input-group"><label>Error — IFERROR</label><input type="text" id="ext-iferror" placeholder="e.g., Error"><small>Shown when any other error occurs</small></div>
+    </div>
+    <div class="options-panel row-gap">
+      <label class="check-item"><input type="checkbox" id="ext-include-searchterm" checked><span class="clabel"><strong>📌 Include search term in result</strong> — returns "ACC123" instead of "123"</span></label>
+    </div>
+    <div style="margin-bottom:16px"><button class="preset-edit-btn" onclick="ext_openPresetEditor()">✏️ Edit Presets (comma, pipe, or newline separated)</button></div>
+    <p class="section-label">Live Preview</p>
+    <div id="ext-live-preview" class="live-preview-box hint">— fill in the fields above to see a live preview —</div>
+    <div class="btn-row">
+      <button class="generate-btn" onclick="generateExtractText()">⚡ Generate Formula</button>
+      <button class="reset-btn" onclick="ext_reset()">↺ Reset</button>
+    </div>
+    <div class="output-section" id="ext-output-section">
+      <div class="output-tabs"><button class="output-tab tab-single active" id="ext-tab-single">✓ All Versions</button></div>
+      <div class="output-pane active" id="ext-pane-single">
+        <div class="pane-header"><span class="pane-badge single">IFNA + IFERROR + TRIM + MID + FIND</span><div class="pane-btns"><button class="copy-btn" onclick="copyFormula('ext-out',this)">📋 Copy</button><button class="copy-btn export-btn" id="ext-export-btn" onclick="exportAll('ext','Extract Text',[{id:'ext-out',label:'All Versions (TRIM + MID + FIND)'}])">📤 Export</button><button class="copy-btn explain-btn" id="ext-explain-btn" onclick="toggleExplanation('ext',ext_explainBuildFn)">💡 Explain</button></div></div>
+        <p class="pane-desc">Works in Excel 2003+. Error-wrapped for safety.</p>
+        <textarea class="formula-textarea single" id="ext-out" readonly style="min-height:120px"></textarea>
+        <div id="ext-explain-panel" class="explain-panel"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CARD: VLOOKUP                                     ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div class="formula-card" data-card-id="vl" draggable="true">
+  <div class="formula-card-header" onclick="toggleCard(this)">
+    <h2 class="formula-title"><span class="drag-handle" onclick="event.stopPropagation()">⠿</span><span class="card-icon purple">🔍</span>VLOOKUP Formula</h2>
+    <span class="toggle-icon">▼</span>
+  </div>
+  <div class="formula-card-body">
+    <div class="compat-banner"><span class="compat-tag adv">★ Advanced — 4-type-cast (addStr ON) / clean (OFF)</span><span class="compat-tag c19">✓ Standard — ""&amp; coercion</span><span class="compat-tag legacy">◎ Legacy — Excel 2003+</span></div>
+    <p class="section-label">Source File <span class="opt">(optional)</span></p>
+    <div class="input-group row-gap"><label>File Path</label><div class="file-row"><input type="text" id="vl-filepath" placeholder="e.g., C:\Data\file.xlsx  or  leave blank"><button class="browse-btn" onclick="browseFile('vl-filepath')">📁 Browse</button></div></div>
+    <p class="section-label">Lookup Configuration</p>
+    <div class="g4 row-gap">
+      <div class="input-group"><label>Sheet Name</label><input type="text" id="vl-sheetname" placeholder="e.g., Sheet1"></div>
+      <div class="input-group"><label>Lookup Cell</label><input type="text" id="vl-lookupcell" placeholder="e.g., A2"></div>
+      <div class="input-group"><label>Table Range</label><input type="text" id="vl-range" placeholder="e.g., A:D  or  A2:H"><small>Start with the lookup column</small></div>
+      <div class="input-group"><label>Column Index</label><input type="text" id="vl-colindex" placeholder="e.g., 2  or  2,3,5"><small>Single or comma-separated</small></div>
+    </div>
+    <p class="section-label">Last Row Detection</p>
+    <div class="lastrow-pills">
+      <label class="radio-pill"><input type="radio" name="vl-lastrow" value="match" checked onchange="onLastRowChange('vl')">🔆 Auto — MATCH</label>
+      <label class="radio-pill pill-b"><input type="radio" name="vl-lastrow" value="counta" onchange="onLastRowChange('vl')">🔅 Auto — COUNTA</label>
+      <label class="radio-pill pill-c"><input type="radio" name="vl-lastrow" value="manual" onchange="onLastRowChange('vl')">✏️ Manual</label>
+    </div>
+    <div class="manual-row-wrap" id="vl-manualrow-wrap"><label>End Row:</label><input type="number" id="vl-manualrow" placeholder="e.g., 1000" min="2"></div>
+    <p class="section-label">Optional Fields</p>
+    <div class="g3 row-gap">
+      <div class="input-group"><label>No Match — IFNA</label><input type="text" id="vl-ifna" placeholder="e.g., Not Found"></div>
+      <div class="input-group"><label>Error — IFERROR</label><input type="text" id="vl-error" placeholder="e.g., Error"></div>
+      <div class="input-group"><label>Match Type</label><select id="vl-match"><option value="FALSE">Exact Match (FALSE)</option><option value="TRUE">Approximate Match (TRUE)</option></select></div>
+    </div>
+    <div class="options-panel row-gap"><div class="check-grid">
+      <label class="check-item"><input type="checkbox" id="vl-addstring" checked><span class="clabel"><strong>📝 Force text coercion</strong> — <code class="ic">&amp;""</code> on <strong>both</strong> lookup value <em>and</em> returned value (both sides)</span></label>
+      <label class="check-item"><input type="checkbox" id="vl-usetrim"><span class="clabel"><strong>✂️ TRIM lookup value</strong> — strip leading/trailing spaces from lookup cell</span></label>
+      <label class="check-item"><input type="checkbox" id="vl-lock" checked><span class="clabel"><strong>🔒 Absolute refs</strong></span></label>
+    </div></div>
+    <p class="section-label">Live Preview</p>
+    <div id="vl-live-preview" class="live-preview-box hint">— fill in the fields above to see a live preview —</div>
+    <div class="btn-row">
+      <button class="generate-btn" onclick="generateVLookup()">⚡ Generate All 3 Formulas</button>
+      <button class="reset-btn" onclick="vl_reset()">↺ Reset</button>
+    </div>
+    <div class="output-section" id="vl-output-section">
+      <div class="output-tabs">
+        <button class="output-tab tab-adv active" id="vl-tab-adv" onclick="vl_switchTab('adv')">★ Advanced</button>
+        <button class="output-tab tab-c19" id="vl-tab-c19" onclick="vl_switchTab('c19')">✓ Standard</button>
+        <button class="output-tab tab-leg" id="vl-tab-leg" onclick="vl_switchTab('leg')">◎ Legacy</button>
+      </div>
+      <div class="output-pane active" id="vl-pane-adv">
+        <div class="pane-header"><span class="pane-badge adv">Advanced VLOOKUP</span><div class="pane-btns"><button class="copy-btn" onclick="copyFormula('vl-out-adv',this)">📋 Copy</button><button class="copy-btn export-btn" id="vl-export-btn" onclick="exportAll('vl','VLOOKUP',[{id:'vl-out-adv',label:'Advanced'},{id:'vl-out-c19',label:'Standard'},{id:'vl-out-leg',label:'Legacy'}])">📤 Export</button><button class="copy-btn explain-btn" id="vl-explain-btn" onclick="toggleExplanation('vl',vl_explainBuildFn)">💡 Explain</button></div></div>
+        <p class="pane-desc" id="vl-desc-adv"></p><textarea class="formula-textarea" id="vl-out-adv" readonly></textarea>
+        <div id="vl-explain-panel" class="explain-panel"></div>
+      </div>
+      <div class="output-pane" id="vl-pane-c19"><div class="pane-header"><span class="pane-badge c19">Standard VLOOKUP</span><button class="copy-btn" onclick="copyFormula('vl-out-c19',this)">📋 Copy</button></div><p class="pane-desc" id="vl-desc-c19"></p><textarea class="formula-textarea c19" id="vl-out-c19" readonly></textarea></div>
+      <div class="output-pane" id="vl-pane-leg"><div class="pane-header"><span class="pane-badge leg">Legacy VLOOKUP</span><button class="copy-btn" onclick="copyFormula('vl-out-leg',this)">📋 Copy</button></div><p class="pane-desc" id="vl-desc-leg"></p><textarea class="formula-textarea leg" id="vl-out-leg" readonly></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CARD: XLOOKUP                                     ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div class="formula-card" data-card-id="xlu" draggable="true">
+  <div class="formula-card-header" onclick="toggleCard(this)">
+    <h2 class="formula-title"><span class="drag-handle" onclick="event.stopPropagation()">⠿</span><span class="card-icon amber">⚡</span>XLOOKUP Formula</h2>
+    <span class="toggle-icon">▼</span>
+  </div>
+  <div class="formula-card-body">
+    <div class="compat-banner"><span class="compat-tag adv">★ Advanced — LET + INDIRECT + XLOOKUP</span><span class="compat-tag c19">✓ Compat — XLOOKUP (no LET)</span><span class="compat-tag legacy">◎ Fallback — INDEX + MATCH</span></div>
+    <p class="section-label">Source File <span class="opt">(optional)</span></p>
+    <div class="input-group row-gap"><label>File Path</label><div class="file-row"><input type="text" id="xlu-filepath" placeholder="e.g., C:\Data\file.xlsx  or  leave blank"><button class="browse-btn" onclick="browseFile('xlu-filepath')">📁 Browse</button></div></div>
+    <p class="section-label">Lookup Configuration</p>
+    <div class="g4 row-gap">
+      <div class="input-group"><label>Sheet Name</label><input type="text" id="xlu-sheetname" placeholder="e.g., Sheet1"></div>
+      <div class="input-group"><label>Lookup Value</label><input type="text" id="xlu-lookupval" placeholder="e.g., A2  or  Sales"></div>
+      <div class="input-group"><label>Lookup Column</label><input type="text" id="xlu-lookupcol" placeholder="e.g., D  or  D2:D"></div>
+      <div class="input-group"><label>Return Column</label><input type="text" id="xlu-returncol" placeholder="e.g., B  or  B2:B"></div>
+    </div>
+    <p class="section-label">Last Row Detection</p>
+    <div class="lastrow-pills">
+      <label class="radio-pill"><input type="radio" name="xlu-lastrow" value="match" checked onchange="onLastRowChange('xlu')">🔆 Auto — MATCH</label>
+      <label class="radio-pill pill-b"><input type="radio" name="xlu-lastrow" value="counta" onchange="onLastRowChange('xlu')">🔅 Auto — COUNTA</label>
+      <label class="radio-pill pill-c"><input type="radio" name="xlu-lastrow" value="manual" onchange="onLastRowChange('xlu')">✏️ Manual</label>
+    </div>
+    <div class="manual-row-wrap" id="xlu-manualrow-wrap"><label>End Row:</label><input type="number" id="xlu-manualrow" placeholder="e.g., 1000" min="2"></div>
+    <p class="section-label">Optional Fields</p>
+    <div class="g4 row-gap">
+      <div class="input-group"><label>Not Found — IFNA</label><input type="text" id="xlu-ifna" placeholder="e.g., Not Found"></div>
+      <div class="input-group"><label>Error — IFERROR</label><input type="text" id="xlu-iferror" placeholder="e.g., Error"></div>
+      <div class="input-group"><label>Match Mode</label><select id="xlu-matchmode"><option value="0">0 — Exact</option><option value="-1">-1 — Exact or Next Smaller</option><option value="1">1 — Exact or Next Larger</option><option value="2">2 — Wildcard</option></select></div>
+      <div class="input-group"><label>Search Mode</label><select id="xlu-searchmode"><option value="1">1 — First to Last</option><option value="-1">-1 — Last to First</option></select></div>
+    </div>
+    <div class="options-panel row-gap"><div class="check-grid">
+      <label class="check-item"><input type="checkbox" id="xlu-addstring" checked><span class="clabel"><strong>📝 Force text coercion</strong> — <code class="ic">&amp;""</code> on BOTH lookup value AND lookup array (both sides)</span></label>
+      <label class="check-item"><input type="checkbox" id="xlu-usetrim"><span class="clabel"><strong>✂️ TRIM lookup value</strong></span></label>
+      <label class="check-item"><input type="checkbox" id="xlu-lock" checked><span class="clabel"><strong>🔒 Absolute refs</strong></span></label>
+    </div></div>
+    <p class="section-label">Live Preview</p>
+    <div id="xlu-live-preview" class="live-preview-box hint">— fill in the fields above to see a live preview —</div>
+    <div class="btn-row">
+      <button class="generate-btn" onclick="generateXlookup()">⚡ Generate All 3 Formulas</button>
+      <button class="reset-btn" onclick="xlu_reset()">↺ Reset</button>
+    </div>
+    <div class="output-section" id="xlu-output-section">
+      <div class="output-tabs">
+        <button class="output-tab tab-adv active" id="xlu-tab-adv" onclick="xlu_switchTab('adv')">★ Advanced</button>
+        <button class="output-tab tab-c19" id="xlu-tab-c19" onclick="xlu_switchTab('c19')">✓ Compat</button>
+        <button class="output-tab tab-leg" id="xlu-tab-leg" onclick="xlu_switchTab('leg')">◎ INDEX+MATCH fallback</button>
+      </div>
+      <div class="output-pane active" id="xlu-pane-adv">
+        <div class="pane-header"><span class="pane-badge adv">LET + INDIRECT + XLOOKUP</span><div class="pane-btns"><button class="copy-btn" onclick="copyFormula('xlu-out-adv',this)">📋 Copy</button><button class="copy-btn export-btn" id="xlu-export-btn" onclick="exportAll('xlu','XLOOKUP',[{id:'xlu-out-adv',label:'Advanced (LET)'},{id:'xlu-out-c19',label:'Compat (no LET)'},{id:'xlu-out-leg',label:'INDEX+MATCH fallback'}])">📤 Export</button><button class="copy-btn explain-btn" id="xlu-explain-btn" onclick="toggleExplanation('xlu',xlu_explainBuildFn)">💡 Explain</button></div></div>
+        <p class="pane-desc" id="xlu-desc-adv"></p><textarea class="formula-textarea" id="xlu-out-adv" readonly></textarea>
+        <div id="xlu-explain-panel" class="explain-panel"></div>
+      </div>
+      <div class="output-pane" id="xlu-pane-c19"><div class="pane-header"><span class="pane-badge c19">XLOOKUP + INDIRECT (no LET)</span><button class="copy-btn" onclick="copyFormula('xlu-out-c19',this)">📋 Copy</button></div><p class="pane-desc" id="xlu-desc-c19"></p><textarea class="formula-textarea c19" id="xlu-out-c19" readonly></textarea></div>
+      <div class="output-pane" id="xlu-pane-leg"><div class="pane-header"><span class="pane-badge leg">INDEX + MATCH fallback</span><button class="copy-btn" onclick="copyFormula('xlu-out-leg',this)">📋 Copy</button></div><p class="pane-desc" id="xlu-desc-leg"></p><textarea class="formula-textarea leg" id="xlu-out-leg" readonly></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CARD: INDEX + MATCH                               ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div class="formula-card" data-card-id="im" draggable="true">
+  <div class="formula-card-header" onclick="toggleCard(this)">
+    <h2 class="formula-title"><span class="drag-handle" onclick="event.stopPropagation()">⠿</span><span class="card-icon blue">🎯</span>INDEX + MATCH</h2>
+    <span class="toggle-icon">▼</span>
+  </div>
+  <div class="formula-card-body">
+    <div class="compat-banner"><span class="compat-tag adv">★ Advanced — LET + INDIRECT</span><span class="compat-tag c19">✓ Standard — INDIRECT</span><span class="compat-tag legacy">◎ Legacy — Excel 2003+</span></div>
+    <p class="section-label">Source File <span class="opt">(optional)</span></p>
+    <div class="input-group row-gap"><label>File Path</label><div class="file-row"><input type="text" id="im-filepath" placeholder="e.g., C:\Data\file.xlsx  or  leave blank"><button class="browse-btn" onclick="browseFile('im-filepath')">📁 Browse</button></div></div>
+    <p class="section-label">Lookup Configuration</p>
+    <div class="g4 row-gap">
+      <div class="input-group"><label>Sheet Name</label><input type="text" id="im-sheetname" placeholder="e.g., Sheet1"></div>
+      <div class="input-group"><label>Lookup Cell</label><input type="text" id="im-lookupcell" placeholder="e.g., A2"></div>
+      <div class="input-group"><label>Lookup Array</label><input type="text" id="im-lookuparray" placeholder="e.g., A  or  A2:A"></div>
+      <div class="input-group"><label>Return Array</label><input type="text" id="im-returnarray" placeholder="e.g., B  or  B2:B"></div>
+    </div>
+    <p class="section-label">Last Row Detection</p>
+    <div class="lastrow-pills">
+      <label class="radio-pill"><input type="radio" name="im-lastrow" value="match" checked onchange="onLastRowChange('im')">🔆 Auto — MATCH</label>
+      <label class="radio-pill pill-b"><input type="radio" name="im-lastrow" value="counta" onchange="onLastRowChange('im')">🔅 Auto — COUNTA</label>
+      <label class="radio-pill pill-c"><input type="radio" name="im-lastrow" value="manual" onchange="onLastRowChange('im')">✏️ Manual</label>
+    </div>
+    <div class="manual-row-wrap" id="im-manualrow-wrap"><label>End Row:</label><input type="number" id="im-manualrow" placeholder="e.g., 1000" min="2"></div>
+    <p class="section-label">Optional Fields</p>
+    <div class="g3 row-gap">
+      <div class="input-group"><label>No Match — IFNA</label><input type="text" id="im-ifna" placeholder="e.g., Not Found"></div>
+      <div class="input-group"><label>Error — IFERROR</label><input type="text" id="im-error" placeholder="e.g., Error"></div>
+      <div class="input-group"><label>Match Type</label><select id="im-match"><option value="0">0 — Exact</option><option value="1">1 — Less Than</option><option value="-1">-1 — Greater Than</option></select></div>
+    </div>
+    <div class="options-panel row-gap"><div class="check-grid">
+      <label class="check-item"><input type="checkbox" id="im-addstring" checked><span class="clabel"><strong>📝 Force text coercion</strong> — <code class="ic">&amp;""</code> on BOTH lookup value AND lookup array (both sides)</span></label>
+      <label class="check-item"><input type="checkbox" id="im-usetrim"><span class="clabel"><strong>✂️ TRIM lookup value</strong></span></label>
+      <label class="check-item"><input type="checkbox" id="im-lock" checked><span class="clabel"><strong>🔒 Absolute refs</strong></span></label>
+    </div></div>
+    <p class="section-label">Live Preview</p>
+    <div id="im-live-preview" class="live-preview-box hint">— fill in the fields above to see a live preview —</div>
+    <div class="btn-row">
+      <button class="generate-btn" onclick="generateIndexMatch()">⚡ Generate All 3 Formulas</button>
+      <button class="reset-btn" onclick="im_reset()">↺ Reset</button>
+    </div>
+    <div class="output-section" id="im-output-section">
+      <div class="output-tabs">
+        <button class="output-tab tab-adv active" id="im-tab-adv" onclick="im_switchTab('adv')">★ Advanced</button>
+        <button class="output-tab tab-c19" id="im-tab-c19" onclick="im_switchTab('c19')">✓ Standard</button>
+        <button class="output-tab tab-leg" id="im-tab-leg" onclick="im_switchTab('leg')">◎ Legacy</button>
+      </div>
+      <div class="output-pane active" id="im-pane-adv">
+        <div class="pane-header"><span class="pane-badge adv">LET + INDIRECT + INDEX + MATCH</span><div class="pane-btns"><button class="copy-btn" onclick="copyFormula('im-out-adv',this)">📋 Copy</button><button class="copy-btn export-btn" id="im-export-btn" onclick="exportAll('im','INDEX + MATCH',[{id:'im-out-adv',label:'Advanced (LET)'},{id:'im-out-c19',label:'Standard (INDIRECT)'},{id:'im-out-leg',label:'Legacy'}])">📤 Export</button><button class="copy-btn explain-btn" id="im-explain-btn" onclick="toggleExplanation('im',im_explainBuildFn)">💡 Explain</button></div></div>
+        <p class="pane-desc" id="im-desc-adv"></p><textarea class="formula-textarea" id="im-out-adv" readonly></textarea>
+        <div id="im-explain-panel" class="explain-panel"></div>
+      </div>
+      <div class="output-pane" id="im-pane-c19"><div class="pane-header"><span class="pane-badge c19">INDIRECT + INDEX + MATCH</span><button class="copy-btn" onclick="copyFormula('im-out-c19',this)">📋 Copy</button></div><p class="pane-desc" id="im-desc-c19"></p><textarea class="formula-textarea c19" id="im-out-c19" readonly></textarea></div>
+      <div class="output-pane" id="im-pane-leg"><div class="pane-header"><span class="pane-badge leg">Plain INDEX + MATCH</span><button class="copy-btn" onclick="copyFormula('im-out-leg',this)">📋 Copy</button></div><p class="pane-desc" id="im-desc-leg"></p><textarea class="formula-textarea leg" id="im-out-leg" readonly></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CARD: SUMIF                                       ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div class="formula-card" data-card-id="sif" draggable="true">
+  <div class="formula-card-header" onclick="toggleCard(this)">
+    <h2 class="formula-title"><span class="drag-handle" onclick="event.stopPropagation()">⠿</span><span class="card-icon green">➕</span>SUMIF Formula</h2>
+    <span class="toggle-icon">▼</span>
+  </div>
+  <div class="formula-card-body">
+    <div class="compat-banner"><span class="compat-tag c19">✓ Modern — type-safe coercion</span><span class="compat-tag legacy">◎ Legacy — Excel 2003+</span></div>
+    <p class="section-label">Source File <span class="opt">(optional)</span></p>
+    <div class="input-group row-gap"><label>File Path</label><div class="file-row"><input type="text" id="sif-filepath" placeholder="e.g., C:\Data\file.xlsx"><button class="browse-btn" onclick="browseFile('sif-filepath')">📁 Browse</button></div></div>
+    <p class="section-label">Configuration</p>
+    <div class="g4 row-gap">
+      <div class="input-group"><label>Sheet Name</label><input type="text" id="sif-sheetname" placeholder="e.g., Sheet1"></div>
+      <div class="input-group"><label>Criteria Range</label><input type="text" id="sif-range" placeholder="e.g., A:A"></div>
+      <div class="input-group"><label>Criteria Cell / Value</label><input type="text" id="sif-criteria" placeholder="e.g., A2  or  Sales"></div>
+      <div class="input-group"><label>Sum Range</label><input type="text" id="sif-sumrange" placeholder="e.g., B:B"></div>
+    </div>
+    <div class="g2 row-gap">
+      <div class="input-group"><label>Error value</label><input type="text" id="sif-error" placeholder="e.g., 0"></div>
+      <div class="options-panel" style="margin:0;padding:12px"><div class="check-grid">
+        <label class="check-item"><input type="checkbox" id="sif-addstring" checked><span class="clabel"><strong>📝 Force text coercion</strong> — <code class="ic">&amp;""</code> on both sides</span></label>
+        <label class="check-item"><input type="checkbox" id="sif-lock" checked><span class="clabel"><strong>🔒 Absolute refs</strong></span></label>
+      </div></div>
+    </div>
+    <p class="section-label">Live Preview</p>
+    <div id="sif-live-preview" class="live-preview-box hint">— fill in the fields above to see a live preview —</div>
+    <div class="btn-row"><button class="generate-btn" onclick="generateSumIf()">⚡ Generate Formula</button><button class="reset-btn" onclick="sif_reset()">↺ Reset</button></div>
+    <div class="output-section" id="sif-output-section">
+      <div class="output-tabs"><button class="output-tab tab-modern active" id="sif-tab-modern" onclick="sif_switchTab('modern')">✓ Type-Safe</button><button class="output-tab tab-legacy" id="sif-tab-legacy" onclick="sif_switchTab('legacy')">◎ Legacy</button></div>
+      <div class="output-pane active" id="sif-pane-modern">
+        <div class="pane-header"><span class="pane-badge c19">SUMIF with &amp;"" coercion</span><div class="pane-btns"><button class="copy-btn" onclick="copyFormula('sif-out-modern',this)">📋 Copy</button><button class="copy-btn export-btn" id="sif-export-btn" onclick="exportAll('sif','SUMIF',[{id:'sif-out-modern',label:'Type-Safe'},{id:'sif-out-legacy',label:'Legacy'}])">📤 Export</button><button class="copy-btn explain-btn" id="sif-explain-btn" onclick="toggleExplanation('sif',sif_explainBuildFn)">💡 Explain</button></div></div>
+        <p class="pane-desc" id="sif-desc-modern"></p><textarea class="formula-textarea modern" id="sif-out-modern" readonly></textarea>
+        <div id="sif-explain-panel" class="explain-panel"></div>
+      </div>
+      <div class="output-pane" id="sif-pane-legacy"><div class="pane-header"><span class="pane-badge leg">Standard SUMIF</span><button class="copy-btn" onclick="copyFormula('sif-out-legacy',this)">📋 Copy</button></div><p class="pane-desc" id="sif-desc-legacy"></p><textarea class="formula-textarea leg" id="sif-out-legacy" readonly></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CARD: SUMIFS                                      ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div class="formula-card" data-card-id="sfs" draggable="true">
+  <div class="formula-card-header" onclick="toggleCard(this)">
+    <h2 class="formula-title"><span class="drag-handle" onclick="event.stopPropagation()">⠿</span><span class="card-icon green">➕➕</span>SUMIFS Formula</h2>
+    <span class="toggle-icon">▼</span>
+  </div>
+  <div class="formula-card-body">
+    <div class="compat-banner"><span class="compat-tag c19">✓ Modern — type-safe</span><span class="compat-tag legacy">◎ Legacy — Excel 2007+</span></div>
+    <p class="section-label">Source File <span class="opt">(optional)</span></p>
+    <div class="input-group row-gap"><label>File Path</label><div class="file-row"><input type="text" id="sfs-filepath" placeholder="e.g., C:\Data\file.xlsx"><button class="browse-btn" onclick="browseFile('sfs-filepath')">📁 Browse</button></div></div>
+    <div class="g2 row-gap">
+      <div class="input-group"><label>Sheet Name</label><input type="text" id="sfs-sheetname" placeholder="e.g., Sheet1"></div>
+      <div class="input-group"><label>Sum Range</label><input type="text" id="sfs-sumrange" placeholder="e.g., C:C"></div>
+    </div>
+    <p class="section-label">Criteria Groups</p>
+    <div id="sfs-criteria-container"><div class="criteria-group"><div class="g2"><div class="input-group"><label>Criteria Range 1</label><input type="text" class="sfs-crit-range" placeholder="e.g., A:A"></div><div class="input-group"><label>Criteria Cell / Value 1</label><input type="text" class="sfs-crit-cell" placeholder="e.g., A2"></div></div></div></div>
+    <button class="add-criteria-btn" onclick="sfs_addCriteria()">➕ Add Criteria Group</button>
+    <div class="g2 row-gap" style="margin-top:12px">
+      <div class="input-group"><label>Error value</label><input type="text" id="sfs-error" placeholder="e.g., 0"></div>
+      <div class="options-panel" style="margin:0;padding:12px"><div class="check-grid">
+        <label class="check-item"><input type="checkbox" id="sfs-addstring" checked><span class="clabel"><strong>📝 Force text coercion</strong> — <code class="ic">&amp;""</code> on <strong>both</strong> criteria ranges <em>and</em> criteria values</span></label>
+        <label class="check-item"><input type="checkbox" id="sfs-lock" checked><span class="clabel"><strong>🔒 Absolute refs</strong></span></label>
+      </div></div>
+    </div>
+    <p class="section-label">Live Preview</p>
+    <div id="sfs-live-preview" class="live-preview-box hint">— fill in the fields above to see a live preview —</div>
+    <div class="btn-row"><button class="generate-btn" onclick="generateSumIfs()">⚡ Generate Formula</button><button class="reset-btn" onclick="sfs_reset()">↺ Reset</button></div>
+    <div class="output-section" id="sfs-output-section">
+      <div class="output-tabs"><button class="output-tab tab-modern active" id="sfs-tab-modern" onclick="sfs_switchTab('modern')">✓ Type-Safe</button><button class="output-tab tab-legacy" id="sfs-tab-legacy" onclick="sfs_switchTab('legacy')">◎ Legacy</button></div>
+      <div class="output-pane active" id="sfs-pane-modern">
+        <div class="pane-header"><span class="pane-badge c19">SUMIFS with &amp;"" coercion</span><div class="pane-btns"><button class="copy-btn" onclick="copyFormula('sfs-out-modern',this)">📋 Copy</button><button class="copy-btn export-btn" id="sfs-export-btn" onclick="exportAll('sfs','SUMIFS',[{id:'sfs-out-modern',label:'Type-Safe'},{id:'sfs-out-legacy',label:'Legacy'}])">📤 Export</button><button class="copy-btn explain-btn" id="sfs-explain-btn" onclick="toggleExplanation('sfs',sfs_explainBuildFn)">💡 Explain</button></div></div>
+        <p class="pane-desc" id="sfs-desc-modern"></p><textarea class="formula-textarea modern" id="sfs-out-modern" readonly></textarea>
+        <div id="sfs-explain-panel" class="explain-panel"></div>
+      </div>
+      <div class="output-pane" id="sfs-pane-legacy"><div class="pane-header"><span class="pane-badge leg">Standard SUMIFS</span><button class="copy-btn" onclick="copyFormula('sfs-out-legacy',this)">📋 Copy</button></div><p class="pane-desc" id="sfs-desc-legacy"></p><textarea class="formula-textarea leg" id="sfs-out-legacy" readonly></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CARD: COUNTIF                                     ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div class="formula-card" data-card-id="cif" draggable="true">
+  <div class="formula-card-header" onclick="toggleCard(this)">
+    <h2 class="formula-title"><span class="drag-handle" onclick="event.stopPropagation()">⠿</span><span class="card-icon purple">🔢</span>COUNTIF Formula</h2>
+    <span class="toggle-icon">▼</span>
+  </div>
+  <div class="formula-card-body">
+    <div class="compat-banner"><span class="compat-tag c19">✓ Modern — type-safe coercion</span><span class="compat-tag legacy">◎ Legacy — Excel 2003+</span></div>
+    <p class="section-label">Source File <span class="opt">(optional)</span></p>
+    <div class="input-group row-gap"><label>File Path</label><div class="file-row"><input type="text" id="cif-filepath" placeholder="e.g., C:\Data\file.xlsx"><button class="browse-btn" onclick="browseFile('cif-filepath')">📁 Browse</button></div></div>
+    <p class="section-label">Configuration</p>
+    <div class="g3 row-gap">
+      <div class="input-group"><label>Sheet Name</label><input type="text" id="cif-sheetname" placeholder="e.g., Sheet1"></div>
+      <div class="input-group"><label>Range to Count</label><input type="text" id="cif-range" placeholder="e.g., A:A"></div>
+      <div class="input-group"><label>Criteria Cell / Value</label><input type="text" id="cif-criteria" placeholder="e.g., A2  or  Sales"></div>
+    </div>
+    <div class="g2 row-gap">
+      <div class="input-group"><label>Error value</label><input type="text" id="cif-error" placeholder="e.g., 0"></div>
+      <div class="options-panel" style="margin:0;padding:12px"><div class="check-grid">
+        <label class="check-item"><input type="checkbox" id="cif-addstring" checked><span class="clabel"><strong>📝 Force text coercion</strong> — <code class="ic">&amp;""</code> on <strong>both</strong> the range <em>and</em> the criteria value</span></label>
+        <label class="check-item"><input type="checkbox" id="cif-lock" checked><span class="clabel"><strong>🔒 Absolute refs</strong></span></label>
+      </div></div>
+    </div>
+    <p class="section-label">Live Preview</p>
+    <div id="cif-live-preview" class="live-preview-box hint">— fill in the fields above to see a live preview —</div>
+    <div class="btn-row"><button class="generate-btn" onclick="generateCountIf()">⚡ Generate Formula</button><button class="reset-btn" onclick="cif_reset()">↺ Reset</button></div>
+    <div class="output-section" id="cif-output-section">
+      <div class="output-tabs"><button class="output-tab tab-modern active" id="cif-tab-modern" onclick="cif_switchTab('modern')">✓ Type-Safe</button><button class="output-tab tab-legacy" id="cif-tab-legacy" onclick="cif_switchTab('legacy')">◎ Legacy</button></div>
+      <div class="output-pane active" id="cif-pane-modern">
+        <div class="pane-header"><span class="pane-badge c19">COUNTIF with &amp;"" coercion</span><div class="pane-btns"><button class="copy-btn" onclick="copyFormula('cif-out-modern',this)">📋 Copy</button><button class="copy-btn export-btn" id="cif-export-btn" onclick="exportAll('cif','COUNTIF',[{id:'cif-out-modern',label:'Type-Safe'},{id:'cif-out-legacy',label:'Legacy'}])">📤 Export</button><button class="copy-btn explain-btn" id="cif-explain-btn" onclick="toggleExplanation('cif',cif_explainBuildFn)">💡 Explain</button></div></div>
+        <p class="pane-desc" id="cif-desc-modern"></p><textarea class="formula-textarea modern" id="cif-out-modern" readonly></textarea>
+        <div id="cif-explain-panel" class="explain-panel"></div>
+      </div>
+      <div class="output-pane" id="cif-pane-legacy"><div class="pane-header"><span class="pane-badge leg">Standard COUNTIF</span><button class="copy-btn" onclick="copyFormula('cif-out-legacy',this)">📋 Copy</button></div><p class="pane-desc" id="cif-desc-legacy"></p><textarea class="formula-textarea leg" id="cif-out-legacy" readonly></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  CARD: COUNTIFS                                    ║
+     ╚══════════════════════════════════════════════════════╝ -->
+<div class="formula-card" data-card-id="cfs" draggable="true">
+  <div class="formula-card-header" onclick="toggleCard(this)">
+    <h2 class="formula-title"><span class="drag-handle" onclick="event.stopPropagation()">⠿</span><span class="card-icon purple">🔢🔢</span>COUNTIFS Formula</h2>
+    <span class="toggle-icon">▼</span>
+  </div>
+  <div class="formula-card-body">
+    <div class="compat-banner"><span class="compat-tag c19">✓ Modern — type-safe</span><span class="compat-tag legacy">◎ Legacy — Excel 2007+</span></div>
+    <p class="section-label">Source File <span class="opt">(optional)</span></p>
+    <div class="input-group row-gap"><label>File Path</label><div class="file-row"><input type="text" id="cfs-filepath" placeholder="e.g., C:\Data\file.xlsx"><button class="browse-btn" onclick="browseFile('cfs-filepath')">📁 Browse</button></div></div>
+    <div class="g2 row-gap">
+      <div class="input-group"><label>Sheet Name</label><input type="text" id="cfs-sheetname" placeholder="e.g., Sheet1"></div>
+      <div class="input-group"><label>Error value</label><input type="text" id="cfs-error" placeholder="e.g., 0"></div>
+    </div>
+    <p class="section-label">Criteria Groups</p>
+    <div id="cfs-criteria-container"><div class="criteria-group"><div class="g2"><div class="input-group"><label>Criteria Range 1</label><input type="text" class="cfs-crit-range" placeholder="e.g., A:A"></div><div class="input-group"><label>Criteria Cell / Value 1</label><input type="text" class="cfs-crit-cell" placeholder="e.g., A2"></div></div></div></div>
+    <button class="add-criteria-btn" onclick="cfs_addCriteria()">➕ Add Criteria Group</button>
+    <div class="options-panel row-gap" style="margin-top:12px"><div class="check-grid">
+      <label class="check-item"><input type="checkbox" id="cfs-addstring" checked><span class="clabel"><strong>📝 Force text coercion</strong> — <code class="ic">&amp;""</code> on <strong>both</strong> criteria ranges <em>and</em> criteria values</span></label>
+      <label class="check-item"><input type="checkbox" id="cfs-lock" checked><span class="clabel"><strong>🔒 Absolute refs</strong></span></label>
+    </div></div>
+    <p class="section-label">Live Preview</p>
+    <div id="cfs-live-preview" class="live-preview-box hint">— fill in the fields above to see a live preview —</div>
+    <div class="btn-row"><button class="generate-btn" onclick="generateCountIfs()">⚡ Generate Formula</button><button class="reset-btn" onclick="cfs_reset()">↺ Reset</button></div>
+    <div class="output-section" id="cfs-output-section">
+      <div class="output-tabs"><button class="output-tab tab-modern active" id="cfs-tab-modern" onclick="cfs_switchTab('modern')">✓ Type-Safe</button><button class="output-tab tab-legacy" id="cfs-tab-legacy" onclick="cfs_switchTab('legacy')">◎ Legacy</button></div>
+      <div class="output-pane active" id="cfs-pane-modern">
+        <div class="pane-header"><span class="pane-badge c19">COUNTIFS with &amp;"" coercion</span><div class="pane-btns"><button class="copy-btn" onclick="copyFormula('cfs-out-modern',this)">📋 Copy</button><button class="copy-btn export-btn" id="cfs-export-btn" onclick="exportAll('cfs','COUNTIFS',[{id:'cfs-out-modern',label:'Type-Safe'},{id:'cfs-out-legacy',label:'Legacy'}])">📤 Export</button><button class="copy-btn explain-btn" id="cfs-explain-btn" onclick="toggleExplanation('cfs',cfs_explainBuildFn)">💡 Explain</button></div></div>
+        <p class="pane-desc" id="cfs-desc-modern"></p><textarea class="formula-textarea modern" id="cfs-out-modern" readonly></textarea>
+        <div id="cfs-explain-panel" class="explain-panel"></div>
+      </div>
+      <div class="output-pane" id="cfs-pane-legacy"><div class="pane-header"><span class="pane-badge leg">Standard COUNTIFS</span><button class="copy-btn" onclick="copyFormula('cfs-out-legacy',this)">📋 Copy</button></div><p class="pane-desc" id="cfs-desc-legacy"></p><textarea class="formula-textarea leg" id="cfs-out-legacy" readonly></textarea></div>
+    </div>
+  </div>
+</div>
+
+  </div><!-- /#cards-container -->
+</div><!-- /.container -->
+
+<script src="xlJs/common.js"></script>
+<script src="xlJs/card-tj.js"></script>
+<script src="xlJs/card-ext.js"></script>
+<script src="xlJs/card-vl.js"></script>
+<script src="xlJs/card-xlu.js"></script>
+<script src="xlJs/card-im.js"></script>
+<script src="xlJs/card-sumcnt.js"></script>
+</body>
+</html>
