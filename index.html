@@ -153,7 +153,16 @@
         .tree-cbtn svg{width:11px;height:11px;fill:currentColor;}
         .json-tree{font-family:"Consolas","Courier New",monospace;font-size:14px;line-height:1.5;padding:8px;flex:1;overflow:auto;min-height:0;}
         .tree-node{user-select:text;}
-        .tree-row{display:flex;align-items:flex-start;padding:1px 3px;border-radius:3px;min-height:20px;white-space:nowrap;transition:background .1s;}
+        .tree-row{display:flex;align-items:flex-start;padding:1px 3px;border-radius:3px;min-height:20px;transition:background .1s;overflow-x:auto;overflow-y:hidden;}
+        .tree-row::-webkit-scrollbar{height:3px;}
+        .tree-row::-webkit-scrollbar-track{background:transparent;}
+        .tree-row::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+        .tree-row:hover::-webkit-scrollbar-thumb{background:var(--ln);}
+        .tree-children{overflow-x:auto;overflow-y:hidden;}
+        .tree-children::-webkit-scrollbar{height:3px;}
+        .tree-children::-webkit-scrollbar-track{background:transparent;}
+        .tree-children::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+        .tree-children:hover::-webkit-scrollbar-thumb{background:var(--ln);}
         .tree-row:hover{background:var(--tree-hov);}
         .tree-row.selected{background:var(--tree-sel);}
         .tree-toggle{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;cursor:pointer;flex-shrink:0;border-radius:3px;transition:background .15s;color:var(--primary);margin-top:2px;user-select:none;}
@@ -170,7 +179,6 @@
         .tree-abtn svg{width:12px;height:12px;}
         .lv-btn{padding:3px 6px !important;min-width:0;justify-content:center;}
         .tree-badge{display:inline-flex;padding:0 5px;margin-left:4px;font-size:10px;color:var(--ln);background:rgba(108,112,134,.15);border-radius:8px;line-height:16px;user-select:none;}
-        .tree-children{overflow:hidden;}
         .tree-cprev{color:var(--ln);font-size:11px;margin-left:6px;}
 
         /* LIVE DIFF HIGHLIGHT ON TREE ROWS */
@@ -313,7 +321,7 @@
             وَسَلِّمُوا تَسْلِيمًا
         </div>
     <header>
-        <h1>Ahmos JSON Formatter Pro V3.1</h1>
+        <h1>Ahmos JSON Formatter Pro V3.2</h1>
         <div class="header-r">
             <div class="mode-tabs">
                 <button class="mode-tab active" id="tab-fmt" data-mode="fmt">
@@ -604,7 +612,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     function renderTree(v,path,key,depth,isLast,treeSt,diffMap){
         if(v===null)return mkLeaf(key,'<span class="jnl">null</span>',path,depth,isLast,diffMap);
         const t=typeof v;
-        if(t==='string')return mkLeaf(key,`<span class="js">"${esc(v.length>120?v.substring(0,120)+'…':v)}"</span>`,path,depth,isLast,diffMap);
+        if(t==='string')return mkLeaf(key,`<span class="js">"${esc(v)}"</span>`,path,depth,isLast,diffMap);
         if(t==='number')return mkLeaf(key,`<span class="jn">${v}</span>`,path,depth,isLast,diffMap);
         if(t==='boolean')return mkLeaf(key,`<span class="jb">${v}</span>`,path,depth,isLast,diffMap);
         if(Array.isArray(v))return mkArrNode(v,path,key,depth,isLast,treeSt,diffMap);
@@ -769,10 +777,14 @@ document.addEventListener("DOMContentLoaded",()=>{
     $("tc-b").querySelectorAll('.lv-btn').forEach(b=>{b.addEventListener("click",()=>{if(cmpParsedB){expandToLevel(cmpParsedB,cmpTreeB,Number(b.dataset.level));setPanelView('b','tree');}});});
     $("paths-b").addEventListener("click",()=>{if(!cmpParsedB)return;const paths=collPaths(cmpParsedB,'$');navigator.clipboard.writeText(paths.join('\n')).then(()=>feedB($("paths-b"),"✓ "+paths.length+" paths"));});
 
+    // Live compare debounce timer
+    let liveCmpTimer=null;
+    function liveCmpRefresh(){clearTimeout(liveCmpTimer);liveCmpTimer=setTimeout(()=>{if(!cmpHighlightOn)return;refreshHighlight();},400);}
+
     // Input events
-    $("inp-a").addEventListener("input",()=>{updLN($("ln-a"),$("inp-a").value);updSt($("st-a"),`Lines: ${$("inp-a").value.split('\n').length}, Chars: ${$("inp-a").value.length}`);hideErr($("err-a"));});
+    $("inp-a").addEventListener("input",()=>{updLN($("ln-a"),$("inp-a").value);updSt($("st-a"),`Lines: ${$("inp-a").value.split('\n').length}, Chars: ${$("inp-a").value.length}`);hideErr($("err-a"));liveCmpRefresh();});
     $("inp-a").addEventListener("scroll",()=>{$("ln-a").scrollTop=$("inp-a").scrollTop;});
-    $("inp-b").addEventListener("input",()=>{updLN($("ln-b"),$("inp-b").value);updSt($("st-b"),`Lines: ${$("inp-b").value.split('\n').length}, Chars: ${$("inp-b").value.length}`);hideErr($("err-b"));});
+    $("inp-b").addEventListener("input",()=>{updLN($("ln-b"),$("inp-b").value);updSt($("st-b"),`Lines: ${$("inp-b").value.split('\n').length}, Chars: ${$("inp-b").value.length}`);hideErr($("err-b"));liveCmpRefresh();});
     $("inp-b").addEventListener("scroll",()=>{$("ln-b").scrollTop=$("inp-b").scrollTop;});
 
     // Highlight toggle
@@ -787,13 +799,12 @@ document.addEventListener("DOMContentLoaded",()=>{
         if(cmpHighlightOn){
             // Run compare if we have valid JSON in both panels
             try{cmpParsedA=JSON.parse($("inp-a").value);cmpParsedB=JSON.parse($("inp-b").value);}
-            catch(e){return;}
+            catch(e){cmpDiffMap=null;setPanelView('a','tree');setPanelView('b','tree');return;}
             cmpDiffMap=computeStructuralDiff(cmpParsedA,cmpParsedB);
-            setPanelView('a','tree');setPanelView('b','tree');
         }else{
             cmpDiffMap=null;
-            setPanelView('a','tree');setPanelView('b','tree');
         }
+        setPanelView('a','tree');setPanelView('b','tree');
     });
 
     function refreshHighlight(){
@@ -801,7 +812,9 @@ document.addEventListener("DOMContentLoaded",()=>{
         try{cmpParsedA=JSON.parse($("inp-a").value);cmpParsedB=JSON.parse($("inp-b").value);}
         catch(e){return;}
         cmpDiffMap=computeStructuralDiff(cmpParsedA,cmpParsedB);
-        setPanelView('a','tree');setPanelView('b','tree');
+        // Only re-render trees that are currently visible
+        if($("tree-a").style.display!=='none'){setPanelView('a','tree');}
+        if($("tree-b").style.display!=='none'){setPanelView('b','tree');}
     }
 
     // Structural diff - compares two JSON objects and returns Map<path, diffType>
@@ -848,7 +861,12 @@ document.addEventListener("DOMContentLoaded",()=>{
             $("inp-b").value=JSON.stringify(b,null,2);updLN($("ln-b"),$("inp-b").value);updSt($("st-b"),`Lines: ${$("inp-b").value.split('\n').length}, Chars: ${$("inp-b").value.length}`);
         }
         cmpParsedA=a;cmpParsedB=b;
-        if(cmpHighlightOn){cmpDiffMap=computeStructuralDiff(a,b);setPanelView('a','tree');setPanelView('b','tree');}
+        // Compute diff and always show highlighting on trees
+        cmpDiffMap=computeStructuralDiff(a,b);
+        cmpHighlightOn=true;
+        const hlBtn=$("hl-toggle");hlBtn.classList.add("on");hlBtn.classList.remove("off");
+        hlBtn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg> Highlight ON';
+        setPanelView('a','tree');setPanelView('b','tree');
         const lA=JSON.stringify(a,null,2).split('\n'),lB=JSON.stringify(b,null,2).split('\n');
         const lines=computeLineDiff(lA,lB);lastDiffLines=lines;
         hideUnchanged=false;$("diff-hide").innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5H7z"/></svg> Hide Same';
@@ -918,7 +936,8 @@ document.addEventListener("DOMContentLoaded",()=>{
         updSt($("st-b"),`Lines: ${$("inp-b").value.split('\n').length}, Chars: ${$("inp-b").value.length}`);
         hideErr($("err-a"));hideErr($("err-b"));
         cmpParsedA=sA;cmpParsedB=sB;
-        if(cmpHighlightOn){cmpDiffMap=computeStructuralDiff(sA,sB);setPanelView('a','tree');setPanelView('b','tree');}
+        cmpDiffMap=computeStructuralDiff(sA,sB);
+        setPanelView('a','tree');setPanelView('b','tree');
     });
     $("cmp-clear").addEventListener("click",()=>{
         $("inp-a").value='';$("inp-b").value='';updLN($("ln-a"),'');updLN($("ln-b"),'');
